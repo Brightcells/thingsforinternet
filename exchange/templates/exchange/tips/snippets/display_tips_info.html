@@ -1,0 +1,11 @@
+{% load staticfiles %}
+
+<div class="span4">
+    {% for mt in left %}{% include 'exchange/tips/snippets/tips_cite.html' %}{% endfor %}
+</div>
+<div class="span4">
+    {% for mt in center %}{% include 'exchange/tips/snippets/tips_cite.html' %}{% endfor %}
+</div>
+<div class="span4">
+    {% for mt in right %}{% include 'exchange/tips/snippets/tips_cite.html' %}{% endfor %}
+</div>

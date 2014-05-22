@@ -1,0 +1,42 @@
+{% extends "common/thingsforinternet.html" %}
+{% load staticfiles %}
+
+{% block hcss %}
+    <link href="{% static 'css/itgps.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate-custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block hscript %}
+    <script src="{% static 'js/itgps.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block nav %}
+    {% for n in lists %}
+        <li><a href="{% url 'resources:itgps' n.name|lower %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}</a></li>
+    {% endfor %}
+
+    <li>&nbsp;</li>
+    <li><a href="{% url 'resources:itgpssubmit' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="提交站点">提交站点</a></li>
+{% endblock %}
+
+{% block action %}{% url 'resources:itgpssearch' %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function(){
+            $('.icon-thumbs-up').click(function(){
+                var url = "{% url 'resources:like' %}";
+                var data = {siteid:this.id};
+                myLikeFavAjax(this, $(this).next(), url, data);  
+            });
+
+            $('.icon-bookmark').click(function(){
+                var url = "{% url 'resources:favorite' %}";
+                var data = {siteid:this.id};
+                myLikeFavAjax(this, $(this).next(), url, data);
+            });
+        });
+    </script>
+{% endblock %}

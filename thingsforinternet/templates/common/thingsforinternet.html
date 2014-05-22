@@ -1,0 +1,191 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {% block title %}
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="互联网那些事儿 简历 求职 内推 面试 Offer 交流 学习">
+        <meta name="description" content="thingsforinternet - 互联网那些事儿。">
+
+        <link rel="icon" type="image/png" href="">
+
+        <!-- Le styles -->
+        <link href="{% static 'css/thingsforinternet.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/jquery.sidr.light.css' %}" rel="stylesheet">
+        <link href="{% static 'css/pam.css' %}" rel="stylesheet">
+
+        {% block hcss %}
+        {% endblock %}
+
+        <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/jquery.sidr.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/hammer.min.js' %}" type="text/javascript"></script>
+        {% block hscript %}
+        {% endblock %}
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <menuNav> 
+            <a id="simple-menu" class="menuPostion"
+                style="-webkit-transition-property: -webkit-transform; -webkit-transition-duration: 100ms; -webkit-transition-timing-function: linear; -webkit-transition-delay: initial; -webkit-transform: rotate(0deg);"><img
+                src="{% static 'img/nav.png' %}" title="开启/关闭 导航菜单"> </a> 
+        </menuNav>
+        {% block naver %}
+            <div id="sidr">
+                <ul class="nav">
+                    <div class="backlink">
+                        <ul>
+                            <li><a class="brand"><font color="gray">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></a></li>
+                            {% block backlink %}
+                                {% for bl in backlinks %}
+                                    {% if bl.para %}
+                                        <li><a class="brand" href="{% url bl.url bl.para %}"><font color="gray">{{ bl.name }}</font></a></li>
+                                    {% else %}
+                                        <li><a class="brand" href="{% url bl.url %}"><font color="gray">{{ bl.name }}</font></a></li>
+                                    {% endif %}
+
+                                    {% if forloop.last %}
+                                    {% else %}
+                                        <li><a class="brand"><font color="gray">|</font></a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+
+                    {% block breakline %}
+                        <li><a class="brand"><font color="gray">&nbsp;</font></a></li>
+                    {% endblock %}
+                    <li><a class="brand"><font color="gray">&nbsp;</font></a></li>
+
+                    {% block nav %}
+                    {% endblock %}
+
+                    <li>&nbsp;</li>
+
+                    {% if usr %}
+                        <li><a><img class="img-nav" src="{% static 'img/lastest.png' %}" title="用户">{{ usr }}</a></li>
+                        <li><a href="{% url 'accounts:logout' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="退出">退出</a></li>
+                    {% else %}
+                        <li><a href="{% url 'accounts:login' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="登录">登录</a></li>
+                    {% endif %} 
+                </ul>
+            </div>
+        {% endblock %}
+
+        {% block searcher %}
+            <p class="pull-right">
+                <form id="search" class="search" action="{% block action %}{% endblock %}" target="_blank">
+                    <input
+                        onFocus="if(this.value=='Local Search or Google'){this.value='';this.style.color='#000'}"
+                        onBlur="if(this.value==''){this.value='Local Search or Google';this.style.color='#D1D1D1'}"
+                        type="text" name="query" id="query" value='Local Search or Google' style='color:#D1D1D1;' />
+                </form>
+            </p>
+        {% endblock %}
+
+        {% block bodyer %}
+            <div id="bodyer" class="bodyer">
+                <div id="wrap">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span10">{% block befcon %}{% endblock %}</div>
+                            <div class="span1"></div>
+                        </div>
+
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span10">{% block content %}{% endblock %}</div>
+                            <div class="span1"></div>
+                        </div>
+
+                        <br>
+
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span10">{% block aftcon %}{% endblock %}</div>
+                            <div class="span1"></div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block bodyer2 %}
+            <div id="bodyer" class="bodyer">
+                <div id="wrap">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span10">{% block content2 %}{% endblock %}</div>
+                            <div class="span1"></div>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span10">{% block paginator %}{% endblock %}</div>
+                            <div class="span1"></div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block footer %}
+            <div class="footer"></div>
+        {% endblock %}
+
+        <a id="backtop" class="backtop" href="javascript:backtop();"></a>
+
+        <!-- Begin BShare -->
+        <a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/button.js#uuid=&amp;style=4&amp;fs=4&amp;bgcolor=Grey"></script>
+        <!-- End BShare -->
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/menu.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/pam.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/thingsforinternet.js' %}" type="text/javascript"></script>
+        <script>
+            (function(){
+                var url = window.location.pathname;
+                var nav = url.split("/")[2];
+
+                if(nav in {"": "", "login": "login", "signup": "signup", "accounts": "accounts"}){
+                    // do nothing
+                }else{
+                    $(".nav a").each(function(){
+                        // Because of <ul class="nav pull-right"> has 'a' tag without 'href'
+                        // So we should judge it first
+                        var navHerf = this.getAttribute("href")
+                        if(navHerf && navHerf.indexOf(nav) != -1){
+                            $(".nav .active").removeAttr("class");
+                            $(this).parent().addClass("active");
+                        }
+                    });
+                }
+            })();
+
+            function discuss(url){
+                /*location.replace(url);*/
+                location.href=url;
+            }
+        </script>
+        {% block script %}{% endblock %}
+    </body>
+</html>

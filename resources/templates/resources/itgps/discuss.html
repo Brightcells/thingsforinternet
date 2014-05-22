@@ -1,0 +1,56 @@
+{% extends "resources/itgps/base_itgps.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>网站详情页 -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <div class="row-fluid">
+            {% for site in sites %}
+                {% include 'resources/itgps/snippets/display_site_info_discuss.html' %}
+                <div class="span9" style="padding-left: 15px; border-left: 1px solid #D7D7D7;">
+                    <div><span class="disc-color">网站名称：</span> {{ site.name }}</div>
+                    <div><span class="disc-color">网站网址：</span><a href="{{ site.url }}" target="_blank"> {{ site.url }} </a></div>
+                    <div><span class="disc-color">网站源码：</span><a href="{{ site.url }}" target="_blank"> {{ site.srcode }} </a></div>
+                    <div class="limit-desc"><span class="disc-color">网站描述：</span> <span title="{{ site.descr }}">{{ site.descr }}</span></div>
+                    <div><span class="disc-color">网站标签：</span> {{ site.tag }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if relateds|length %}
+        <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+            {% for related in relateds %}
+                {% if forloop.last %}
+                    <div class="row-fluid" style="padding: 5px;">
+                {% else %}
+                    <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 5px;">
+                {% endif %}
+                    <div class="span2 text-center" style="border-right: 1px solid #D7D7D7;"><a href="{{ related.url }}" target="_blank">{{ related.name }}</a></div>
+                    <div class="span8 text-center" style="border-right: 1px solid #D7D7D7;">{{ related.descr }}</div>
+                    {% if related.srcode %}
+                        <div class="span2 text-center"><a href="{{ related.srcode }}" target="_blank">查看源码</a></div>
+                    {% else %}
+                        <div class="span2"></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block aftcon %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

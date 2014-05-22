@@ -1,0 +1,54 @@
+{% extends "resources/itgps/base_itgps.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>提交站点 (Submit Site) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <div class="divCenter">
+            <form class="form-horizontal text-center" action="{% url 'resources:itgpssubmit' %}" method='post'>
+                <div class="control-group">
+                    <span class="errorlist text-left">
+                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                        {% for err in form.url.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
+                    </span>
+                </div>
+
+                <div id="divUserName" class="control-group">{{ form.url }}</div>
+                <div class="control-group">{{ form.tag }}</div>
+                <div class="control-group">{{ form.deal }}</div>
+
+                <div class="control-group"><button type="submit" class="btn">提交</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if pages|length %}
+        <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+             {% for p in pages %}
+                 {% if forloop.last %}
+                    <div class="row-fluid" style="padding: 5px;">
+                {% else %}
+                    <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 5px;">
+                {% endif %}
+                    <div class="span4 text-center" style="border-right: 1px solid #D7D7D7;"><a href="{{ p.url }}" target="_blank">{{ p.url }}</a></div>
+                    <div class="span6 text-center" style="border-right: 1px solid #D7D7D7;">{{ p.tag }}</div>
+                    {% if p.deal %}
+                        <div class="span2 text-center"><a>已处理</a></div>
+                    {% else %}
+                        <div class="span2"><a>未处理</a></div>
+                    {% endif %}
+                </div>
+             {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block aftcon %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

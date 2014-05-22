@@ -1,0 +1,77 @@
+{% extends "common/thingsforinternet.html" %}
+
+{% block title %}
+    <title>注册 -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container" style="margin-top: 100px;">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="sl-hero-unit">
+                    <div class="divCenter">
+                        <form class="form-horizontal text-center" action="{% url 'accounts:signup' %}?next={{ next }}" method='post'>
+                            <div class="control-group">
+                                <span class="errorlist text-left">
+                                    {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                                    {% for err in form.username.errors %}{{ err }}</br>{% endfor %}
+                                    {% for err in form.password.errors %}{{ err }}</br>{% endfor %}
+                                    {% for err in form.email.errors %}{{ err }}</br>{% endfor %}
+                                </span>
+                            </div>
+
+                            <div id="divUserName" class="control-group">
+                                {{ form.username }}
+                                <div class="controls text-left">
+                                    <span id="spanUserName" class="help-inline hide">
+                                        该用户名已经存在
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                {{ form.password }}
+                            </div>
+
+                            <div class="control-group">
+                                {{ form.email }}
+                            </div>
+
+                            <div class="control-group">
+                                <button type="submit" class="btn">注册</button>
+                            </div>
+
+                            <div class="control-group">
+                                <nobr>已经注册帐户？</nobr><a href="{% url 'accounts:login' %}?next={{ next }}">立即登录</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block script %}
+    <script>
+        $("#id_username").blur(function(){
+            $.ajax({
+                type: "post",
+                url: "{% url 'accounts:api_user_check' %}",
+                data: {"usr": $("#id_username").val()},
+                dataType: 'json',
+                success: function(data){
+                    if(data['status']){
+                        $("#divUserName").addClass("error");
+                        $("#spanUserName").removeClass("hide");
+                    }else{
+                        $("#divUserName").removeClass("error");
+                        $("#spanUserName").addClass("hide");
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

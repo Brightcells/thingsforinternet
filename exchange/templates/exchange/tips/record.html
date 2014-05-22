@@ -1,0 +1,37 @@
+{% extends "exchange/tips/base_tips.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    <title>记录知识便签 (Record Tips) -- 知识便签 (Tips) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="sl-hero-unit">
+        <div class="divCenter">
+            <form class="form-horizontal text-center" action="{% url 'exchange:tipsrecord' %}" method='post'>
+                <div class="control-group">
+                    <span class="errorlist text-left">
+                        {% if status %}{% trans 'Record tips success' %}{% endif %}
+                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                        {% for err in form.tips.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.url.errors %}{{ err }}</br>{% endfor %}
+                    </span>
+                </div>
+
+                <div class="control-group">{{ form.tips }}</div>
+                <div class="control-group">{{ form.tag }}</div>
+                <div class="control-group">{{ form.url }}</div>
+
+                <div class="control-group"><button type="submit" class="btn">记录知识便签</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}{% if pages|length %}{% include 'exchange/tips/snippets/display_tips_info.html' %}{% endif %}{% endblock %}
+
+{% block aftcon %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

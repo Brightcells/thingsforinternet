@@ -1,0 +1,31 @@
+{% extends "common/thingsforinternet.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>互联网资源 (Resources) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block nav %}
+    {% for n in lists %}
+        <li><a href="{% url 'resources:'|add:n.name|lower|add:'home' %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer %}
+    {% for n in lists %}
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="list-hero-unit">
+                        <a href="{% url 'resources:'|add:n.name|lower|add:'home' %}" title="{{ n.title }}">
+                            <img class="img-list" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

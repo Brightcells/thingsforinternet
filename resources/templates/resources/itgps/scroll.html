@@ -1,0 +1,24 @@
+{% extends "resources/itgps/base_itgps.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>分类导航页 -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    {% for csy in csysite %}
+        <div class="scrolltitlestyle">
+            <h2 class="red">{{ csy.title }}</h2>
+            <a class="more" href="{% url 'resources:csysite' csy.id %}">更多</a>
+        </div>
+        <div class="block-hero-unit">
+            <div class="row-fluid">
+                {% for site in csy.siteSet %}
+                    {% include 'resources/itgps/snippets/display_site_info.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "exchange/tips/base_tips.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>我的知识便签 (Mine Tips) -- 知识便签 (Tips) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">我的知识便签</h2>
+    </div>
+
+    <div>
+        {% include 'exchange/tips/snippets/display_tips_info.html' %}
+    </div>
+{% endblock %}
+
+{% block paginator %}{% include "common/pages.html" %}{% endblock %}

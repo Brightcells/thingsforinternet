@@ -1,0 +1,193 @@
+{% extends "common/thingsforinternet.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>拼你妹 (Pinnimei) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block nav %}
+    {% for n in lists %}
+        <li><a href="{% url 'resources:'|add:n.name|lower|add:'home' %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 text-center">
+                <div class="list-hero-unit">
+                    <div id="up_turn" style="color: red">UP'S TURN</div>
+                    <div id="up_consonants"></div>
+
+                    <center>
+                        <div class="game-container">
+                            <div class="grid-container">
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-cell fixed-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </center>
+
+                    <div id="down_consonants"></div>
+                    <div id="down_turn" class="unvisible" style="color: red">DOWN'S TURN</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </br>
+    
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 text-center">
+                <div class="list-hero-unit">
+                    <div>
+                        <input type="text" id="word-input" autofocus="autofocus">
+                        <input id="consonants" type="hidden" value="{{ consonants }}">
+                        <button type="button" class="btn btn-primary btn-block" id="sure-button">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block script %}
+    <script>
+        function get_cons() {
+            var cons = $('#consonants').val().replace(/'/g, '"'),
+                consVal = JSON.parse(cons);
+            return consVal
+        }
+
+        function initial() {
+            consVal = get_cons();
+            $('.grid-row:eq(1)')
+                .children('.grid-cell')
+                .each(
+                    function(index){
+                        this.innerHTML = consVal[index];
+                    }
+                );
+        }
+
+        function deal_turn(word) {
+            console.log(word);
+            var up = $('#up_turn'),
+                down = $('#down_turn'),
+                up_cons = $('#up_consonants'),
+                down_cons = $('#down_consonants');
+
+            if (up.hasClass('unvisible')) {
+                up.removeClass('unvisible');
+                down.addClass('unvisible');
+                down_cons.html(down_cons.html() + word + ' ');
+                return -1;
+            } else {
+                up.addClass('unvisible');
+                down.removeClass('unvisible');
+                up_cons.html(up_cons.html() + word + ' ');
+                return 1;
+            }
+        }
+
+        function get_index(cons, consonants) {
+            for (var j=0; j<consonants.length; j++) {
+                 if ( cons == consonants[j]) {
+                    return j;
+                 }
+            }
+        }
+
+        function move_grid_cell(index, direction) {
+            var global_index,
+                global_cell_value;
+            $('.grid-row .grid-cell:nth-child('+index+')')
+                .each(
+                    function(index){
+                        if (this.innerHTML) {
+                            global_cell_value = this.innerHTML;
+                            this.innerHTML = "";
+                            global_index = index + direction;
+                            global_index = global_index>=0 ? global_index : 0;
+                            global_index = global_index<=2 ? global_index : 2;
+                        }
+                    }
+                );
+
+            $('.grid-row .grid-cell:nth-child('+index+')')
+                .each(
+                    function(index){
+                        if (index==global_index) {
+                            this.innerHTML = global_cell_value;
+                        }
+                    }
+                );
+        }
+
+        function cons_move(data, consonants, direction) {
+            for (var i=0; i<data.length; i++) {
+                var index = get_index(data[i], consonants);
+                move_grid_cell(index+1, direction);
+            }
+        }
+
+        $(document).ready(function() {
+            initial();
+
+            $('#sure-button').click(function(){
+                var word = $('#word-input').val(),
+                    consonants = "{{ consonants }}",
+                    up_cons = $('#up_consonants').html(),
+                    down_cons = $('#down_consonants').html();
+                if (word != '') {
+                    if (up_cons.indexOf(word)<0 && down_cons.indexOf(word)<0) {
+                        $.ajax({
+                            type: "post",
+                            url: "{% url 'lab:check_word' %}",
+                            data: {'word': word, 'consonants': consonants},
+                            dataType: 'json',
+                            success: function(data){
+                                var direction = deal_turn(word);
+                                if(data['status']) {
+                                    cons_move(data['data'], get_cons(), direction);
+                                    $('#word-input').val('').focus();
+                                } else {
+                                    alert('咦，匹配错误了呀');
+                                    console.log('咦，匹配错误了呀');
+                                }
+                            }
+                        });
+                    } else {
+                        alert('很抱歉，该单词已经出现过');
+                        console.log('很抱歉，该单词已经出现过');
+                    }
+                } else {
+                    alert("请输入一个词语");
+                    console.log("请输入一个词语");
+                };
+            });
+        });
+    </script>
+{% endblock %}

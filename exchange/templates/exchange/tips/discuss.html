@@ -1,0 +1,36 @@
+{% extends "exchange/tips/base_tips.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>知识便签详情页 -- 知识便签 (Tips) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span3 text-right"><span class="disc-color">知识便签 - 名称：</span></div>
+            <div class="span9">{{ tip.tips|linebreaksbr }}</div>
+        </div>
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span3 text-right"><span class="disc-color">知识便签 - 标签：</span></div>
+            <div class="span9">
+                {% for t in tip.tag %}
+                    <a class="tag">{{ t }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block aftcon %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
