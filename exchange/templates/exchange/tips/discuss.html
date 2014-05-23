@@ -12,6 +12,10 @@
             <div class="span10"><pre>{{ tip.tips|linebreaksbr }}</pre></div>
         </div>
         <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span2 text-right"><span class="disc-color">网址：</span></div>
+            <div class="span10"><a href="{{ tip.url }}" target="_blank">{{ tip.url }}</a></div>
+        </div>
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
             <div class="span2 text-right"><span class="disc-color">标签：</span></div>
             <div class="span10">
                 {% for t in tip.tag %}
