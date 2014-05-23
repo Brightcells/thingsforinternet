@@ -20,5 +20,16 @@ urlpatterns = patterns('resources.views',
     url(r'^itgps/submit$', 'itgpssubmit', name='itgpssubmit'),
     url(r'^itgps/submit/(?P<p>\d+)/$', 'itgpssubmit', name='itgpssubmit'),
 
+    url(r'^api/home$', 'apihome', name='apihome'),
+    url(r'^api/record$', 'apirecord', name='apirecord'),
+    url(r'^api/record/(?P<p>\d+)/$', 'apirecord', name='apirecord'),
+    url(r'^api/mine$', 'apimine', name='apimine'),
+    url(r'^api/mine/(?P<p>\d+)/$', 'apimine', name='apimine'),
+    url(r'^api/all$', 'apiall', name='apiall'),
+    url(r'^api/all/(?P<p>\d+)/$', 'apiall', name='apiall'),
+    url(r'^api/discuss/(?P<aid>\d+)/$', 'apidiscuss', name='apidiscuss'),
+    url(r'^api/search$', 'apisearch', name='apisearch'),
+    url(r'^api/search/(?P<p>\d+)/$', 'apisearch', name='apisearch'),
+
     url(r'^software/home$', 'softwarehome', name='softwarehome'),
 )

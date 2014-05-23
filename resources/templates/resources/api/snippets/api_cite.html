@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<div class="tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
+    <div class="tips-hero-unit">
+        <pre>{{ mt.api|linebreaksbr }}</br></br>{{ mt.func|linebreaksbr }}</pre>
+        {% for t in mt.tag %}
+            <a class="tag">{{ t }}</a>
+        {% endfor %}
+        </br></br>
+    </div>
+
+    <div class="tips-cite">
+        <div class="span3" onclick="discuss('{% url 'resources:apidiscuss' mt.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
+
+        {% ifequal mt.author.username usr %}
+            <div class="span3"><i id="{{ mt.pk }}" class="icon-remove icon-white"></i><span>{{ mt.follow|default:0 }}</span></div>
+        {% else %}
+            <div class="span3"><i id="{{ mt.pk }}" class="icon-bookmark icon-white"></i><span>{{ mt.follow|default:0 }}</span></div>
+        {% endifequal %}
+
+        {% if mt.url %}
+            <div class="span3" onclick=""><i id="{{ mt.pk }}" class="icon-eye-open icon-white"></i><span>{{ mt.visit|default:0 }}</span></div>
+        {% else %}
+            <div class="span3"><i id="{{ mt.pk }}" class="icon-eye-open"></i></div>
+        {% endif %}
+
+        <div class="span3"><i id="{{ mt.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ mt.like|default:0 }}</span></div>
+    </div>
+    </br>
+</div>

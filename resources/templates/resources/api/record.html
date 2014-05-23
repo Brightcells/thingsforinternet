@@ -1,0 +1,39 @@
+{% extends "resources/api/base_api.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    <title>记录 API -- API -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="sl-hero-unit">
+        <div class="divCenter">
+            <form class="form-horizontal text-center" action="{% url 'resources:apirecord' %}" method='post'>
+                <div class="control-group">
+                    <span class="errorlist text-left">
+                        {% if status %}{% trans 'Record api success' %}{% endif %}
+                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                        {% for err in form.api.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.func.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.url.errors %}{{ err }}</br>{% endfor %}
+                    </span>
+                </div>
+
+                <div class="control-group">{{ form.api }}</div>
+                <div class="control-group">{{ form.func }}</div>
+                <div class="control-group">{{ form.tag }}</div>
+                <div class="control-group">{{ form.url }}</div>
+
+                <div class="control-group"><button type="submit" class="btn">记录 API</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}{% if pages|length %}{% include 'resources/api/snippets/display_api_info.html' %}{% endif %}{% endblock %}
+
+{% block aftcon %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

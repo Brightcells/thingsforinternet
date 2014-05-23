@@ -1,0 +1,11 @@
+{% load staticfiles %}
+
+<div class="span4">
+    {% for mt in left %}{% include 'resources/api/snippets/api_cite.html' %}{% endfor %}
+</div>
+<div class="span4">
+    {% for mt in center %}{% include 'resources/api/snippets/api_cite.html' %}{% endfor %}
+</div>
+<div class="span4">
+    {% for mt in right %}{% include 'resources/api/snippets/api_cite.html' %}{% endfor %}
+</div>

@@ -90,6 +90,20 @@ class WebSiteSubmitAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
 
+class ApiInfoAdmin(admin.ModelAdmin):
+    list_display = ('api', 'func', 'tag', 'url', 'author', 'visit', 'evaluate', 'like', 'unlike', 'follow', 'display', 'create_time', 'modify_time')
+    search_fields = ('api', 'func', 'tag')
+    list_filter = ('create_time', 'modify_time')
+    date_hierarchy = 'create_time'
+
+
+class UserApiInfoAdmin(admin.ModelAdmin):
+    list_display = ('api', 'user', 'status', 'create_time', 'modify_time')
+    search_fields = ('api', )
+    list_filter = ('create_time', 'modify_time')
+    date_hierarchy = 'create_time'
+
+
 admin.site.register(NavInfo, NavInfoAdmin)
 admin.site.register(ClassifyInfo, ClassifyInfoAdmin)
 admin.site.register(WebSiteInfo, WebSiteInfoAdmin)
@@ -102,3 +116,6 @@ admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Visit, VisitAdmin)
 admin.site.register(Log, LogAdmin)
 admin.site.register(WebSiteSubmit, WebSiteSubmitAdmin)
+
+admin.site.register(ApiInfo, ApiInfoAdmin)
+admin.site.register(UserApiInfo, UserApiInfoAdmin)

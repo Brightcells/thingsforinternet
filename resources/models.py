@@ -263,6 +263,20 @@ class ApiInfo(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.api)
 
+    def _data(self):
+        return {
+            'pk': self.pk,
+            'api': self.api,
+            'func': self.func,
+            'tag': self.tag.split(' '),
+            'url': self.url,
+            'visit': self.visit,
+            'like': self.like,
+            'follow': self.follow,
+        }
+
+    data = property(_data)
+
 
 # 用户 - API 信息表
 class UserApiInfo(CreateUpdateMixin):

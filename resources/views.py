@@ -28,11 +28,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 
 from accounts.models import UserInfo
 from resources.models import *
-from resources.forms import WebSiteSubmitModelForm
+from resources.forms import WebSiteSubmitModelForm, ApiModelForm
 
 from utils.utils import *
 
@@ -45,6 +45,8 @@ RESOURCESBACKLINKS = [
 ]
 
 ITGPSBACKLINKS = RESOURCESBACKLINKS + [{'name': 'ITGPS', 'url': 'resources:itgpshome', 'para': ''}, ]
+
+APIBACKLINKS = RESOURCESBACKLINKS + [{'name': 'API', 'url': 'resources:apihome', 'para': ''}, ]
 
 
 def pages(setlist, p):
@@ -61,6 +63,10 @@ def getResourcesDict(request):
 
 def getItgpsDict(request):
     return {'backlinks': ITGPSBACKLINKS, 'lists': getNav(request, 'itgps'), 'usr': getUsr(request)}
+
+
+def getApiDict(request):
+    return {'backlinks': APIBACKLINKS, 'lists': getNav(request, 'api'), 'usr': getUsr(request)}
 
 
 def resources(request):
@@ -321,6 +327,100 @@ def itgpssubmit(request, p=1):
         request,
         'resources/itgps/submit.html',
         dict(form=form, pages=pages(allwsss, int(p)), next_url='resources:itgpssubmit', **getItgpsDict(request))
+    )
+
+
+def apihome(request):
+    """ Function API's home - Upload、Manage、Scan api of development """
+
+    return redirect(reverse('resources:apiall'))
+
+
+def lcr(obj, num, flag):
+    if 'a' == flag:
+        return [obj[i].data for i in xrange(len(obj)) if i % 3 == num]
+    else:
+        return [obj[i].api.data for i in xrange(len(obj)) if i % 3 == num]
+
+
+def lcrdict(obj, flag):
+    return {'left': lcr(obj, 0, flag), 'center': lcr(obj, 1, flag), 'right': lcr(obj, 2, flag)}
+
+
+def apirecord(request, p=1):
+    status = False
+    user = getUI(getUsr(request))
+
+    if request.method == 'GET':
+        form = ApiModelForm()
+    else:
+        form = ApiModelForm(request.POST, request=request)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+
+            api = cleaned_data['api']
+            func = cleaned_data['func']
+            tag = cleaned_data['tag']
+            url = cleaned_data['url']
+
+            a, created = ApiInfo.objects.get_or_create(api=api, func=func, tag=tag, url=url)
+            if created:
+                a.author = user
+                a.save()
+                UserApiInfo.objects.create(api=a, user=user)
+            else:
+                UserApiInfo.objects.create(api=a, user=user, status=False)
+
+            form = ApiModelForm()
+            status = True
+
+    mineapi = UserApiInfo.objects.filter(user=user, api__display=True).order_by('-create_time')
+    api = pages(mineapi, int(p))
+
+    return render(
+        request,
+        'resources/api/record.html',
+        dict(lcrdict(api.object_list, 'ua'), pages=api, next_url='resources:apimine', form=form, status=status, **getApiDict(request))
+    )
+
+
+def apimine(request, p=1):
+    mineapi = UserApiInfo.objects.filter(user=getUI(getUsr(request)), api__display=True).order_by('-create_time')
+    api = pages(mineapi, int(p))
+    return render(
+        request,
+        'resources/api/mine.html',
+        dict(lcrdict(api.object_list, 'ua'), pages=api, next_url='resources:apimine', **getApiDict(request))
+    )
+
+
+def apiall(request, p=1):
+    allapi = ApiInfo.objects.filter(display=True).order_by('-create_time')
+    api = pages(allapi, int(p))
+    return render(
+        request,
+        'resources/api/all.html',
+        dict(lcrdict(api.object_list, 'a'), pages=api, next_url='resources:apiall', **getApiDict(request))
+    )
+
+
+def apisearch(request, p=1):
+    _query = request.GET.get('query', '')
+    searchapi = ApiInfo.objects.filter(Q(api__contains=_query) | Q(func__contains=_query) |Q(tag__contains=_query) | Q(url__contains=_query), display=True).order_by('-create_time')
+    api = pages(searchapi, int(p))
+    return render(
+        request,
+        'resources/api/search.html',
+        dict(lcrdict(api.object_list, 'a'), pages=api, next_url='resources:apisearch', query='?query=' + _query, **getApiDict(request))
+    )
+
+
+def apidiscuss(request, aid):
+    api = ApiInfo.objects.get(pk=aid, display=True).data
+    return render(
+        request,
+        'resources/api/discuss.html',
+        dict(api=api, **getApiDict(request))
     )
 
 

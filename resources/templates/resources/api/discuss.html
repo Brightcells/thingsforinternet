@@ -1,0 +1,44 @@
+{% extends "resources/api/base_api.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>API 详情页 -- API -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span2 text-right"><span class="disc-color">API：</span></div>
+            <div class="span10">{{ api.api }}</div>
+        </div>
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span2 text-right"><span class="disc-color">功能：</span></div>
+            <div class="span10"><pre>{{ api.func }}</pre></div>
+        </div>
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span2 text-right"><span class="disc-color">网址：</span></div>
+            <div class="span10"><a href="{{ api.url }}" target="_blank">{{ api.url }}</a></div>
+        </div>
+        <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
+            <div class="span2 text-right"><span class="disc-color">标签：</span></div>
+            <div class="span10">
+                {% for t in api.tag %}
+                    <a class="tag">{{ t }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block aftcon %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
