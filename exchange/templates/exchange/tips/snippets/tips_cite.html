@@ -2,7 +2,7 @@
 
 <div class="tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
     <div class="tips-hero-unit">
-        <p>{{ mt.tips|linebreaksbr }}</p>
+        <pre>{{ mt.tips|linebreaksbr }}</pre>
         {% for t in mt.tag %}
             <a class="tag">{{ t }}</a>
         {% endfor %}

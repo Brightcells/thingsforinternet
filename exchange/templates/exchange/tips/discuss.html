@@ -8,12 +8,12 @@
 {% block befcon %}
     <div class="discuss-hero-unit" style="padding-bottom: 10px;">
         <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
-            <div class="span3 text-right"><span class="disc-color">知识便签 - 名称：</span></div>
-            <div class="span9">{{ tip.tips|linebreaksbr }}</div>
+            <div class="span2 text-right"><span class="disc-color">便签：</span></div>
+            <div class="span10"><pre>{{ tip.tips|linebreaksbr }}</pre></div>
         </div>
         <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
-            <div class="span3 text-right"><span class="disc-color">知识便签 - 标签：</span></div>
-            <div class="span9">
+            <div class="span2 text-right"><span class="disc-color">标签：</span></div>
+            <div class="span10">
                 {% for t in tip.tag %}
                     <a class="tag">{{ t }}</a>
                 {% endfor %}
