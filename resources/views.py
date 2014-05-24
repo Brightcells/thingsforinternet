@@ -173,7 +173,8 @@ def getCsySite(request, _nav, _num, _flag, _id):
     csysite = []
     for csySet in csySetList:
         csyDict = model_to_dict(csySet)
-        csySiteSetList = csySet.csysite_set.filter(display=True).order_by('-website__visit')[:_num]
+        csySiteSetList = csySet.csysite_set.filter(display=True).order_by('-website__visit')
+        csySiteSetList = csySiteSetList[:_num] if _num else csySiteSetList
         site = []
         for csySiteSet in csySiteSetList:
             csySiteDict = model_to_dict(csySiteSet)
@@ -192,7 +193,7 @@ def itgps(request, _nav):
 
 
 def csysite(request, _id):
-    reDict = {'csysite': getCsySite(request, '', spp, 1, _id)}
+    reDict = {'csysite': getCsySite(request, '', '', 1, _id)}
     return render_to_response('resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
 
 
