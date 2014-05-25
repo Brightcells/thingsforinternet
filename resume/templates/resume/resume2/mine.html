@@ -1,0 +1,26 @@
+{% extends "resume/resume2/base_resume2.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">查看 -- 我的简历</h2>
+        <a class="more" href="{% url 'resume:resume2edit' %}" target="_blank">编辑</a>
+    </div>
+
+    <div>
+        <pre>{{ resume.resume|djangomarkdown }}</pre>
+        <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
+        <div>
+            {% for t in resume.tag %}
+                <a class="tag">{{ t }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

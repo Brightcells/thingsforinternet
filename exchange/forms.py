@@ -20,7 +20,7 @@ class TipsModelForm(ModelForm):
         fields = ('tips', 'tag', 'url')
         widgets = {
             'tips': Textarea(
-                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'placeholder': _('Tips')}
+                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'onscroll': 'this.rows++;', 'placeholder': _('Tips')}
             ),
             'tag': TextInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('Tags')}

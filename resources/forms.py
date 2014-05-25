@@ -37,7 +37,7 @@ class ApiModelForm(ModelForm):
                 attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'placeholder': _('Api')}
             ),
             'func': Textarea(
-                attrs={'autocomplete': 'off', 'placeholder': _('Func')}
+                attrs={'autocomplete': 'off', 'onscroll': 'this.rows++;', 'placeholder': _('Func')}
             ),
             'tag': TextInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('Tags')}
