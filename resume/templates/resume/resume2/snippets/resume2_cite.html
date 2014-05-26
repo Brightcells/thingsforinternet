@@ -5,12 +5,11 @@
     <div class="row-fluid">
 {% endif %}
 <div class="span4 tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
-    <div class="tips-hero-unit">
-        <pre class="text-center">{{ res.uname }}</pre>
+    <div class="tips-hero-unit text-center">
+        <pre>{{ res.uname }}</pre>
         {% ifequal res.tag "[u'']" %}
-            {% for t in res.tag %}
-                <a class="tag">{{ t }}</a>
-            {% endfor %}
+        {% else %}
+            {% for t in res.tag %}<a class="tag">{{ t }}</a>{% endfor %}
         {% endifequal %}
         </br></br>
     </div>

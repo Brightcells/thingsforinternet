@@ -30,8 +30,9 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from dh.models import *
-from exchange.models import Tips, UserTips
+from exchange.decorators import tt_login_required
 from exchange.forms import TipsModelForm
+from exchange.models import Tips, UserTips
 
 from utils.utils import *
 
@@ -121,6 +122,7 @@ def tipsrecord(request, p=1):
     )
 
 
+@tt_login_required
 def tipsmine(request, p=1):
     minetips = UserTips.objects.filter(user=getUI(getUsr(request)), tips__display=True).order_by('-create_time')
     tips = pages(minetips, int(p))

@@ -31,6 +31,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 
 from accounts.models import UserInfo
+from resources.decorators import tt_login_required
 from resources.models import *
 from resources.forms import WebSiteSubmitModelForm, ApiModelForm
 
@@ -385,6 +386,7 @@ def apirecord(request, p=1):
     )
 
 
+@tt_login_required
 def apimine(request, p=1):
     mineapi = UserApiInfo.objects.filter(user=getUI(getUsr(request)), api__display=True).order_by('-create_time')
     api = pages(mineapi, int(p))

@@ -1,11 +1,12 @@
 {% load staticfiles %}
 
 <div class="tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
-    <div class="tips-hero-unit">
+    <div class="tips-hero-unit text-center">
         <pre>{{ mt.api|linebreaksbr }}</br></br>{{ mt.func|linebreaksbr }}</pre>
-        {% for t in mt.tag %}
-            <a class="tag">{{ t }}</a>
-        {% endfor %}
+        {% ifequal mt.tag "[u'']" %}
+        {% else %}
+            {% for t in mt.tag %}<a class="tag">{{ t }}</a>{% endfor %}
+        {% endifequal %}
         </br></br>
     </div>
 

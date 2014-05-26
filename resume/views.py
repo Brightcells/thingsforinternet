@@ -31,8 +31,9 @@ from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 
 from dh.models import *
-from resume.models import ResumeInfo
+from resume.decorators import tt_login_required
 from resume.forms import ResumeInfoModelForm
+from resume.models import ResumeInfo
 
 from utils.utils import *
 
@@ -72,7 +73,7 @@ def resume(request):
 def resume2home(request):
     """ Function Resume2's home - Upload、Manage、Scan resume of development """
 
-    return redirect(reverse('resume:resume2mine'))
+    return redirect(reverse('resume:resume2all'))
 
 
 def resume2all(request):
@@ -85,6 +86,7 @@ def resume2all(request):
     )
 
 
+@tt_login_required
 def resume2mine(request):
     user = getUI(getUsr(request))
     try:
@@ -98,6 +100,7 @@ def resume2mine(request):
     )
 
 
+@tt_login_required
 def resume2edit(request):
     if request.method == "POST":
         mineresume, created = ResumeInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
