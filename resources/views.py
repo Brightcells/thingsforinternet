@@ -407,7 +407,7 @@ def apiall(request, p=1):
 
 def apisearch(request, p=1):
     _query = request.GET.get('query', '')
-    searchapi = ApiInfo.objects.filter(Q(api__contains=_query) | Q(func__contains=_query) |Q(tag__contains=_query) | Q(url__contains=_query), display=True).order_by('-create_time')
+    searchapi = ApiInfo.objects.filter(Q(api__contains=_query) | Q(func__contains=_query) | Q(tag__contains=_query) | Q(url__contains=_query), display=True).order_by('-create_time')
     api = pages(searchapi, int(p))
     return render(
         request,
