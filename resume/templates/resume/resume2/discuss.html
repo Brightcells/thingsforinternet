@@ -6,16 +6,9 @@
     <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
 {% endblock %}
 
-{% block bodyer %}{% endblock %}
-
-{% block content2 %}
+{% block befcon %}
     <div class="scrolltitlestyle">
         <h2 class="red">查看</h2>
-        <a class="more" href="{% url 'resume:resume2edit' %}" target="_blank">编辑</a>
-        {% if ui %}
-            <span>|</span>
-            <a class="more" href="{% url 'resume:resume2discuss' 1 %}" target="_blank">查看评论</a>
-        {% endif %}
     </div>
 
     <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ resume.resume|default_if_none:""|safe }}</textarea></div>
@@ -36,6 +29,19 @@
         <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
     </div>
 {% endblock %}
+
+{% block content %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block aftcon %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
 
 {% block ctrl %}
     button: {

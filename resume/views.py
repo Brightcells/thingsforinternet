@@ -75,15 +75,26 @@ def resume2home(request):
     return redirect(reverse('resume:resume2mine'))
 
 
+def resume2all(request):
+    allresume = ResumeInfo.objects.filter(display=True).order_by('-modify_time')
+    allresume = [resume.data for resume in allresume]
+    return render(
+        request,
+        'resume/resume2/all.html',
+        dict(resume=allresume, **getResume2Dict(request))
+    )
+
+
 def resume2mine(request):
+    user = getUI(getUsr(request))
     try:
-        mineresume = ResumeInfo.objects.get(user=getUI(getUsr(request)), display=True).data
+        mineresume = ResumeInfo.objects.get(user=user, display=True).data
     except:
         mineresume = {}
     return render(
         request,
         'resume/resume2/mine.html',
-        dict(resume=mineresume, **getResume2Dict(request))
+        dict(resume=mineresume, ui=getUI(user), **getResume2Dict(request))
     )
 
 
@@ -104,4 +115,17 @@ def resume2edit(request):
         request,
         'resume/resume2/edit.html',
         dict(form=form, **getResume2Dict(request))
+    )
+
+
+def resume2discuss(request, uid):
+    try:
+        mineresume = ResumeInfo.objects.get(user__pk=uid, display=True).data
+    except:
+        mineresume = {}
+
+    return render(
+        request,
+        'resume/resume2/discuss.html',
+        dict(resume=mineresume, **getResume2Dict(request))
     )

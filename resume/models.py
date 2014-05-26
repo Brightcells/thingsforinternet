@@ -49,6 +49,8 @@ class ResumeInfo(CreateUpdateMixin):
             'resume': self.resume,
             'pdf': self.pdf.url if self.pdf else '',
             'tag': self.tag.split(' '),
+            'uid': self.user.pk,
+            'uname': self.user.username,
             'visit': self.visit,
             'like': self.like,
             'follow': self.follow,
