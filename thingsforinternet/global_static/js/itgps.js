@@ -1,46 +1,46 @@
 /**
- * @description 
+ * @description
  *     convert timestamp to strftime, which can call by timestamp
  * @param {fmt}
  *     strftime time format such as "yyyy-MM-dd"
  * @return {fmt}
  *     strftime time which has already been convert
  */
-Date.prototype.pattern=function(fmt) {       
-    var o = {        
-        "M+" : this.getMonth()+1, //月份       
-        "d+" : this.getDate(), //日      
-        "h+" : this.getHours() == 0 ? 12 : this.getHours(), //小时       
-        "H+" : this.getHours(), //小时       
-        "m+" : this.getMinutes(), //分       
-        "s+" : this.getSeconds(), //秒       
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度       
-        "S" : this.getMilliseconds() //毫秒       
-    };       
-    var week = {       
-        "0" : "\u65e5",       
-        "1" : "\u4e00",       
-        "2" : "\u4e8c",       
-        "3" : "\u4e09",       
-        "4" : "\u56db",       
-        "5" : "\u4e94",       
-        "6" : "\u516d"      
-    };      
-    
-    if(/(y+)/.test(fmt)){       
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));       
-    }      
-    
-    if(/(E+)/.test(fmt)){       
-        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "\u661f\u671f" : "\u5468") : "")+week[this.getDay()+""]);       
-    }       
+Date.prototype.pattern=function(fmt) {
+    var o = {
+        "M+" : this.getMonth()+1, //月份
+        "d+" : this.getDate(), //日
+        "h+" : this.getHours() == 0 ? 12 : this.getHours(), //小时
+        "H+" : this.getHours(), //小时
+        "m+" : this.getMinutes(), //分
+        "s+" : this.getSeconds(), //秒
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+        "S" : this.getMilliseconds() //毫秒
+    };
+    var week = {
+        "0" : "\u65e5",
+        "1" : "\u4e00",
+        "2" : "\u4e8c",
+        "3" : "\u4e09",
+        "4" : "\u56db",
+        "5" : "\u4e94",
+        "6" : "\u516d"
+    };
 
-    for(var k in o){       
-        if(new RegExp("("+ k +")").test(fmt)){       
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));       
-        }       
+    if(/(y+)/.test(fmt)){
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
     }
-    
+
+    if(/(E+)/.test(fmt)){
+        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "\u661f\u671f" : "\u5468") : "")+week[this.getDay()+""]);
+    }
+
+    for(var k in o){
+        if(new RegExp("("+ k +")").test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        }
+    }
+
     return fmt;
 };
 
@@ -60,7 +60,7 @@ function AddFavorite(sURL, sTitle) {
         }
     }
 }
- 
+
 //设为首页
 function SetHome(url) {
     if (document.all) {
@@ -77,7 +77,7 @@ function mouseOn(event, obj, index){
     if (checkHover(event, obj)) {
         obj.getElementsByTagName('div')[index].style.display = "block";
     }
-    
+
 }
 function mouseOut(event, obj, index){
     if (checkHover(event, obj)) {
@@ -85,7 +85,7 @@ function mouseOut(event, obj, index){
     }
 }
 
-/** 
+/**
  * the three function below is used to fix the deal with mouseover/mouseout
  * referto: http://lotushuang.blog.163.com/blog/static/182729510201241532326370/
  */
@@ -102,17 +102,17 @@ function mouseOut(event, obj, index){
  * @return {Boolean}
  *     鼠标是否真正从外部移入或者移除对象的结果
  */
-function checkHover(e, target) {  
-    if (getEvent(e).type == "mouseover") {  
-        return !contains(target, getEvent(e).relatedTarget  
-                || getEvent(e).fromElement)  
-                && !((getEvent(e).relatedTarget || getEvent(e).fromElement) === target);  
-    } else {  
-        return !contains(target, getEvent(e).relatedTarget  
-                || getEvent(e).toElement)  
-                && !((getEvent(e).relatedTarget || getEvent(e).toElement) === target);  
-    }  
-}  
+function checkHover(e, target) {
+    if (getEvent(e).type == "mouseover") {
+        return !contains(target, getEvent(e).relatedTarget
+                || getEvent(e).fromElement)
+                && !((getEvent(e).relatedTarget || getEvent(e).fromElement) === target);
+    } else {
+        return !contains(target, getEvent(e).relatedTarget
+                || getEvent(e).toElement)
+                && !((getEvent(e).relatedTarget || getEvent(e).toElement) === target);
+    }
+}
 
 /**
  * @description
@@ -124,22 +124,22 @@ function checkHover(e, target) {
  * @return {Boolean}
  *     父节点是否包含子节点的结果
  */
-function contains(parentNode, childNode) {  
-    if (parentNode.contains) {  
-        return parentNode != childNode && parentNode.contains(childNode);  
-    } else {  
-        return !!(parentNode.compareDocumentPosition(childNode) & 16);  
-    }  
-}  
+function contains(parentNode, childNode) {
+    if (parentNode.contains) {
+        return parentNode != childNode && parentNode.contains(childNode);
+    } else {
+        return !!(parentNode.compareDocumentPosition(childNode) & 16);
+    }
+}
 
 /**
- * @description 
+ * @description
  *     用于在MSIE或者FF下返回一个可用的event对象
  * @param {String e}
  *     当前的事件对象
  * @return {String e}
  *     当前的事件对象，兼容IE
  */
-function getEvent(e) {  
-    return e || window.event;  
-} 
+function getEvent(e) {
+    return e || window.event;
+}

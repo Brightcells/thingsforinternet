@@ -1,10 +1,10 @@
-/** 
- * @fileOverview pam.js which to simply deal with picture\audio\movie 
+/**
+ * @fileOverview pam.js which to simply deal with picture\audio\movie
  * @author HQM
  * @date 2013/06/27
  * @e-mail qiminis0801@gmail.com
  * @github https://github.com/HQMIS
- * @version 0.0.1 
+ * @version 0.0.1
  */
 
 /**
@@ -24,18 +24,18 @@ var picList = [ url + "picture/tyr.jpg", url + "picture/xm.jpg",
 /**
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * the global function used for all feature
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
 
 /**
  * @description check the browser you are using
- * 
+ *
  * @param
- * 
+ *
  * @return {Object} Sys
  */
 function browserCheck() {
@@ -56,16 +56,16 @@ function browserCheck() {
 /**
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * the three function below is for picture
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
 
 /**
  * @description control to set background use picture
- * 
+ *
  * @param {int}
  *            _bg_mode 0 - diy resource(Array) 1 - use server's resource(String)
  * @param {Array
@@ -93,7 +93,7 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
 		}
 	} else {
 		picList = _bg_res;
-		
+
 		if (1 == picList.length) {
 			/*
 			 * the length of the array is 1, direct set the picture index which
@@ -111,7 +111,7 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
 
 /**
  * @description slide to set background use picture
- * 
+ *
  * @param {Array}
  *            _bg_res the picture list to be set as background
  * @return {null} null
@@ -129,7 +129,7 @@ function slideSetBackground(_bg_res) {
 
 /**
  * @description set background use picture
- * 
+ *
  * @param {String}
  *            _bg_res the picture to be set as background
  * @return {null} null
@@ -157,16 +157,16 @@ function setBackground(_bg_res) {
 /**
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * the three function below is for audio
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
 
 /**
  * @description control to broadcast audio
- * 
+ *
  * @param {int}
  *            _audio_mode 0 - diy resource(Array) 1 - use server's
  *            resource(String)
@@ -212,7 +212,7 @@ function _audio(_audio_mode, _audio_res) {
 
 /**
  * @description broadcast audio by list
- * 
+ *
  * @param {String}
  *            _audio_res the audio list to be broadcast
  * @return {null} null
@@ -253,7 +253,7 @@ function broadcastList(_audio_res) {
 
 /**
  * @description broadcast audio
- * 
+ *
  * @param {object}
  *            _audio the object create by document.createElement("audio")
  * @param {String}
@@ -281,7 +281,7 @@ function broadcast(_audio, _audio_res) {
 
 /**
  * @description broadcast audio for ie version below 9
- * 
+ *
  * @param {Array}
  *            _audio_res Array - path of _audio_res to be broadcast
  * @return {null} null
@@ -324,9 +324,9 @@ function _audio_IE(_audio_res) {
 /**
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * the three function below is for movie(video)
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -334,7 +334,7 @@ function _audio_IE(_audio_res) {
 /**
  * @description control to set movie(video) as background whichi just is
  *              broadcast movie without controls
- * 
+ *
  * @param {int}
  *            _movie_mode 0 - diy resource(Array) 1 - use server's
  *            resource(String)
@@ -381,7 +381,7 @@ function _movie(_movie_mode, _movie_res) {
 /**
  * @description set movie(video) as background whichi just is broadcast movie
  *              without controls by list
- * 
+ *
  * @param {String}
  *            _movie_res the video list to be broadcast
  * @return {null} null
@@ -428,7 +428,7 @@ function broadcastSetList(_movie_res) {
 /**
  * @description set movie(video) as background whichi just is broadcast movie
  *              without controls
- * 
+ *
  * @param {object}
  *            _movie the object create by document.createElement("movie")
  * @param {String}
@@ -446,7 +446,7 @@ function broadcastSet(_movie, _movie_res) {
 	/*
 	 * judge the browser you are using whether support audio which is ogg format
 	 * or not && select the suitable format's audio to be broadcast
-	 * 
+	 *
 	 * mp4 is much smaller than ogv, so make mp4 header
 	 */
 	if (_movie.canPlayType("video/mp4")) {
@@ -461,7 +461,7 @@ function broadcastSet(_movie, _movie_res) {
 /**
  * @description set movie(video) as background whichi just is broadcast movie
  *              without controls for ie version below 9
- * 
+ *
  * @param {Array}
  *            _movie_res Array - path of _movie_res to be set
  * @return {null} null

@@ -52,7 +52,7 @@ var Menu = function (element, options) {
 	this.button.addEventListener("click", function (e) {
 		e.preventDefault();
 	});
-	/* 
+	/*
  var links = this.node.querySelectorAll('li a');
   for (var i=0; i < links.length; i++) {
     links[i].addEventListener('click', function(e){

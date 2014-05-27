@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------*/
 // HTML TABLE SORTER
 // OBJECT ORIENTED JAVASCRIPT IMPLEMENTATION OF QUICKSORT
-// @author	Terrill Dent 
+// @author	Terrill Dent
 // @source	http://www.terrill.ca
 // @date	August 28th, 2006
 /*--------------------------------------------------------------*/
@@ -16,7 +16,7 @@ function TSorter(){
 	function get(){}
 
 	function getCell(index){
-		return trs[index].cells[curSortCol] 
+		return trs[index].cells[curSortCol]
 	}
 
 	/*----------------------INIT------------------------------------*/
@@ -36,7 +36,7 @@ function TSorter(){
 		}
 		return true;
 	};
-	
+
 	/*----------------------SORT------------------------------------*/
 	// Sorts a particular column. If it has been sorted then call reverse
 	// if not, then use quicksort to get it sorted.
@@ -77,16 +77,16 @@ function TSorter(){
 		}
 		prevSortCol = curSortCol;
 	}
-	
+
 	/*--------------------------------------------------------------*/
-	// Sets the GET function so that it doesnt need to be 
+	// Sets the GET function so that it doesnt need to be
 	// decided on each call to get() a value.
 	// @param: colNum - the column number to be sorted
 	/*--------------------------------------------------------------*/
 	function setGet(sortType)
 	{
 		switch(sortType)
-		{   
+		{
 		    case "sName":
 			case "sDescription":
 				get = function(index){
@@ -121,7 +121,7 @@ function TSorter(){
 			default:
 				get = function(index){	return getCell(index).firstChild.nodeValue;};
 				break;
-		};	
+		};
 	}
 
 	/*-----------------------EXCHANGE-------------------------------*/
@@ -143,7 +143,7 @@ function TSorter(){
 			}
 		}
 	}
-	
+
 	/*----------------------REVERSE TABLE----------------------------*/
 	//  Reverses a table ordering
 	/*--------------------------------------------------------------*/
@@ -156,7 +156,7 @@ function TSorter(){
 	}
 
 	/*----------------------QUICKSORT-------------------------------*/
-	// This quicksort implementation is a modified version of this tutorial: 
+	// This quicksort implementation is a modified version of this tutorial:
 	// http://www.the-art-of-web.com/javascript/quicksort/
 	// @param: lo - the low index of the array to sort
 	// @param: hi - the high index of the array to sort
@@ -164,21 +164,21 @@ function TSorter(){
 	function quicksort(lo, hi)
 	{
 		if(hi <= lo+1) return;
-		 
+
 		if((hi - lo) == 2) {
 			if(get(hi-1) > get(lo)) exchange(hi-1, lo);
 			return;
 		}
-		
+
 		var i = lo + 1;
 		var j = hi - 1;
-		
+
 		if(get(lo) > get(i)) exchange(i, lo);
 		if(get(j) > get(lo)) exchange(lo, j);
 		if(get(lo) > get(i)) exchange(i, lo);
-		
+
 		var pivot = get(lo);
-		
+
 		while(true) {
 			j--;
 			while(pivot > get(j)) j--;
@@ -188,7 +188,7 @@ function TSorter(){
 			exchange(i, j);
 		}
 		exchange(lo, j);
-		
+
 		if((j-lo) < (hi-j)) {
 			quicksort(lo, j);
 			quicksort(j+1, hi);

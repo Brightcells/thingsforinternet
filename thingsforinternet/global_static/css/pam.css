@@ -1,17 +1,17 @@
-/** 
- * @fileOverview pam.css which to simply deal with picture\audio\movie 
+/**
+ * @fileOverview pam.css which to simply deal with picture\audio\movie
  * @author HQM
  * @date 2013/06/27
  * @e-mail qiminis0801@gmail.com
  * @github https://github.com/HQMIS
- * @version 0.0.1 
+ * @version 0.0.1
  */
- 
+
  /**
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
- * 
+ *
  * the css below is for audio
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
  */
 
@@ -26,12 +26,12 @@
 
 /**
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
- * 
+ *
  * the css below is for picture
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
  */
- 
+
 /* set the style of the div which is used to contain the background img */
 div.bgDiv {
 	position: fixed;
@@ -51,12 +51,12 @@ div.bgDiv>img {
 
 /**
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
- * 
+ *
  * the css below is for movie(video)
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
  */
- 
+
 /* set the style of the div which is used to contain the background movie */
 div.movieDiv {
 	position: fixed;
@@ -66,7 +66,7 @@ div.movieDiv {
 	right: 0;
 	z-index: -88888888;
 }
- 
+
 /* set the style of the background movie */
 div.movieDiv>video {
 	height: 120%;
@@ -76,12 +76,12 @@ div.movieDiv>video {
 
 /**
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
- * 
+ *
  * the css is for wap div to show above background(picture\movie\video)
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
  */
- 
+
 /* this div is used to cover the div whose class is bgDiv && movieDiv */
 div.Div {
 	position: fixed;
@@ -118,12 +118,12 @@ div.DivGray {
 
 /**
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
- * 
+ *
  * the css is for for movie(video) on IE
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ########## ########## ########## *
  */
- 
+
 .ieMovieDiv {
 	position: fixed;
 	top: 0;
