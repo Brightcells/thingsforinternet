@@ -313,7 +313,7 @@ def itgpssearch(request):
         reDict = {'searchs': search_result}
         return render_to_response('resources/itgps/search.html', dict(reDict, **getItgpsDict(request)))
     else:
-        return HttpResponseRedirect('https://www.google.com/search?q=' + _query)
+        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
 
 
 def itgpssubmit(request, p=1):
@@ -410,12 +410,15 @@ def apiall(request, p=1):
 def apisearch(request, p=1):
     _query = request.GET.get('query', '')
     searchapi = ApiInfo.objects.filter(Q(api__contains=_query) | Q(func__contains=_query) | Q(tag__contains=_query) | Q(url__contains=_query), display=True).order_by('-create_time')
-    api = pages(searchapi, int(p))
-    return render(
-        request,
-        'resources/api/search.html',
-        dict(lcrdict(api.object_list, 'a'), pages=api, next_url='resources:apisearch', query='?query=' + _query, **getApiDict(request))
-    )
+    if searchapi.count():
+        api = pages(searchapi, int(p))
+        return render(
+            request,
+            'resources/api/search.html',
+            dict(lcrdict(api.object_list, 'a'), pages=api, next_url='resources:apisearch', query='?query=' + _query, **getApiDict(request))
+        )
+    else:
+        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
 
 
 def apidiscuss(request, aid):

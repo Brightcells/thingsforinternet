@@ -43,13 +43,5 @@ from utils.utils import *
 
 
 def search(request):
-    '''
-    usr, ui = getUsrUI(request)
-    _query = request.POST.get('query', '')
-    doubanSearchUrl = 'http://book.douban.com/subject_search?search_text=' + _query
-    reDict = {'usr': usr, 'dsu': doubanSearchUrl}
-    return render_to_response('common/dquery.html', reDict)
-    '''
-    _query = request.POST.get('query', '')
-    doubanSearchUrl = 'http://book.douban.com/subject_search?search_text='
-    return HttpResponseRedirect(doubanSearchUrl+_query)
+    _query = request.GET.get('query', '')
+    return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)

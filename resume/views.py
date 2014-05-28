@@ -76,13 +76,14 @@ def resume2home(request):
     return redirect(reverse('resume:resume2all'))
 
 
-def resume2all(request):
+def resume2all(request, p=1):
     allresume = ResumeInfo.objects.filter(display=True).order_by('-modify_time')
-    allresume = [resume.data for resume in allresume]
+    resumes = pages(allresume, int(p))
+    allresume = [resume.data for resume in resumes.object_list]
     return render(
         request,
         'resume/resume2/all.html',
-        dict(resume=allresume, **getResume2Dict(request))
+        dict(resume=allresume, pages=resumes, next_url='resume:resume2all', **getResume2Dict(request))
     )
 
 
@@ -132,3 +133,18 @@ def resume2discuss(request, uid):
         'resume/resume2/discuss.html',
         dict(resume=mineresume, **getResume2Dict(request))
     )
+
+
+def resume2search(request, p=1):
+    _query = request.GET.get('query', '')
+    searchresume = ResumeInfo.objects.filter(Q(resume__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
+    if searchresume.count():
+        resumes = pages(searchresume, int(p))
+        searchresume = [resume.data for resume in resumes.object_list]
+        return render(
+            request,
+            'resume/resume2/search.html',
+            dict(resume=searchresume, pages=resumes, next_url='resume:resume2search', query='?query=' + _query, **getResume2Dict(request))
+        )
+    else:
+        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)

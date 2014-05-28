@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south',
+    'thingsforinternet',
     'accounts',
     'dh',
     'resume',
@@ -171,6 +172,8 @@ LOGGING = {
         },
     }
 }
+
+GOOGLE_SEARCH = 'http://203.208.46.146/search?q='
 
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99

@@ -85,7 +85,7 @@
 
         {% block searcher %}
             <p class="pull-right">
-                <form id="search" class="search" action="{% block action %}{% endblock %}" target="_blank">
+                <form id="search" class="search" action="{% block action %}/search{% endblock %}" target="_blank">
                     <input
                         onFocus="if(this.value=='Local Search or Google'){this.value='';this.style.color='#000'}"
                         onBlur="if(this.value==''){this.value='Local Search or Google';this.style.color='#D1D1D1'}"
