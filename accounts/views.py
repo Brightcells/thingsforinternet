@@ -28,10 +28,13 @@ from django.shortcuts import render
 from django.utils.encoding import smart_str
 
 from accounts.models import UserInfo
-from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm
+from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm, SettingsUserInfoModelForm
+from utils.utils import getUsr, getUI
 
 import re
 import json
+
+from utils.utils import *
 
 
 BACKLINKS = [
@@ -63,7 +66,7 @@ def get_referer_view(request, default='/'):
     return referer
 
 
-def delCookie(request, response, key):
+def del_cookie(request, response, key):
     '''
         @function: del cookie by key
         @paras:
@@ -78,40 +81,45 @@ def delCookie(request, response, key):
 
 def login(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
+    form = LoginUserInfoModelForm()
 
-    if request.method == 'GET':
-        form = LoginUserInfoModelForm()
-    else:
+    if request.method == 'POST':
         form = LoginUserInfoModelForm(request.POST)
         if form.is_valid():
             response = HttpResponseRedirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']))
             return response
 
-    return render(request, 'accounts/login.html', dict(backlinks=BACKLINKS, form=form, next=next_url))
+    return render(
+        request,
+        'accounts/login.html',
+        dict(backlinks=BACKLINKS, form=form, next=next_url)
+    )
 
 
 def signup(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
+    form = SignupUserInfoModelForm()
 
-    if request.method == 'GET':
-        form = SignupUserInfoModelForm()
-    else:
+    if request.method == 'POST':
         form = SignupUserInfoModelForm(request.POST)
         if form.is_valid():
             form.save()
-
             response = HttpResponseRedirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']))
             return response
 
-    return render(request, 'accounts/signup.html', dict(backlinks=BACKLINKS, form=form, next=next_url))
+    return render(
+        request,
+        'accounts/signup.html',
+        dict(backlinks=BACKLINKS, form=form, next=next_url)
+    )
 
 
 def logout(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
     response = HttpResponseRedirect(next_url)
-    delCookie(request, response, 'usr')
+    del_cookie(request, response, 'usr')
     return response
 
 
@@ -119,6 +127,42 @@ def api_user_check(request):
     _usr = request.POST.get('usr', '')
     try:
         UserInfo.objects.get(username=_usr)
-        return HttpResponse(json.dumps(dict(status=True, msg='user_already_exists')))
+        msg = 'user_already_exists'
     except:
-        return HttpResponse(json.dumps(dict(status=False, msg='user_not_exists')))
+        msg = 'user_not_exists'
+    return HttpResponse(json.dumps(dict(status=False, msg=msg)))
+
+
+def member(request, uid=None):
+    if uid:
+        try:
+            ui = UserInfo.objects.get(pk=uid)
+        except:
+            ui = None
+    else:
+        usr = getUsr(request)
+        ui = getUI(usr)
+
+    return render(
+        request,
+        'accounts/member.html',
+        dict(backlinks=BACKLINKS, usr=usr, userinfo=ui.data, lists=getApp(request))
+    )
+
+
+def settings(request):
+    usr = getUsr(request)
+    ui = getUI(usr)
+
+    form = SettingsUserInfoModelForm(initial=ui.data)
+
+    if request.method == 'POST':
+        form = SettingsUserInfoModelForm(request.POST, instance=ui)
+        if form.is_valid():
+            form.save()
+
+    return render(
+        request,
+        'accounts/settings.html',
+        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request))
+    )

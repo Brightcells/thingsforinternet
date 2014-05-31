@@ -1,0 +1,63 @@
+{% extends "common/thingsforinternet.html" %}
+
+{% block title %}
+    <title>登录 -- ThingsForInternet</title>
+{% endblock %}
+
+{% block nav %}
+    {% for n in lists %}
+        <li>
+            <a href="{% url n.name|lower|add:':'|add:n.name|lower %}" title="{{ n.title }}">
+                <img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}
+            </a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="sl-hero-unit">
+                    <div class="divCenter">
+                        <form class="form-horizontal text-center" action="{% url 'accounts:settings' %}" method='post'>
+                            <div class="control-group">
+                                <span class="errorlist text-left">
+                                    {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                                </span>
+                            </div>
+
+                            <div class="control-group">{{ form.username }}</div>
+
+                            <div class="control-group">{{ form.email }}</div>
+
+                            <div class="control-group">{{ form.company }}</div>
+
+                            <div class="control-group">{{ form.github }}</div>
+
+                            <div class="control-group">{{ form.sof }}</div>
+
+                            <div class="control-group">{{ form.weibo }}</div>
+
+                            <div class="control-group">{{ form.rren }}</div>
+
+                            <div class="control-group">{{ form.v2ex }}</div>
+
+                            <div class="control-group">{{ form.blog }}</div>
+
+                            <div class="control-group">{{ form.btc }}</div>
+
+                            <div class="control-group">
+                                <button type="submit" class="btn">保存设置</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block script %}{% endblock %}

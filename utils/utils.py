@@ -63,7 +63,11 @@ def getUI(usr):
         @paras:
         @returns: usr string
     '''
-    return UserInfo.objects.get(username=usr) if usr else None
+    try:
+        ui = UserInfo.objects.get(username=usr) if usr else None
+    except:
+        ui = None
+    return ui
 
 
 def getUsrUI(request):

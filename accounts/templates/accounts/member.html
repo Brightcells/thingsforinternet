@@ -1,0 +1,37 @@
+{% extends "common/thingsforinternet.html" %}
+
+{% block title %}
+    <title>登录 -- ThingsForInternet</title>
+{% endblock %}
+
+{% block nav %}
+    {% for n in lists %}
+        <li>
+            <a href="{% url n.name|lower|add:':'|add:n.name|lower %}" title="{{ n.title }}">
+                <img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}
+            </a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="list-hero-unit">
+                    <h2>{{ userinfo.username }}</h2>
+                    <span>TT4IT第 {{ userinfo.pk }} 号会员，加入于 {{ userinfo.create_time|date:'Y-m-d H:i:s' }}。</span>
+                    <div>
+                        {% if userinfo.github %}<strong><em>Github: </em></strong><span>{{ userinfo.github }}</span>{% endif %}
+                        {% if userinfo.sof %}<strong><em>Stackoverflow: </em></strong><span>{{ userinfo.sof }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </br>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block script %}{% endblock %}

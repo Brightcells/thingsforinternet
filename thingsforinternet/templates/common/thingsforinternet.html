@@ -74,8 +74,10 @@
                     <li>&nbsp;</li>
 
                     {% if usr %}
-                        <li><a><img class="img-nav" src="{% static 'img/lastest.png' %}" title="用户">{{ usr }}</a></li>
+                        <li><a href="{% url 'accounts:member' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="用户">{{ usr }}</a></li>
                         <li><a href="{% url 'accounts:logout' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="退出">退出</a></li>
+                        <li>&nbsp;</li>
+                        <li><a href="{% url 'accounts:settings' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="设置">设置</a></li>
                     {% else %}
                         <li><a href="{% url 'accounts:login' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="登录">登录</a></li>
                     {% endif %} 

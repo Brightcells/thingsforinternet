@@ -12,4 +12,8 @@ urlpatterns = patterns('accounts.views',
     url(r'^signup$', 'signup', name='signup'),
     url(r'^logout$', 'logout', name='logout'),
     url(r'^api_user_check$', 'api_user_check', name='api_user_check'),
+
+    url(r'^member$', 'member', name='member'),
+    url(r'^member/(?P<uid>\d+)/$', 'member', name='member'),
+    url(r'^settings$', 'settings', name='settings'),
 )

@@ -97,3 +97,41 @@ class LoginUserInfoModelForm(Form):
                 return cleaned_data
         else:
             return cleaned_data
+
+
+class SettingsUserInfoModelForm(ModelForm):
+    class Meta:
+        model = UserInfo
+        exclude = ('password', 'status')
+        widgets = {
+            'username': TextInput(
+                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'readonly': 'true', 'placeholder': _('Username')}
+            ),
+            'email': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Email')}
+            ),
+            'company': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Company')}
+            ),
+            'github': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Github')}
+            ),
+            'sof': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Stackoverflow')}
+            ),
+            'weibo': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Weibo')}
+            ),
+            'rren': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('RRen')}
+            ),
+            'v2ex': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('V2EX')}
+            ),
+            'blog': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Blog')}
+            ),
+            'btc': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('BTC')}
+            ),
+        }

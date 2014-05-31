@@ -28,3 +28,21 @@ class UserInfo(models.Model):
 
     def __unicode__(self):
         return unicode(self.username)
+
+    def _data(self):
+        return {
+            'pk': self.pk,
+            'username': self.username,
+            'email': self.email,
+            'company': self.company,
+            'github': self.github,
+            'sof': self.sof,
+            'weibo': self.weibo,
+            'rren': self.rren,
+            'v2ex': self.v2ex,
+            'blog': self.blog,
+            'btc': self.btc,
+            'create_time': self.create_time.replace(tzinfo=None),
+        }
+
+    data = property(_data)
