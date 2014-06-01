@@ -113,15 +113,32 @@ function backtop() {
  */
 $(document).ready(function() {
     $('#simple-menu').sidr();
+
+    var limit=300, //灵敏度，两次Ctrl之间的间隔，单位：ms
+        k=0,
+        ti=0;
+
+    document.addEventListener('keyup', function(e) {
+        if(k>=1 && ((new Date()).valueOf()-ti<=limit)) {
+            k=0;
+            open_close_sidr();
+        }
+        if(e.keyCode!=17) {
+            k=0;
+        } else {
+            k+=1;
+            ti=(new Date()).valueOf();
+        }
+    }, false);
 });
 
 var m = new Menu(document.getElementsByTagName('menuNav')[0], {
     radius : 130
 });
 
-var flag = false,
-    ftime = 0,
-    jsidr = false;
+//var flag = false,
+    // ftime = 0,
+var jsidr = false;
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
@@ -158,7 +175,7 @@ function close_sidr() {
 }
 
 /* 双击 Ctrl */
-document.onkeydown = function(event) {
+/*document.onkeydown = function(event) {
     if (event.ctrlKey) {
         if (flag) {
             ttime = new Date().getTime();
@@ -173,7 +190,7 @@ document.onkeydown = function(event) {
             ftime = new Date().getTime();
         }
     }
-}
+}*/
 
 /*
  * ########## ########## ########## ########## ########## ########## ##########
