@@ -79,7 +79,7 @@ def resume2home(request):
 def resume2all(request, p=1):
     allresume = ResumeInfo.objects.filter(display=True).order_by('-modify_time')
     resumes = pages(allresume, int(p))
-    allresume = [resume.data for resume in resumes.object_list]
+    allresume = [resume.info for resume in resumes.object_list]
     return render(
         request,
         'resume/resume2/all.html',
@@ -89,15 +89,15 @@ def resume2all(request, p=1):
 
 @tt_login_required
 def resume2mine(request):
-    user = getUI(getUsr(request))
+    ui = getUI(getUsr(request))
     try:
-        mineresume = ResumeInfo.objects.get(user=user, display=True).data
+        mineresume = ResumeInfo.objects.get(user=ui, display=True).data
     except:
         mineresume = {}
     return render(
         request,
         'resume/resume2/mine.html',
-        dict(resume=mineresume, ui=getUI(user), **getResume2Dict(request))
+        dict(resume=mineresume, ui=ui, userinfo=ui.data, **getResume2Dict(request))
     )
 
 
@@ -118,7 +118,7 @@ def resume2edit(request):
     return render(
         request,
         'resume/resume2/edit.html',
-        dict(form=form, **getResume2Dict(request))
+        dict(form=form, userinfo=getUI(getUsr(request)), **getResume2Dict(request))
     )
 
 
@@ -131,7 +131,7 @@ def resume2discuss(request, uid):
     return render(
         request,
         'resume/resume2/discuss.html',
-        dict(resume=mineresume, **getResume2Dict(request))
+        dict(resume=mineresume, userinfo=getUI(getUsr(request)), **getResume2Dict(request))
     )
 
 
@@ -140,7 +140,7 @@ def resume2search(request, p=1):
     searchresume = ResumeInfo.objects.filter(Q(resume__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
     if searchresume.count():
         resumes = pages(searchresume, int(p))
-        searchresume = [resume.data for resume in resumes.object_list]
+        searchresume = [resume.info for resume in resumes.object_list]
         return render(
             request,
             'resume/resume2/search.html',

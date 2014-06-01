@@ -23,15 +23,13 @@
         <div class="span9"><div id="epiceditor"></div></div>
         <div class="span3">
             <div class="list-hero-unit">
-                <div><strong><em>Github:</em></strong></div>
-                <div><strong><em>StackOverflow:</em></strong></div>
+                {% include 'resume/resume2/snippets/userinfo.html' %}
             </div>
         </div>
     </div>
     </br>
 
     <div class="list-hero-unit text-center">
-        <!-- <pre>{{ resume.resume|djangomarkdown }}</pre> -->
         <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
         <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
     </div>

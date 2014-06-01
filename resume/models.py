@@ -56,4 +56,17 @@ class ResumeInfo(CreateUpdateMixin):
             'follow': self.follow,
         }
 
+    def _info(self):
+        return {
+            'pk': self.pk,
+            'tag': self.tag.split(' '),
+            'uid': self.user.pk,
+            'uname': self.user.username,
+            'visit': self.visit,
+            'like': self.like,
+            'follow': self.follow,
+            'title': self.resume.split('\n')[0].split('\r')[0].split('\r\n')[0].strip(),
+        }
+
     data = property(_data)
+    info = property(_info)
