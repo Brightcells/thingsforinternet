@@ -157,23 +157,19 @@ function close_sidr() {
     }
 }
 
-/* 双击 Ctrl */
-document.onkeydown = function(event) {
-    if (event.ctrlKey) {
-        if (flag) {
-            ttime = new Date().getTime();
-            if (ttime-ftime<500) {
-                flag = false;
-                open_close_sidr();
-            } else {
-                ftime = ttime;
-            }
-        } else {
-            flag = true;
-            ftime = new Date().getTime();
-        }
-    }
-}
+var element = document.body;
+/* 双击 */
+Hammer(element).on("doubletap", function(event) {
+    open_close_sidr();
+});
+/* 向右拖拽 */
+Hammer(element).on("dragright", function(event) {
+    open_sidr();
+});
+/* 向左拖拽 */
+Hammer(element).on("dragleft", function(event) {
+    close_sidr();
+});
 
 /*
  * ########## ########## ########## ########## ########## ########## ##########

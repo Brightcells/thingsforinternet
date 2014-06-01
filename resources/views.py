@@ -28,7 +28,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 
 from accounts.models import UserInfo
 from resources.decorators import tt_login_required
@@ -73,14 +73,14 @@ def getApiDict(request):
 def resources(request):
     """ APP Resources's home """
 
-    return render_to_response('resources/resources.html', getResourcesDict(request))
+    return render(request, 'resources/resources.html', getResourcesDict(request))
 
 
 def itgpshome(request):
     """ Function ITGPS's home - A Navigation Site for IT """
 
     reDict = {'hottests': getHottestSite(request, spp), 'lasttests': getLasttestSite(request, spp), 'favs': getFavoriteSite(request)}
-    return render_to_response('resources/itgps/itgps.html', dict(reDict, **getItgpsDict(request)))
+    return render(request, 'resources/itgps/itgps.html', dict(reDict, **getItgpsDict(request)))
 
 
 def getHottestSite(request, _num):
@@ -190,12 +190,12 @@ def getCsySite(request, _nav, _num, _flag, _id):
 
 def itgps(request, _nav):
     reDict = {'csysite': getCsySite(request, _nav, spp, 0, '')}
-    return render_to_response('resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
+    return render(request, 'resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
 
 
 def csysite(request, _id):
     reDict = {'csysite': getCsySite(request, '', '', 1, _id)}
-    return render_to_response('resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
+    return render(request, 'resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
 
 
 def visit(request):
@@ -303,7 +303,7 @@ def getSiteRelatedInfo(request, siteid):
 
 def discuss(request, siteid):
     reDict = {'sites': getSiteInfo(request, siteid), 'relateds': getSiteRelatedInfo(request, siteid)}
-    return render_to_response('resources/itgps/discuss.html', dict(reDict, **getItgpsDict(request)))
+    return render(request, 'resources/itgps/discuss.html', dict(reDict, **getItgpsDict(request)))
 
 
 def itgpssearch(request):
@@ -311,7 +311,7 @@ def itgpssearch(request):
     search_result = getSearchSite(request, _query)
     if len(search_result):
         reDict = {'searchs': search_result}
-        return render_to_response('resources/itgps/search.html', dict(reDict, **getItgpsDict(request)))
+        return render(request, 'resources/itgps/search.html', dict(reDict, **getItgpsDict(request)))
     else:
         return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
 
@@ -433,4 +433,4 @@ def apidiscuss(request, aid):
 def softwarehome(request):
     """ Function Software's home - A Navigation Site for IT """
 
-    return render_to_response('resources/resources.html', getResourcesDict(request))
+    return render(request, 'resources/resources.html', getResourcesDict(request))

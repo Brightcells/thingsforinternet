@@ -30,7 +30,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.utils.encoding import smart_str
 
 import re
@@ -69,7 +69,11 @@ def lab(request):
 def pinnimei(request):
     """ Lab Project Pinnime - A smail word game to push consonant """
 
-    return render(request, 'lab/pinnimei.html', dict(consonants=random.sample(pinnimei_list, 5), **getPinnimeiDict(request)))
+    return render(
+        request,
+        'lab/pinnimei.html',
+        dict(consonants=random.sample(pinnimei_list, 5), **getPinnimeiDict(request))
+    )
 
 
 def check_word(request):
