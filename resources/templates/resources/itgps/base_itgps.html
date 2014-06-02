@@ -16,6 +16,7 @@
     {% endfor %}
 
     <li>&nbsp;</li>
+    <li><a href="{% url 'resources:itgps_hottest_lastest' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="最热最新站点">最热最新站点</a></li>
     <li><a href="{% url 'resources:itgpssubmit' %}"><img class="img-nav" src="{% static 'img/lastest.png' %}" title="提交站点">提交站点</a></li>
 {% endblock %}
 

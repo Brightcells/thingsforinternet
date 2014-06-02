@@ -10,6 +10,7 @@ urlpatterns = patterns('resources.views',
     url(r'^home$', 'resources', name='resources'),
 
     url(r'^itgps/home$', 'itgpshome', name='itgpshome'),
+    url(r'^itgps/hottest_lastest$', 'itgps_hottest_lastest', name='itgps_hottest_lastest'),
     url(r'^itgps/(?P<_nav>\w+)/$', 'itgps', name='itgps'),
     url(r'^csysite/(?P<_id>\d+)/$', 'csysite', name='csysite'),
     url(r'^visit$', 'visit', name='visit'),

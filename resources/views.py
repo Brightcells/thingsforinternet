@@ -79,8 +79,13 @@ def resources(request):
 def itgpshome(request):
     """ Function ITGPS's home - A Navigation Site for IT """
 
-    reDict = {'hottests': getHottestSite(request, spp), 'lasttests': getLasttestSite(request, spp), 'favs': getFavoriteSite(request)}
+    reDict = {'favs': getFavoriteSite(request)}
     return render(request, 'resources/itgps/itgps.html', dict(reDict, **getItgpsDict(request)))
+
+
+def itgps_hottest_lastest(request):
+    reDict = {'hottests': getHottestSite(request, spp), 'lasttests': getLasttestSite(request, spp)}
+    return render(request, 'resources/itgps/hottest_lastest.html', dict(reDict, **getItgpsDict(request)))
 
 
 def getHottestSite(request, _num):

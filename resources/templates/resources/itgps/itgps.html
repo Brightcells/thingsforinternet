@@ -19,28 +19,4 @@
             {% endfor %}
         </div>
     </div>
-
-    <div class="scrolltitlestyle">
-        <h2 class="red">最热门站点</h2>
-        <a class="more" href="">更多</a>
-    </div>
-    <div class="block-hero-unit">
-        <div class="row-fluid">
-            {% for site in hottests %}
-                {% include 'resources/itgps/snippets/display_site_info2.html' %}
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="scrolltitlestyle">
-        <h2 class="red">最新收录站点</h2>
-        <a class="more" href="">更多</a>
-    </div>
-    <div class="block-hero-unit">
-        <div class="row-fluid">
-            {% for site in lasttests %}
-                {% include 'resources/itgps/snippets/display_site_info2.html' %}
-            {% endfor %}
-        </div>
-    </div>
 {% endblock %}
