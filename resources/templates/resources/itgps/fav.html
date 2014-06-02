@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-    <title>首页 (HOME) -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
+    <title>收藏站点 (FAVORITE) -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
 {% endblock %}
 
 {% block bodyer %}{% endblock %}
@@ -10,7 +10,6 @@
 {% block content2 %}
     <div class="scrolltitlestyle">
         <h2 class="red">收藏站点</h2>
-        {% if pages.has_next %}<a class="more" href="{% url 'resources:itgpsfav' 2 %}">更多</a>{% endif %}
     </div>
     <div class="block-hero-unit">
         <div class="row-fluid">
@@ -20,3 +19,5 @@
         </div>
     </div>
 {% endblock %}
+
+{% block paginator %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}

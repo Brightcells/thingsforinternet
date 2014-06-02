@@ -58,6 +58,14 @@ def pages(setlist, p):
         return paginator.page(1)
 
 
+def pages2(setlist, p):
+    paginator = Paginator(setlist, 1)
+    try:
+        return paginator.page(p)
+    except:
+        return paginator.page(1)
+
+
 def getResourcesDict(request):
     return {'backlinks': RESOURCESBACKLINKS, 'lists': getFunc(request, 'resources'), 'usr': getUsr(request)}
 
@@ -76,53 +84,99 @@ def resources(request):
     return render(request, 'resources/resources.html', getResourcesDict(request))
 
 
-def itgpshome(request):
+def itgpshome(request, p=1):
     """ Function ITGPS's home - A Navigation Site for IT """
+    pages, favs = getFavoriteSite(request, p)
+    return render(
+        request,
+        'resources/itgps/itgps.html',
+        dict(favs=favs, pages=pages, **getItgpsDict(request))
+    )
 
-    reDict = {'favs': getFavoriteSite(request)}
-    return render(request, 'resources/itgps/itgps.html', dict(reDict, **getItgpsDict(request)))
+
+def itgpsfav(request, p=1):
+    pages, favs = getFavoriteSite(request, p)
+    return render(
+        request,
+        'resources/itgps/fav.html',
+        dict(favs=favs, pages=pages, next_url='resources:itgpsfav', **getItgpsDict(request))
+    )
 
 
 def itgps_hottest_lastest(request):
-    reDict = {'hottests': getHottestSite(request, spp), 'lasttests': getLasttestSite(request, spp)}
-    return render(request, 'resources/itgps/hottest_lastest.html', dict(reDict, **getItgpsDict(request)))
+    pages, hots = getHottestSite(request, 1)
+    pages2, lasts = getLasttestSite(request, 1)
+    return render(
+        request,
+        'resources/itgps/hottest_lastest.html',
+        dict(hottests=hots, lasttests=lasts, pages=pages, pages2=pages2, **getItgpsDict(request))
+    )
 
 
-def getHottestSite(request, _num):
-    hotSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-visit')[:_num]
+def itgpshot(request, p=1):
+    pages, hots = getHottestSite(request, p)
+    return render(
+        request,
+        'resources/itgps/hot.html',
+        dict(hottests=hots, pages=pages, next_url='resources:itgpshot', **getItgpsDict(request))
+    )
+
+
+def itgpslast(request, p=1):
+    pages, lasts = getLasttestSite(request, p)
+    return render(
+        request,
+        'resources/itgps/last.html',
+        dict(lasttests=lasts, pages=pages, next_url='resources:itgpslast', **getItgpsDict(request))
+    )
+
+
+def getHottestSite(request, p):
+    hotSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-visit')
+
+    pages = pages2(hotSiteSetList, int(p))
+
     hottests = []
-    for hotSiteSet in hotSiteSetList:
+    for hotSiteSet in pages.object_list:
         hotSiteDict = model_to_dict(hotSiteSet)
         hotSiteDict['flike'] = getLikeFlag(request, hotSiteSet.id, True)
         hotSiteDict['ffav'] = getFavFlag(request, hotSiteSet.id)
         hottests.append(hotSiteDict)
-    return hottests
+
+    return pages, hottests
 
 
-def getLasttestSite(request, _num):
-    lastSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-create_time')[:_num]
+def getLasttestSite(request, p):
+    lastSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-create_time')
+
+    pages = pages2(lastSiteSetList, int(p))
+
     lasttests = []
-    for lastSiteSet in lastSiteSetList:
+    for lastSiteSet in pages.object_list:
         lastSiteDict = model_to_dict(lastSiteSet)
         lastSiteDict['flike'] = getLikeFlag(request, lastSiteSet.id, True)
         lastSiteDict['ffav'] = getFavFlag(request, lastSiteSet.id)
         lasttests.append(lastSiteDict)
-    return lasttests
+    return pages, lasttests
 
 
-def getFavoriteSite(request):
+def getFavoriteSite(request, p):
     if not None:
-        favSiteSetList = Favorite.objects.filter(user__username=getUsr(request))
+        favSiteSetList = Favorite.objects.filter(user__username=getUsr(request)).order_by('-website__visit')
     else:
-        favSiteSetList = Favorite.objects.filter(host=getIP(request))
+        favSiteSetList = Favorite.objects.filter(host=getIP(request)).order_by('-website__visit')
+
+    pages = pages2(favSiteSetList, int(p))
+
     favsites = []
-    for favSiteSet in favSiteSetList:
+    for favSiteSet in pages.object_list:
         favSiteDict = model_to_dict(favSiteSet)
         favSiteDict['site'] = favSiteSet
         favSiteDict['flike'] = getLikeFlag(request, favSiteSet.website.id, True)
         favSiteDict['ffav'] = getFavFlag(request, favSiteSet.website.id)
         favsites.append(favSiteDict)
-    return favsites
+
+    return pages, favsites
 
 
 def getSearchSite(request, _query):

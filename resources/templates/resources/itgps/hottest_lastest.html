@@ -10,7 +10,7 @@
 {% block content2 %}
     <div class="scrolltitlestyle">
         <h2 class="red">最热门站点</h2>
-        <a class="more" href="">更多</a>
+        {% if pages.has_next %}<a class="more" href="{% url 'resources:itgpshot' 2 %}">更多</a>{% endif %}
     </div>
     <div class="block-hero-unit">
         <div class="row-fluid">
@@ -22,7 +22,7 @@
 
     <div class="scrolltitlestyle">
         <h2 class="red">最新收录站点</h2>
-        <a class="more" href="">更多</a>
+        {% if pages2.has_next %}<a class="more" href="{% url 'resources:itgpslast' 2 %}">更多</a>{% endif %}
     </div>
     <div class="block-hero-unit">
         <div class="row-fluid">

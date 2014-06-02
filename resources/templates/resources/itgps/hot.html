@@ -1,0 +1,23 @@
+{% extends "resources/itgps/base_itgps.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>最热站点 (HOTTEST) -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">最热门站点</h2>
+    </div>
+    <div class="block-hero-unit">
+        <div class="row-fluid">
+            {% for site in hottests %}
+                {% include 'resources/itgps/snippets/display_site_info2.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block paginator %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
