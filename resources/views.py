@@ -59,7 +59,7 @@ def pages(setlist, p):
 
 
 def pages2(setlist, p):
-    paginator = Paginator(setlist, 1)
+    paginator = Paginator(setlist, 50)
     try:
         return paginator.page(p)
     except:
