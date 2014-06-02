@@ -19,3 +19,5 @@
         </div>
     </div>
 {% endblock %}
+
+{% block paginator %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}

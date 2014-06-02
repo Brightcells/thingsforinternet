@@ -39,6 +39,7 @@ from utils.utils import *
 
 
 spp = settings.SITE_PER_PAGE
+tpp = settings.TIPS_PER_PAGE
 
 RESOURCESBACKLINKS = [
     {'name': 'TT4IT', 'url': 'dh:dh', 'para': ''},
@@ -50,16 +51,8 @@ ITGPSBACKLINKS = RESOURCESBACKLINKS + [{'name': 'ITGPS', 'url': 'resources:itgps
 APIBACKLINKS = RESOURCESBACKLINKS + [{'name': 'API', 'url': 'resources:apihome', 'para': ''}, ]
 
 
-def pages(setlist, p):
-    paginator = Paginator(setlist, settings.TIPS_PER_PAGE)
-    try:
-        return paginator.page(p)
-    except:
-        return paginator.page(1)
-
-
-def pages2(setlist, p):
-    paginator = Paginator(setlist, 50)
+def pages(setlist, p, num):
+    paginator = Paginator(setlist, num)
     try:
         return paginator.page(p)
     except:
@@ -134,30 +127,31 @@ def itgpslast(request, p=1):
 def getHottestSite(request, p):
     hotSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-visit')
 
-    pages = pages2(hotSiteSetList, int(p))
+    hotSiteSetList = pages(hotSiteSetList, int(p), 2 * spp)
 
     hottests = []
-    for hotSiteSet in pages.object_list:
+    for hotSiteSet in hotSiteSetList.object_list:
         hotSiteDict = model_to_dict(hotSiteSet)
         hotSiteDict['flike'] = getLikeFlag(request, hotSiteSet.id, True)
         hotSiteDict['ffav'] = getFavFlag(request, hotSiteSet.id)
         hottests.append(hotSiteDict)
 
-    return pages, hottests
+    return hotSiteSetList, hottests
 
 
 def getLasttestSite(request, p):
     lastSiteSetList = WebSiteInfo.objects.filter(display=True).order_by('-create_time')
 
-    pages = pages2(lastSiteSetList, int(p))
+    lastSiteSetList = pages(lastSiteSetList, int(p), 2 * spp)
 
     lasttests = []
-    for lastSiteSet in pages.object_list:
+    for lastSiteSet in lastSiteSetList.object_list:
         lastSiteDict = model_to_dict(lastSiteSet)
         lastSiteDict['flike'] = getLikeFlag(request, lastSiteSet.id, True)
         lastSiteDict['ffav'] = getFavFlag(request, lastSiteSet.id)
         lasttests.append(lastSiteDict)
-    return pages, lasttests
+
+    return lastSiteSetList, lasttests
 
 
 def getFavoriteSite(request, p):
@@ -166,28 +160,31 @@ def getFavoriteSite(request, p):
     else:
         favSiteSetList = Favorite.objects.filter(host=getIP(request)).order_by('-website__visit')
 
-    pages = pages2(favSiteSetList, int(p))
+    favSiteSetList = pages(favSiteSetList, int(p), 2 * spp)
 
     favsites = []
-    for favSiteSet in pages.object_list:
+    for favSiteSet in favSiteSetList.object_list:
         favSiteDict = model_to_dict(favSiteSet)
         favSiteDict['site'] = favSiteSet
         favSiteDict['flike'] = getLikeFlag(request, favSiteSet.website.id, True)
         favSiteDict['ffav'] = getFavFlag(request, favSiteSet.website.id)
         favsites.append(favSiteDict)
 
-    return pages, favsites
+    return favSiteSetList, favsites
 
 
-def getSearchSite(request, _query):
+def getSearchSite(request, _query, p):
     searchSiteSetList = WebSiteInfo.objects.filter(Q(url__contains=_query) | Q(name__contains=_query) | Q(logo__contains=_query) | Q(descr__contains=_query) | Q(tag__contains=_query) | Q(srcode__contains=_query), display=True).order_by('-create_time')
+    
+    searchSiteSetList = pages(searchSiteSetList, int(p), 2 * spp)
+
     searchs = []
-    for searchSiteSet in searchSiteSetList:
+    for searchSiteSet in searchSiteSetList.object_list:
         searchSiteDict = model_to_dict(searchSiteSet)
         searchSiteDict['flike'] = getLikeFlag(request, searchSiteSet.id, True)
         searchSiteDict['ffav'] = getFavFlag(request, searchSiteSet.id)
         searchs.append(searchSiteDict)
-    return searchs
+    return searchSiteSetList, searchs
 
 
 def getLikeFlag(request, siteid, _flag):
@@ -199,9 +196,9 @@ def getLikeFlag(request, siteid, _flag):
         @returns: True or False boolean
     '''
     if 'usr' in request.COOKIES:
-        return Like.objects.filter(user__username=request.COOKIES['usr'], flag=_flag, website__id=siteid).count() != 0
+        return Like.objects.filter(user__username=request.COOKIES['usr'], flag=_flag, website__pk=siteid).count() != 0
     else:
-        return Like.objects.filter(host=getIP(request), flag=_flag, website__id=siteid).count() != 0
+        return Like.objects.filter(host=getIP(request), flag=_flag, website__pk=siteid).count() != 0
 
 
 def getFavFlag(request, siteid):
@@ -212,12 +209,12 @@ def getFavFlag(request, siteid):
         @returns: True or False boolean
     '''
     if 'usr' in request.COOKIES:
-        return Favorite.objects.filter(user__username=request.COOKIES['usr'], website__id=siteid).count() != 0
+        return Favorite.objects.filter(user__username=request.COOKIES['usr'], website__pk=siteid).count() != 0
     else:
-        return Favorite.objects.filter(host=getIP(request), website__id=siteid).count() != 0
+        return Favorite.objects.filter(host=getIP(request), website__pk=siteid).count() != 0
 
 
-def getCsySite(request, _nav, _num, _flag, _id):
+def getCsySite(request, _nav, _num, _flag, pk, p):
     '''
         @function: get site list for different classify in a certain nav
         @paras:
@@ -227,34 +224,48 @@ def getCsySite(request, _nav, _num, _flag, _id):
         @returns: csysite dict
     '''
     if _flag:
-        csySetList = ClassifyInfo.objects.filter(id=_id, display=True)
+        csySetList = ClassifyInfo.objects.filter(pk=pk, display=True)
     else:
         csySetList = ClassifyInfo.objects.filter(nav__name=string.upper(_nav), display=True).order_by('position')
-    csysite = []
+
+    csySiteSetList = csysite = []
     for csySet in csySetList:
         csyDict = model_to_dict(csySet)
         csySiteSetList = csySet.csysite_set.filter(display=True).order_by('-website__visit')
-        csySiteSetList = csySiteSetList[:_num] if _num else csySiteSetList
+
+        num = _num if _num else 2 * spp
+        csySiteSetList = pages(csySiteSetList, int(p), num)
+
         site = []
-        for csySiteSet in csySiteSetList:
+        for csySiteSet in csySiteSetList.object_list:
             csySiteDict = model_to_dict(csySiteSet)
             csySiteDict['site'] = csySiteSet
             csySiteDict['flike'] = getLikeFlag(request, csySiteSet.website.id, True)
             csySiteDict['ffav'] = getFavFlag(request, csySiteSet.website.id)
             site.append(csySiteDict)
         csyDict['siteSet'] = site
+        csyDict['has_next'] = csySiteSetList.has_next()
         csysite.append(csyDict)
-    return csysite
+
+    return csySiteSetList, csysite
 
 
 def itgps(request, _nav):
-    reDict = {'csysite': getCsySite(request, _nav, spp, 0, '')}
-    return render(request, 'resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
+    pages, csysite = getCsySite(request, _nav, spp, 0, '', 1)
+    return render(
+        request,
+        'resources/itgps/scroll.html',
+        dict(csysite=csysite, **getItgpsDict(request))
+    )
 
 
-def csysite(request, _id):
-    reDict = {'csysite': getCsySite(request, '', '', 1, _id)}
-    return render(request, 'resources/itgps/scroll.html', dict(reDict, **getItgpsDict(request)))
+def csysite(request, pk, p=1):
+    pages, csysite = getCsySite(request, '', '', 1, pk, p)
+    return render(
+        request,
+        'resources/itgps/csy.html',
+        dict(csysite=csysite, pages=pages, next_url='resources:csysite', pk=pk, **getItgpsDict(request))
+    )
 
 
 def visit(request):
@@ -357,7 +368,7 @@ def getSiteInfo(request, siteid):
 
 
 def getSiteRelatedInfo(request, siteid):
-    return WebsiteRelatedInfo.objects.filter(website__id=siteid, display=True)
+    return WebsiteRelatedInfo.objects.filter(website__pk=siteid, display=True)
 
 
 def discuss(request, siteid):
@@ -365,12 +376,16 @@ def discuss(request, siteid):
     return render(request, 'resources/itgps/discuss.html', dict(reDict, **getItgpsDict(request)))
 
 
-def itgpssearch(request):
+def itgpssearch(request, p=1):
     _query = request.GET.get('query', '')
-    search_result = getSearchSite(request, _query)
+    pages, search_result = getSearchSite(request, _query, p)
     if len(search_result):
         reDict = {'searchs': search_result}
-        return render(request, 'resources/itgps/search.html', dict(reDict, **getItgpsDict(request)))
+        return render(
+            request,
+            'resources/itgps/search.html',
+            dict(searchs=search_result, pages=pages, next_url='resources:itgpssearch', **getItgpsDict(request))
+        )
     else:
         return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
 
@@ -382,12 +397,11 @@ def itgpssubmit(request, p=1):
         form = WebSiteSubmitModelForm(request.POST)
         if form.is_valid():
             form.save()
-
     allwsss = WebSiteSubmit.objects.all().order_by('-create_time')
     return render(
         request,
         'resources/itgps/submit.html',
-        dict(form=form, pages=pages(allwsss, int(p)), next_url='resources:itgpssubmit', **getItgpsDict(request))
+        dict(form=form, pages=pages(allwsss, int(p), 2 * spp), next_url='resources:itgpssubmit', **getItgpsDict(request))
     )
 
 
@@ -436,7 +450,7 @@ def apirecord(request, p=1):
             status = True
 
     mineapi = UserApiInfo.objects.filter(user=user, api__display=True).order_by('-create_time')
-    api = pages(mineapi, int(p))
+    api = pages(mineapi, int(p), tpp)
 
     return render(
         request,
@@ -448,7 +462,7 @@ def apirecord(request, p=1):
 @tt_login_required
 def apimine(request, p=1):
     mineapi = UserApiInfo.objects.filter(user=getUI(getUsr(request)), api__display=True).order_by('-create_time')
-    api = pages(mineapi, int(p))
+    api = pages(mineapi, int(p), tpp)
     return render(
         request,
         'resources/api/mine.html',
@@ -458,7 +472,7 @@ def apimine(request, p=1):
 
 def apiall(request, p=1):
     allapi = ApiInfo.objects.filter(display=True).order_by('-create_time')
-    api = pages(allapi, int(p))
+    api = pages(allapi, int(p), tpp)
     return render(
         request,
         'resources/api/all.html',
@@ -470,7 +484,7 @@ def apisearch(request, p=1):
     _query = request.GET.get('query', '')
     searchapi = ApiInfo.objects.filter(Q(api__contains=_query) | Q(func__contains=_query) | Q(tag__contains=_query) | Q(url__contains=_query), display=True).order_by('-create_time')
     if searchapi.count():
-        api = pages(searchapi, int(p))
+        api = pages(searchapi, int(p), tpp)
         return render(
             request,
             'resources/api/search.html',

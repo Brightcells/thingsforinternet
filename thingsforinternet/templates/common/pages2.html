@@ -1,0 +1,37 @@
+{% load staticfiles %}
+
+<div class="pull-right">
+    <div class="pagination text-center">
+        <span class="step-links">
+            <p>{{ pages.start_index }} - {{ pages.end_index }}条， 共{{ pages.paginator.count }}条</p>
+
+            {% ifequal pages.number 1 %}
+                <span class="noclick">首页</span>
+            {% else %}
+                <a href="{% url next_url pk 1 %}{{ query }}">首页</a>
+            {% endifequal %}
+
+            {% if pages.has_previous %}
+                <a href="{% url next_url pk pages.previous_page_number %}{{ query }}">上一页</a>
+            {% else %}
+                <span class="noclick">上一页</span>
+            {% endif %}
+
+            <span class="current">
+                <span class="noclick">{{ pages.number }}/{{ pages.paginator.num_pages }}</span>
+            </span>
+
+            {% if pages.has_next %}
+                <a href="{% url next_url pk pages.next_page_number %}{{ query }}">下一页</a>
+            {% else %}
+                <span class="noclick">下一页</span>
+            {% endif %}
+
+            {% ifequal pages.number pages.paginator.num_pages %}
+                <span class="noclick">尾页</span>
+            {% else %}
+                <a href="{% url next_url pk pages.paginator.num_pages %}{{ query }}">尾页</a>
+            {% endifequal %}
+        </span>
+    </div>
+</div>
