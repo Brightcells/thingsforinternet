@@ -127,10 +127,10 @@ def api_user_check(request):
     _usr = request.POST.get('usr', '')
     try:
         UserInfo.objects.get(username=_usr)
-        msg = 'user_already_exists'
+        status, msg = True, 'user_already_exists'
     except:
-        msg = 'user_not_exists'
-    return HttpResponse(json.dumps(dict(status=False, msg=msg)))
+        status, msg = False, 'user_not_exists'
+    return HttpResponse(json.dumps(dict(status=status, msg=msg)))
 
 
 def member(request, uid=None):

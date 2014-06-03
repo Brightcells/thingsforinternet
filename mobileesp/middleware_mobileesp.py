@@ -1,6 +1,7 @@
 import re
 from mobileesp import mdetect
 
+
 class MobileDetectionMiddleware(object):
     """
     Useful middleware to detect if the user is
@@ -8,9 +9,7 @@ class MobileDetectionMiddleware(object):
     """
 
     def process_request(self, request):
-        is_mobile = False;
-        is_tablet = False;
-        is_phone = False;
+        is_mobile, is_tablet, is_phone = False
 
         user_agent = request.META.get("HTTP_USER_AGENT")
         http_accept = request.META.get("HTTP_ACCEPT")
