@@ -69,6 +69,13 @@ class FavoriteAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
 
+class DIYAdmin(admin.ModelAdmin):
+    list_display = ('user', 'host', 'website', 'create_time', 'modify_time')
+    search_fields = ('user', 'host', 'website')
+    list_filter = ('create_time', 'modify_time')
+    date_hierarchy = 'create_time'
+
+
 class VisitAdmin(admin.ModelAdmin):
     list_display = ('user', 'host', 'website', 'create_time', 'modify_time')
     search_fields = ('user', 'host', 'website')
@@ -113,6 +120,7 @@ admin.site.register(CsySite, CsySiteAdmin)
 admin.site.register(Evaluate, EvaluateAdmin)
 admin.site.register(Like, LikeAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
+admin.site.register(DIY, DIYAdmin)
 admin.site.register(Visit, VisitAdmin)
 admin.site.register(Log, LogAdmin)
 admin.site.register(WebSiteSubmit, WebSiteSubmitAdmin)

@@ -37,6 +37,9 @@ from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiMode
 
 from utils.utils import *
 
+from itertools import chain
+from operator import attrgetter
+
 
 spp = settings.SITE_PER_PAGE
 tpp = settings.TIPS_PER_PAGE
@@ -79,7 +82,7 @@ def resources(request):
 
 def itgpshome(request, p=1):
     """ Function ITGPS's home - A Navigation Site for IT """
-    pages, favs = getFavoriteSite(request, p)
+    pages, favs = getFavoriteDiySite(request, p)
     return render(
         request,
         'resources/itgps/itgps.html',
@@ -88,7 +91,7 @@ def itgpshome(request, p=1):
 
 
 def itgpsfav(request, p=1):
-    pages, favs = getFavoriteSite(request, p)
+    pages, favs = getFavoriteDiySite(request, p)
     return render(
         request,
         'resources/itgps/fav.html',
@@ -96,12 +99,21 @@ def itgpsfav(request, p=1):
     )
 
 
+@tt_login_required
 def itgpsdiy(request):
     form = WebSiteDiyModelForm()
     if request.method == 'POST':
         form = WebSiteDiyModelForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            wsi = form.save(commit=False)
+            wsi.display = False
+            wsi.save()
+            try:
+                _usr, _host = getUsrHost(request)
+                ui = getUI(_usr)
+                DIY.objects.create(website=wsi, user=ui, host=_host)
+            except:
+                pass
             return redirect(reverse('resources:itgpshome'))
     return render(
         request,
@@ -168,23 +180,32 @@ def getLasttestSite(request, p):
     return lastSiteSetList, lasttests
 
 
-def getFavoriteSite(request, p):
-    if not None:
-        favSiteSetList = Favorite.objects.filter(user__username=getUsr(request)).order_by('-website__visit')
+def getFavoriteDiySite(request, p):
+    _usr = getUsr(request)
+    if _usr:
+        favSiteSetList = Favorite.objects.filter(user__username=_usr).order_by('-website__visit')
+        diySiteSetList = DIY.objects.filter(user__username=_usr).order_by('-website__visit')
     else:
         favSiteSetList = Favorite.objects.filter(host=getIP(request)).order_by('-website__visit')
+        diySiteSetList = DIY.objects.filter(host=getIP(request)).order_by('-website__visit')
 
-    favSiteSetList = pages(favSiteSetList, int(p), 2 * spp)
+    combineSiteSetList = sorted(
+        chain(favSiteSetList, diySiteSetList),
+        key=attrgetter('website.visit'),
+        reverse=True
+    )
 
-    favsites = []
-    for favSiteSet in favSiteSetList.object_list:
-        favSiteDict = model_to_dict(favSiteSet)
-        favSiteDict['site'] = favSiteSet
-        favSiteDict['flike'] = getLikeFlag(request, favSiteSet.website.id, True)
-        favSiteDict['ffav'] = getFavFlag(request, favSiteSet.website.id)
-        favsites.append(favSiteDict)
+    combineSiteSetList = pages(combineSiteSetList, int(p), 2 * spp)
 
-    return favSiteSetList, favsites
+    comblines = []
+    for combineSiteSet in combineSiteSetList.object_list:
+        combineSiteDict = model_to_dict(combineSiteSet)
+        combineSiteDict['site'] = combineSiteSet
+        combineSiteDict['flike'] = getLikeFlag(request, combineSiteSet.website.id, True)
+        combineSiteDict['ffav'] = getFavFlag(request, combineSiteSet.website.id)
+        comblines.append(combineSiteDict)
+
+    return combineSiteSetList, comblines
 
 
 def getSearchSite(request, _query, p):

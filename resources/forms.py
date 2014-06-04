@@ -32,6 +32,22 @@ class WebSiteDiyModelForm(ModelForm):
             ),
         }
 
+    def clean_url(self):
+        url = self.cleaned_data['url']
+        if not url:
+            raise forms.ValidationError(_('The url is needed'))
+        if 'http' not in url:
+            raise forms.ValidationError(_('The url should starts with http(s)'))
+        return url
+
+    def clean_logo(self):
+        logo = self.cleaned_data['logo']
+        if not logo:
+            raise forms.ValidationError(_('The logo is needed'))
+        if logo.size > 50000:
+            raise forms.ValidationError(_('The logo is too big'))
+        return logo
+
 
 class WebSiteSubmitModelForm(ModelForm):
     class Meta:

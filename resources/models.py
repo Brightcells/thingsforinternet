@@ -186,6 +186,22 @@ class Favorite(models.Model):
         return unicode(self.id)
 
 
+# DIY 记录表
+class DIY(models.Model):
+    user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
+    host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'收藏 IP')
+    website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='diy_website', help_text=u'网站')
+    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
+    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
+
+    class Meta:
+        verbose_name = _(u'diy')
+        verbose_name_plural = _(u'diy')
+
+    def __unicode__(self):
+        return unicode(self.id)
+
+
 # 访问记录表
 class Visit(models.Model):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True)  # 用户
