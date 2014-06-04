@@ -1,0 +1,44 @@
+{% extends "resources/itgps/base_itgps.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>自定义网站 (DIY) -- 技术网站导航 (ITGPS) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="sl-hero-unit">
+                    <div class="divCenter">
+                        <form class="form-horizontal text-center" action="{% url 'resources:itgpsdiy' %}" method='post' enctype='multipart/form-data'>
+                            <div class="control-group">
+                                <span class="errorlist text-left">
+                                    {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                                </span>
+                            </div>
+
+                            <div class="control-group">{{ form.url }}</div>
+
+                            <div class="control-group">{{ form.name }}</div>
+
+                            <div class="control-group">{{ form.logo }}</div>
+
+                            <div class="control-group">{{ form.descr }}</div>
+
+                            <div class="control-group">{{ form.tag }}</div>
+
+                            <div class="control-group">
+                                <button type="submit" class="btn">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block script %}{% endblock %}

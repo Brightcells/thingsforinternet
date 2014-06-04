@@ -33,7 +33,7 @@ from django.shortcuts import render, redirect
 from accounts.models import UserInfo
 from resources.decorators import tt_login_required
 from resources.models import *
-from resources.forms import WebSiteSubmitModelForm, ApiModelForm
+from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiModelForm
 
 from utils.utils import *
 
@@ -93,6 +93,20 @@ def itgpsfav(request, p=1):
         request,
         'resources/itgps/fav.html',
         dict(favs=favs, pages=pages, next_url='resources:itgpsfav', **getItgpsDict(request))
+    )
+
+
+def itgpsdiy(request):
+    form = WebSiteDiyModelForm()
+    if request.method == 'POST':
+        form = WebSiteDiyModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('resources:itgpshome'))
+    return render(
+        request,
+        'resources/itgps/diy.html',
+        dict(form=form, **getItgpsDict(request))
     )
 
 
@@ -391,9 +405,8 @@ def itgpssearch(request, p=1):
 
 
 def itgpssubmit(request, p=1):
-    if request.method == 'GET':
-        form = WebSiteSubmitModelForm()
-    else:
+    form = WebSiteSubmitModelForm()
+    if request.method == 'POST':
         form = WebSiteSubmitModelForm(request.POST)
         if form.is_valid():
             form.save()
@@ -426,9 +439,8 @@ def apirecord(request, p=1):
     status = False
     user = getUI(getUsr(request))
 
-    if request.method == 'GET':
-        form = ApiModelForm()
-    else:
+    form = ApiModelForm()
+    if request.method == 'POST':
         form = ApiModelForm(request.POST, request=request)
         if form.is_valid():
             cleaned_data = form.cleaned_data

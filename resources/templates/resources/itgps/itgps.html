@@ -11,6 +11,7 @@
     <div class="scrolltitlestyle">
         <h2 class="red">收藏站点</h2>
         {% if pages.has_next %}<a class="more" href="{% url 'resources:itgpsfav' 2 %}">更多</a>{% endif %}
+        <a class="more" href="{% url 'resources:itgpsdiy' %}">自定义</a>
     </div>
     <div class="block-hero-unit">
         <div class="row-fluid">
