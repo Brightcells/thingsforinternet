@@ -2,7 +2,7 @@
 
 from django import forms
 from django.forms import Form, ModelForm, CharField, ModelChoiceField
-from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput
+from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput, URLInput, CheckboxInput
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import UserInfo
@@ -106,6 +106,12 @@ class SettingsUserInfoModelForm(ModelForm):
         widgets = {
             'username': TextInput(
                 attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'readonly': 'true', 'placeholder': _('Username')}
+            ),
+            'login_page': URLInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Login Page')}
+            ),
+            'display_bg': CheckboxInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Display Background')}
             ),
             'email': TextInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('Email')}

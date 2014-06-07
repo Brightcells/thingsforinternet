@@ -63,15 +63,21 @@ def pages(setlist, p, num):
 
 
 def getResourcesDict(request):
-    return {'backlinks': RESOURCESBACKLINKS, 'lists': getFunc(request, 'resources'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': RESOURCESBACKLINKS, 'lists': getFunc(request, 'resources'), 'usr': usr, 'display_bg': display_bg}
 
 
 def getItgpsDict(request):
-    return {'backlinks': ITGPSBACKLINKS, 'lists': getNav(request, 'itgps'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': ITGPSBACKLINKS, 'lists': getNav(request, 'itgps'), 'usr': usr, 'display_bg': display_bg}
 
 
 def getApiDict(request):
-    return {'backlinks': APIBACKLINKS, 'lists': getNav(request, 'api'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': APIBACKLINKS, 'lists': getNav(request, 'api'), 'usr': usr, 'display_bg': display_bg}
 
 
 def resources(request):

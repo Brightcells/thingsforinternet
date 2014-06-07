@@ -90,10 +90,13 @@ def login(request):
             response.set_cookie('usr', smart_str(form.cleaned_data['username']))
             return response
 
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+
     return render(
         request,
         'accounts/login.html',
-        dict(backlinks=BACKLINKS, form=form, next=next_url)
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg)
     )
 
 
@@ -109,10 +112,13 @@ def signup(request):
             response.set_cookie('usr', smart_str(form.cleaned_data['username']))
             return response
 
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+
     return render(
         request,
         'accounts/signup.html',
-        dict(backlinks=BACKLINKS, form=form, next=next_url)
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg)
     )
 
 
@@ -137,22 +143,24 @@ def member(request, uid=None):
     if uid:
         try:
             ui = UserInfo.objects.get(pk=uid)
+            userinfo, display_bg = ui.data, ui.display_bg
         except:
-            ui = None
+            usr = ui = userinfo = None
+            display_bg = True
     else:
-        usr = getUsr(request)
-        ui = getUI(usr)
+        usr, ui = getUsrUI(request)
+        userinfo, display_bg = ui.data, ui.display_bg
 
     return render(
         request,
         'accounts/member.html',
-        dict(backlinks=BACKLINKS, usr=usr, userinfo=ui.data, lists=getApp(request))
+        dict(backlinks=BACKLINKS, usr=usr, userinfo=userinfo, lists=getApp(request), display_bg=display_bg)
     )
 
 
 def settings(request):
-    usr = getUsr(request)
-    ui = getUI(usr)
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
 
     form = SettingsUserInfoModelForm(initial=ui.data)
 
@@ -164,5 +172,5 @@ def settings(request):
     return render(
         request,
         'accounts/settings.html',
-        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request))
+        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request), display_bg=display_bg)
     )

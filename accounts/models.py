@@ -6,20 +6,22 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 
 # 用户注册信息表
 class UserInfo(models.Model):
-    username = models.CharField(_(u'username'), max_length=255, blank=True, null=True)  # 用户名称
-    password = models.CharField(_(u'password'), max_length=255, blank=True, null=True)  # 用户密码
-    email = models.EmailField(_(u'email'), max_length=255, blank=True, null=True)  # 用户邮箱
-    company = models.EmailField(_(u'company'), max_length=255, blank=True, null=True)  # 用户所在公司
-    github = models.CharField(_(u'github'), max_length=255, blank=True, null=True)  # 用户 Github
-    sof = models.CharField(_(u'stackoverflow'), max_length=255, blank=True, null=True)  # 用户 stackoverflow
-    weibo = models.CharField(_(u'weibo'), max_length=255, blank=True, null=True)  # 用户 weibo
-    rren = models.CharField(_(u'renren'), max_length=255, blank=True, null=True)  # 用户 renren
-    v2ex = models.CharField(_(u'v2ex'), max_length=255, blank=True, null=True)  # 用户 v2ex
-    blog = models.CharField(_(u'blog'), max_length=255, blank=True, null=True)  # 用户 blog
-    btc = models.CharField(_(u'btc'), max_length=255, blank=True, null=True)  # 用户 btc address
-    freeze = models.BooleanField(_('freeze'), default=False)  # 用户是否被冻结 True for freeze && False for not freeze
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True)  # 用户注册时间
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True)  # 用户修改时间
+    username = models.CharField(_(u'username'), max_length=255, blank=True, null=True, help_text='用户名')
+    password = models.CharField(_(u'password'), max_length=255, blank=True, null=True, help_text='密码')
+    email = models.EmailField(_(u'email'), max_length=255, blank=True, null=True, help_text='邮箱')
+    login_page = models.URLField(_(u'login_page'), max_length=255, blank=True, null=True, help_text='登录首页')
+    display_bg = models.BooleanField(_('display_bg'), default=True, help_text='是否显示背景图')
+    company = models.CharField(_(u'company'), max_length=255, blank=True, null=True, help_text='所在公司')
+    github = models.CharField(_(u'github'), max_length=255, blank=True, null=True, help_text='Github')
+    sof = models.CharField(_(u'stackoverflow'), max_length=255, blank=True, null=True, help_text='StackOverflow')
+    weibo = models.CharField(_(u'weibo'), max_length=255, blank=True, null=True, help_text='Weibo')
+    rren = models.CharField(_(u'renren'), max_length=255, blank=True, null=True, help_text='Renren')
+    v2ex = models.CharField(_(u'v2ex'), max_length=255, blank=True, null=True, help_text='v2ex')
+    blog = models.CharField(_(u'blog'), max_length=255, blank=True, null=True, help_text='Blog')
+    btc = models.CharField(_(u'btc'), max_length=255, blank=True, null=True, help_text='btc address')
+    freeze = models.BooleanField(_('freeze'), default=False, help_text='是否被冻结 True for freeze && False for not freeze')
+    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text='注册时间')
+    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text='修改时间')
 
     class Meta:
         db_table = u'userinfo'

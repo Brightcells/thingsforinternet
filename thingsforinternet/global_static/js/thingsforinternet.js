@@ -136,8 +136,6 @@ var m = new Menu(document.getElementsByTagName('menuNav')[0], {
     radius : 130
 });
 
-//var flag = false,
-    // ftime = 0,
 var jsidr = false;
 /*
  * ########## ########## ########## ########## ########## ########## ##########
@@ -174,24 +172,6 @@ function close_sidr() {
     }
 }
 
-/* 双击 Ctrl */
-/*document.onkeydown = function(event) {
-    if (event.ctrlKey) {
-        if (flag) {
-            ttime = new Date().getTime();
-            if (ttime-ftime<500) {
-                flag = false;
-                open_close_sidr();
-            } else {
-                ftime = ttime;
-            }
-        } else {
-            flag = true;
-            ftime = new Date().getTime();
-        }
-    }
-}*/
-
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
@@ -201,6 +181,6 @@ function close_sidr() {
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
-var path = '/static/img/background/',
+/*var path = '/static/img/background/',
     res = [ path+'background.jpg', ];
-_bg(0, res, 10000); 
+_bg(0, res, 10000);*/

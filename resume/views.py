@@ -57,11 +57,15 @@ def pages(setlist, p):
 
 
 def getResumeDict(request):
-    return {'backlinks': RESUMEBACKLINKS, 'lists': getFunc(request, 'resume'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': RESUMEBACKLINKS, 'lists': getFunc(request, 'resume'), 'usr': usr, 'display_bg': display_bg}
 
 
 def getResume2Dict(request):
-    return {'backlinks': RESUME2BACKLINKS, 'lists': getNav(request, 'resume2'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': RESUME2BACKLINKS, 'lists': getNav(request, 'resume2'), 'usr': usr, 'display_bg': display_bg}
 
 
 def resume(request):

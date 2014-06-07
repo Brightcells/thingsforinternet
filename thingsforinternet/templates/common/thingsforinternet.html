@@ -192,6 +192,12 @@
                 }
             })();
 
+            {% if display_bg %}
+            var path = '/static/img/background/',
+                 res = [ path+'background.jpg', ];
+            _bg(0, res, 10000);
+            {% endif %}
+
             function discuss(url){
                 /*location.replace(url);*/
                 location.href=url;

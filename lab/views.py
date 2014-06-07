@@ -53,11 +53,15 @@ pinnimeibacklinks = labbacklinks + [{'name': 'Pinnimei', 'url': 'lab:pinnimei', 
 
 
 def getLabDict(request):
-    return {'backlinks': labbacklinks, 'lists': getFunc(request, 'lab'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': labbacklinks, 'lists': getFunc(request, 'lab'), 'usr': usr, 'display_bg': display_bg}
 
 
 def getPinnimeiDict(request):
-    return {'backlinks': pinnimeibacklinks, 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': pinnimeibacklinks, 'usr': usr, 'display_bg': display_bg}
 
 
 def lab(request):

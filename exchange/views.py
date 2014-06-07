@@ -56,11 +56,15 @@ def pages(setlist, p):
 
 
 def getResourcesDict(request):
-    return {'backlinks': EXCHANGEBACKLINKS, 'lists': getFunc(request, 'exchange'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': EXCHANGEBACKLINKS, 'lists': getFunc(request, 'exchange'), 'usr': usr, 'display_bg': display_bg}
 
 
 def getTipsDict(request):
-    return {'backlinks': TIPSBACKLINKS, 'lists': getNav(request, 'tips'), 'usr': getUsr(request)}
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': TIPSBACKLINKS, 'lists': getNav(request, 'tips'), 'usr': usr, 'display_bg': display_bg}
 
 
 def exchange(request):

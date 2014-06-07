@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
 
-###
-# ErrorCode: 200***, for likeSite
-#     {'errorCode': 200200, 'errorString': 'Like/Unlike the site success'}
-#     {'errorCode': 200201, 'errorString': 'You have already like/unlike the site, don\'t hesitate'}
-#     {'errorCode': 200202, 'errorString': 'Cancel like/unlike the site success'}
-# ErrorCode: 300***, for Favorite
-#     {'errorCode': 300200, 'errorString': 'Favorite the site success'}
-#     {'errorCode': 300201, 'errorString': 'The parm of siteid not transmitted success'}
-#     {'errorCode': 300202, 'errorString': 'Cancel favorite the site success'}
-# ErrorCode: 400***, for Visit
-#     {'errorCode': 400200, 'errorString': 'Record the visit success'}
-#     {'errorCode': 400201, 'errorString': 'Record the visit failure'}
-###
+"""
+Copyright (c) 2014 Qimin Huang <kimi.huang@brightcells.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""
 
 from django.contrib.auth.models import User
 from django.core import serializers
@@ -34,18 +43,6 @@ import random
 import string
 import hashlib
 import requests
-
-
-errorCodeDict = {
-    'like_unlike_success': {'errorCode': 200200, 'errorString': 'Like/Unlike the site success'},
-    'already_like_unlike': {'errorCode': 200201, 'errorString': 'You have already like/unlike the site, don\'t hesitate'},
-    'cancel_like_unlike_success': {'errorCode': 200202, 'errorString': 'Cancel like/unlike the site success'},
-    'favorite_site_success': {'errorCode': 300200, 'errorString': 'Favorite the site success'},
-    'site_id_not_exists': {'errorCode': 300201, 'errorString': 'The parm of siteid not transmitted success'},
-    'cancel_favorite_success': {'errorCode': 300202, 'errorString': 'Cancel favorite the site success'},
-    'record_visit_success': {'errorCode': 400200, 'errorString': 'Record the visit success'},
-    'record_visit_fail': {'errorCode': 400201, 'errorString': 'Record the visit failure'},
-}
 
 
 def getUsr(request):
@@ -76,7 +73,8 @@ def getUsrUI(request):
         @paras:
         @returns: (usr, ui) tuple
     '''
-    return usr, getUI(getUsr(request)) if usr else usr, None
+    usr = getUsr(request)
+    return (usr, getUI(usr)) if usr else (usr, None)
 
 
 def getIP(request):
@@ -131,12 +129,3 @@ def getNav(request, _func):
         @returns: nav dict query set
     '''
     return NavInfo.objects.filter(func__name=string.upper(_func), display=True).order_by('position')
-
-
-def getErrorCode(_key):
-    '''
-        @function: general control error code, return error code by key
-        @paras: _key
-        @returns: error code dict
-    '''
-    return errorCodeDict[_key]

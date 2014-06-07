@@ -180,6 +180,6 @@ Hammer(element).on("dragleft", function(event) {
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
-var path = '/static/img/background/',
+/*var path = '/static/img/background/',
     res = [ path+'background.jpg', ];
-_bg(0, res, 10000); 
+_bg(0, res, 10000);*/ 
