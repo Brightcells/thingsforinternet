@@ -128,14 +128,17 @@ def resume2edit(request):
 
 def resume2discuss(request, uid):
     try:
-        mineresume = ResumeInfo.objects.get(user__pk=uid, display=True).data
+        resume = ResumeInfo.objects.get(user__pk=uid, display=True)
     except:
-        mineresume = {}
+        resume = None
+
+    userinfo = resume.user.data if resume else None
+    resume = resume.data if resume else {}
 
     return render(
         request,
         'resume/resume2/discuss.html',
-        dict(resume=mineresume, userinfo=getUI(getUsr(request)), **getResume2Dict(request))
+        dict(resume=resume, userinfo=userinfo, **getResume2Dict(request))
     )
 
 
