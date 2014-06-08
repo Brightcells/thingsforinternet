@@ -36,6 +36,8 @@ class UserInfo(models.Model):
             'pk': self.pk,
             'username': self.username,
             'email': self.email,
+            'login_page': self.login_page,
+            'display_bg': self.display_bg,
             'company': self.company,
             'github': self.github,
             'sof': self.sof,
