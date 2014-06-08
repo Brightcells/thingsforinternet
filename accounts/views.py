@@ -149,7 +149,7 @@ def member(request, uid=None):
             display_bg = True
     else:
         usr, ui = getUsrUI(request)
-        userinfo, display_bg = ui.data, ui.display_bg
+        userinfo, display_bg = (ui.data, ui.display_bg) if ui else (None, None)
 
     return render(
         request,
