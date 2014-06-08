@@ -115,10 +115,6 @@ $(document).ready(function() {
     $('#simple-menu').sidr();
 });
 
-var m = new Menu(document.getElementsByTagName('menuNav')[0], {
-    radius : 130
-});
-
 var flag = false,
     ftime = 0,
     jsidr = false;
