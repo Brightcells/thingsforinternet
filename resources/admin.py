@@ -32,6 +32,7 @@ class WebsiteRelatedInfoAdmin(admin.ModelAdmin):
     search_fields = ('name', 'url', 'descr', 'srcode')
     list_filter = ('display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
+    raw_id_fields = ('website', )
 
 
 class TagInfoAdmin(admin.ModelAdmin):
@@ -46,6 +47,7 @@ class CsySiteAdmin(admin.ModelAdmin):
     search_fields = ('classify__name', 'website__url')
     list_filter = ('display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
+    raw_id_fields = ('classify', )
 
 
 class EvaluateAdmin(admin.ModelAdmin):
