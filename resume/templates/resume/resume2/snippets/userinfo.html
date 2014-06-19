@@ -1,10 +1,9 @@
 {% load staticfiles %}
 
-<div><strong><em>Github:</em></strong><span> {{ userinfo.github }}</span></div>
-<div><strong><em>StackOverflow:</em></strong><span> {{ userinfo.sof }}</span></div>
-<div><strong><em>Weibo:</em></strong><span> {{ userinfo.weibo }}</span></div>
-<div><strong><em>RenRen:</em></strong><span> {{ userinfo.rren }}</span></div>
-<div><strong><em>V2EX:</em></strong><span> {{ userinfo.v2ex }}</span></div>
-<div><strong><em>Github:</em></strong><span> {{ userinfo.github }}</span></div>
-<div><strong><em>Blog:</em></strong><span> {{ userinfo.blog }}</span></div>
-<div><strong><em>BTC:</em></strong><span> {{ userinfo.btc }}</span></div>
+<div><strong><em>Github:</em></strong><span><a href="https://github.com/{{ userinfo.github }}" target="_blank"> {{ userinfo.github|default:'' }} </a></span></div>
+<div><strong><em>StackOverflow:</em></strong><span><a href="http://stackoverflow.com/users/{{ userinfo.sof }}" target="_blank"> {{ userinfo.sof|default:'' }} </a></span></div>
+<div><strong><em>Weibo:</em></strong><span> {{ userinfo.weibo|default:'' }}</span></div>
+<div><strong><em>RenRen:</em></strong><span> {{ userinfo.rren|default:'' }}</span></div>
+<div><strong><em>V2EX:</em></strong><span><a href="http://www.v2ex.com/member/{{ userinfo.v2ex }}" target="_blank"> {{ userinfo.v2ex|default:'' }} </a></span></div>
+<div><strong><em>Blog:</em></strong><span> {{ userinfo.blog|default:'' }}</span></div>
+<div><strong><em>BTC:</em></strong><span> {{ userinfo.btc|default:'' }}</span></div>
