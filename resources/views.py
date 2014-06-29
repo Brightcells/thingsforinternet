@@ -422,7 +422,7 @@ def itgpssearch(request, p=1):
         return render(
             request,
             'resources/itgps/search.html',
-            dict(searchs=search_result, pages=pages, next_url='resources:itgpssearch', **getItgpsDict(request))
+            dict(searchs=search_result, pages=pages, next_url='resources:itgpssearch', query='?query=' + _query, **getItgpsDict(request))
         )
     else:
         return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
