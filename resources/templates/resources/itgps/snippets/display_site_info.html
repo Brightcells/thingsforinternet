@@ -6,24 +6,23 @@
 {% endif %}
 <div class="span3 img-desc" onmouseover="mouseOn(event, this, 0)" onmouseout="mouseOut(event, this, 0)">
     <p class="text-center">
-        <a href="{{ site.site.website.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.site.website.pk }}');">
-            <img src="{{ site.site.website.logo.url }}" class="img img-well img-polaroid img-hover animated tada"
-            style="background-color: #4EB3B9" title="{{ site.site.website.descr }}"></a>
+        <a href="{{ site.website.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.website.pk }}');">
+            <img src="{{ site.website.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.website.descr }}"></a>
         <div class="cite">
-            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.site.website.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i></div>
+            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-fullscreen icon-white"></i></div>
 
             {% if site.ffav %}
-                <div class="span3"><i id="{{ site.site.website.pk }}" class="icon-bookmark"></i><span>{{ site.site.website.fav }}</span></div>
+                <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark"></i><span>{{ site.website.fav }}</span></div>
             {% else %}
-                <div class="span3"><i id="{{ site.site.website.pk }}" class="icon-bookmark icon-white"></i><span>{{ site.site.website.fav }}</span></div>
+                <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark icon-white"></i><span>{{ site.website.fav }}</span></div>
             {% endif %}
 
-            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.site.website.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-eye-open icon-white"></i><span>{{ site.site.website.visit }}</span></div>
+            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-eye-open icon-white"></i><span>{{ site.website.visit }}</span></div>
 
             {% if site.flike %}
-                <div class="span3"><i id="{{ site.site.website.pk }}" class="icon-thumbs-up"></i><span>{{ site.site.website.like }}</span></div>
+                <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up"></i><span>{{ site.website.like }}</span></div>
             {% else %}
-                <div class="span3"><i id="{{ site.site.website.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ site.site.website.like }}</span></div>
+                <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ site.website.like }}</span></div>
             {% endif %}
         </div>
     </p>

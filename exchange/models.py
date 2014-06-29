@@ -12,16 +12,16 @@ from utils.utils import *
 
 # 知识便签
 class Tips(CreateUpdateMixin):
-    tips = models.TextField(_(u'tips'), blank=True, null=True)  # 知识便签 名称
-    tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True)  # 知识便签 标签
-    url = models.URLField(_(u'url'), max_length=255, blank=True, null=True)  # 知识便签 网址
-    author = models.ForeignKey(UserInfo, verbose_name=_(u'author'), blank=True, null=True)  # API 创建者
-    visit = models.IntegerField(_(u'visit'), default=0)  # 知识便签 访问数
-    evaluate = models.IntegerField(_(u'evaluate'), default=0)  # 知识便签 评价数
-    like = models.IntegerField(_(u'like'), default=0)  # 知识便签 点赞数
-    unlike = models.IntegerField(_(u'unlike'), default=0)  # 知识便签 被踩数
-    follow = models.IntegerField(_(u'follow'), default=0)  # 知识便签 关注数
-    display = models.BooleanField(_('display'), default=True)  # 知识便签 是否显示 True for display && False for not
+    tips = models.TextField(_(u'tips'), blank=True, null=True, help_text=u'知识便签 名称')
+    tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'知识便签 标签')
+    url = models.URLField(_(u'url'), max_length=255, blank=True, null=True, help_text=u'知识便签 网址')
+    author = models.ForeignKey(UserInfo, verbose_name=_(u'author'), blank=True, null=True, help_text=u'API 创建者')
+    visit = models.IntegerField(_(u'visit'), default=0, help_text=u'知识便签 访问数')
+    evaluate = models.IntegerField(_(u'evaluate'), default=0, help_text=u'知识便签 评价数')
+    like = models.IntegerField(_(u'like'), default=0, help_text=u'知识便签 点赞数')
+    unlike = models.IntegerField(_(u'unlike'), default=0, help_text=u'知识便签 被踩数')
+    follow = models.IntegerField(_(u'follow'), default=0, help_text=u'知识便签 关注数')
+    display = models.BooleanField(_('display'), default=True, help_text=u'知识便签 是否显示 True for display && False for not')
 
     class Meta:
         db_table = u'tips'
@@ -44,9 +44,9 @@ class Tips(CreateUpdateMixin):
 
 # 用户 - 知识便签
 class UserTips(CreateUpdateMixin):
-    tips = models.ForeignKey(Tips, verbose_name=_(u'tips'), blank=True, null=True)  # 知识便签
-    user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True)  # 用户
-    status = models.BooleanField(_('status'), default=True)  # 知识便签 是否为自己创建 True for create && False for follow
+    tips = models.ForeignKey(Tips, verbose_name=_(u'tips'), blank=True, null=True, help_text=u'知识便签')
+    user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
+    status = models.BooleanField(_('status'), default=True, help_text=u'知识便签 是否为自己创建 True for create && False for follow')
 
     class Meta:
         db_table = u'usertips'

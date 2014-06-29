@@ -2,24 +2,23 @@
 
 <div class="span3 img-desc" onmouseover="mouseOn(event, this, 0)" onmouseout="mouseOut(event, this, 0)">
     <p class="text-center">
-        <a href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.id }}');">
-            <img src="{{ site.logo.url }}" class="img img-well img-polaroid img-hover animated tada"
-            style="background-color: #4EB3B9" title="{{ site.descr }}"></a>
+        <a href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.pk }}');">
+            <img src="{{ site.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.descr }}"></a>
         <div class="cite">
-             <div class="span3" onclick="discuss('{% url 'resources:discuss' site.id %}')"><i id="{{ site.id }}" class="icon-fullscreen icon-white"></i></div>
+             <div class="span3" onclick="discuss('{% url 'resources:discuss' site.pk %}')"><i id="{{ site.pk }}" class="icon-fullscreen icon-white"></i></div>
 
             {% if site.ffav %}
-                <div class="span3"><i id="{{ site.id }}" class="icon-bookmark"></i><span>{{ site.fav }}</span></div>
+                <div class="span3"><i id="{{ site.pk }}" class="icon-bookmark"></i><span>{{ site.fav }}</span></div>
             {% else %}
-                <div class="span3"><i id="{{ site.id }}" class="icon-bookmark icon-white"></i><span>{{ site.fav }}</span></div>
+                <div class="span3"><i id="{{ site.pk }}" class="icon-bookmark icon-white"></i><span>{{ site.fav }}</span></div>
             {% endif %}
 
-            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.id %}')"><i id="{{ site.id }}" class="icon-eye-open icon-white"></i><span>{{ site.visit }}</span></div>
+            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.pk %}')"><i id="{{ site.pk }}" class="icon-eye-open icon-white"></i><span>{{ site.visit }}</span></div>
 
             {% if site.flike %}
-                <div class="span3"><i id="{{ site.id }}" class="icon-thumbs-up"></i><span>{{ site.like }}</span></div>
+                <div class="span3"><i id="{{ site.pk }}" class="icon-thumbs-up"></i><span>{{ site.like }}</span></div>
             {% else %}
-                <div class="span3"><i id="{{ site.id }}" class="icon-thumbs-up icon-white"></i><span>{{ site.like }}</span></div>
+                <div class="span3"><i id="{{ site.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ site.like }}</span></div>
             {% endif %}
         </div>
     </p>

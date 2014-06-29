@@ -26,7 +26,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -163,7 +162,7 @@ def getHottestSite(request, p):
 
     hottests = []
     for hotSiteSet in hotSiteSetList.object_list:
-        hotSiteDict = model_to_dict(hotSiteSet)
+        hotSiteDict = hotSiteSet.data
         hotSiteDict['flike'] = getLikeFlag(request, hotSiteSet.id, True)
         hotSiteDict['ffav'] = getFavFlag(request, hotSiteSet.id)
         hottests.append(hotSiteDict)
@@ -178,7 +177,7 @@ def getLasttestSite(request, p):
 
     lasttests = []
     for lastSiteSet in lastSiteSetList.object_list:
-        lastSiteDict = model_to_dict(lastSiteSet)
+        lastSiteDict = lastSiteSet.data
         lastSiteDict['flike'] = getLikeFlag(request, lastSiteSet.id, True)
         lastSiteDict['ffav'] = getFavFlag(request, lastSiteSet.id)
         lasttests.append(lastSiteDict)
@@ -205,8 +204,7 @@ def getFavoriteDiySite(request, p):
 
     comblines = []
     for combineSiteSet in combineSiteSetList.object_list:
-        combineSiteDict = model_to_dict(combineSiteSet)
-        combineSiteDict['site'] = combineSiteSet
+        combineSiteDict = combineSiteSet.data
         combineSiteDict['flike'] = getLikeFlag(request, combineSiteSet.website.id, True)
         combineSiteDict['ffav'] = getFavFlag(request, combineSiteSet.website.id)
         comblines.append(combineSiteDict)
@@ -221,7 +219,7 @@ def getSearchSite(request, _query, p):
 
     searchs = []
     for searchSiteSet in searchSiteSetList.object_list:
-        searchSiteDict = model_to_dict(searchSiteSet)
+        searchSiteDict = searchSiteSet.data
         searchSiteDict['flike'] = getLikeFlag(request, searchSiteSet.id, True)
         searchSiteDict['ffav'] = getFavFlag(request, searchSiteSet.id)
         searchs.append(searchSiteDict)
@@ -271,7 +269,7 @@ def getCsySite(request, _nav, _num, _flag, pk, p):
 
     csySiteSetList = csysite = []
     for csySet in csySetList:
-        csyDict = model_to_dict(csySet)
+        csyDict = csySet.data
         csySiteSetList = csySet.csysite_set.filter(display=True).order_by('-website__visit')
 
         num = _num if _num else 2 * spp
@@ -279,8 +277,7 @@ def getCsySite(request, _nav, _num, _flag, pk, p):
 
         site = []
         for csySiteSet in csySiteSetList.object_list:
-            csySiteDict = model_to_dict(csySiteSet)
-            csySiteDict['site'] = csySiteSet
+            csySiteDict =  csySiteSet.data
             csySiteDict['flike'] = getLikeFlag(request, csySiteSet.website.id, True)
             csySiteDict['ffav'] = getFavFlag(request, csySiteSet.website.id)
             site.append(csySiteDict)
@@ -401,7 +398,7 @@ def getSiteInfo(request, siteid):
     siteSetList = WebSiteInfo.objects.filter(id=siteid, display=True)
     sites = []
     for siteSet in siteSetList:
-        siteSetDict = model_to_dict(siteSet)
+        siteSetDict = siteSet.data
         siteSetDict['flike'] = getLikeFlag(request, siteSet.id, True)
         siteSetDict['ffav'] = getFavFlag(request, siteSet.id)
         sites.append(siteSetDict)
