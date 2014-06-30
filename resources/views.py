@@ -277,7 +277,7 @@ def getCsySite(request, _nav, _num, _flag, pk, p):
 
         site = []
         for csySiteSet in csySiteSetList.object_list:
-            csySiteDict =  csySiteSet.data
+            csySiteDict = csySiteSet.data
             csySiteDict['flike'] = getLikeFlag(request, csySiteSet.website.id, True)
             csySiteDict['ffav'] = getFavFlag(request, csySiteSet.website.id)
             site.append(csySiteDict)
