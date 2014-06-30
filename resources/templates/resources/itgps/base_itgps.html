@@ -29,13 +29,13 @@
         $(document).ready(function(){
             $('.icon-thumbs-up').click(function(){
                 var url = "{% url 'resources:like' %}";
-                var data = {siteid:this.id};
+                var data = {siteid: this.id};
                 myLikeFavAjax(this, $(this).next(), url, data);
             });
 
             $('.icon-bookmark').click(function(){
                 var url = "{% url 'resources:favorite' %}";
-                var data = {siteid:this.id};
+                var data = {siteid: this.id};
                 myLikeFavAjax(this, $(this).next(), url, data);
             });
         });

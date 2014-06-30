@@ -11,7 +11,7 @@
     {% for csy in csysite %}
         <div class="scrolltitlestyle">
             <h2 class="red">{{ csy.title }}</h2>
-            {% if csy.has_next %}<a class="more" href="{% url 'resources:csysite' csy.id %}">更多</a>{% endif %}
+            {% if csy.has_next %}<a class="more" href="{% url 'resources:csysite' csy.pk %}">更多</a>{% endif %}
         </div>
         <div class="block-hero-unit">
             <div class="row-fluid">
