@@ -22,6 +22,6 @@
     </div>
 {% endblock %}
 
-{% block paginator %}{% include "common/pages.html" %}{% endblock %}
+{% block paginator %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
 
 {% block script %}{% endblock %}
