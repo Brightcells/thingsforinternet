@@ -27,7 +27,7 @@ urlpatterns = patterns('resources.views',
     url(r'^discuss/(?P<siteid>\d+)/$', 'discuss', name='discuss'),
     url(r'^like$', 'like', name='like'),
     url(r'^itgps/search$', 'itgpssearch', name='itgpssearch'),
-    url(r'^itgps/search/(?P<_nav>\w+)/$', 'itgpssearch', name='itgpssearch'),
+    url(r'^itgps/search/(?P<p>\d+)/$', 'itgpssearch', name='itgpssearch'),
     url(r'^itgps/submit$', 'itgpssubmit', name='itgpssubmit'),
     url(r'^itgps/submit/(?P<p>\d+)/$', 'itgpssubmit', name='itgpssubmit'),
 
