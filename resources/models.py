@@ -96,6 +96,7 @@ class WebSiteInfo(models.Model):
         return {
             'pk': self.pk,
             'url': self.url,
+            'name': self.name,
             'logo': self.logo.url if self.logo else '',
             'descr': self.descr,
             'tag': self.tag,
