@@ -9,7 +9,7 @@
 {% block befcon %}
     <div class="sl-hero-unit">
         <div class="divCenter">
-            <form class="form-horizontal text-center" action="{% url 'exchange:tipsrecord' %}" method='post'>
+            <form class="form-horizontal text-center tips" action="{% url 'exchange:tipsrecord' %}" method='post'>
                 <div class="control-group">
                     <span class="errorlist text-left">
                         {% if status %}{% trans 'Record tips success' %}{% endif %}
