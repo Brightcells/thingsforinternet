@@ -1,0 +1,27 @@
+{% extends "exchange/blog/base_blog.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的博客 (Mine Blog) -- 博客 (Blog) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">我的博客</h2>
+    </div>
+
+    <div class="block-hero-unit">
+        <div class="row-fluid">
+            {% for res in blog %}
+                {% include 'exchange/blog/snippets/blog_cite.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block paginator %}{% include "common/pages.html" %}{% endblock %}
+
+{% block script %}{% endblock %}

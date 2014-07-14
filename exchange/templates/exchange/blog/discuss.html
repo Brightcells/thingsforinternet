@@ -1,27 +1,35 @@
-{% extends "resume/resume2/base_resume2.html" %}
+{% extends "exchange/blog/base_blog.html" %}
 {% load staticfiles %}
 {% load djangomarkdown %}
 
 {% block title %}
-    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+    <title>我的博客 (Mine Blog) -- 博客 (Blog) -- ThingsForInternet</title>
 {% endblock %}
 
 {% block befcon %}
     <div class="scrolltitlestyle">
         <h2 class="red">查看</h2>
+        {% ifequal blog.uname usr %}<a class="more" href="{% url 'exchange:blogedit' blog.pk %}" target="_blank">编辑</a>{% endifequal %}
     </div>
 
-    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ resume.resume|default_if_none:""|safe }}</textarea></div>
+    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ blog.blog|default_if_none:""|safe }}</textarea></div>
     <div class="row-fluid">
-        <div class="span9"><div class="list-hero-unit"><div id="epiceditor"></div></div></div>
-        <div class="span3"><div class="list-hero-unit">{% include 'resume/resume2/snippets/userinfo.html' %}</div></div>
+        <div class="span9">
+            <div class="list-hero-unit text-center">{{ blog.title }}</div>
+            <br>
+            <div class="list-hero-unit"><div id="epiceditor"></div></div>
+        </div>
+        <div class="span3">
+            <div class="list-hero-unit">
+                {% include 'exchange/blog/snippets/userinfo.html' %}
+            </div>
+        </div>
     </div>
     </br>
 
     <div class="list-hero-unit text-center">
         <!-- <pre>{{ resume.resume|djangomarkdown }}</pre> -->
-        <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
-        <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+        <div>{% for t in blog.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
     </div>
 {% endblock %}
 

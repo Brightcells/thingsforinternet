@@ -20,5 +20,13 @@ class UserTipsAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
 
+class BlogInfoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'blog', 'tag', 'user', 'visit', 'evaluate', 'like', 'unlike', 'follow', 'display', 'create_time', 'modify_time')
+    search_fields = ('title', 'blog', 'tag')
+    list_filter = ('display', 'create_time', 'modify_time')
+    date_hierarchy = 'create_time'
+
+
 admin.site.register(Tips, TipsAdmin)
 admin.site.register(UserTips, UserTipsAdmin)
+admin.site.register(BlogInfo, BlogInfoAdmin)

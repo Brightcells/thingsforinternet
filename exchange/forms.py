@@ -5,7 +5,7 @@ from django.forms import Form, ModelForm, CharField, ModelChoiceField
 from django.forms.widgets import TextInput, PasswordInput, EmailInput, URLInput, HiddenInput, Textarea
 from django.utils.translation import ugettext_lazy as _
 
-from exchange.models import Tips, UserTips
+from exchange.models import Tips, UserTips, BlogInfo
 
 from utils.utils import *
 
@@ -44,6 +44,33 @@ class TipsModelForm(ModelForm):
                 return tips
         else:
             raise forms.ValidationError(_('Tips is needed'))
+
+    def clean_tag(self):
+        """ Clean for tag """
+
+        tag = self.cleaned_data['tag'].strip()
+        return ' '.join([t.strip() for t in tag.split(' ')])
+
+
+class BlogInfoModelForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(BlogInfoModelForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = BlogInfo
+        fields = ('title', 'blog', 'tag')
+        widgets = {
+            'title': TextInput(
+                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'onscroll': 'this.rows++;', 'placeholder': _('Blog Title')}
+            ),
+            'blog': Textarea(
+                attrs={'autocomplete': 'off', 'placeholder': _('Blog Content')}
+            ),
+            'tag': TextInput(
+                attrs={'autocomplete': 'off', 'placeholder': _('Tags')}
+            ),
+        }
 
     def clean_tag(self):
         """ Clean for tag """

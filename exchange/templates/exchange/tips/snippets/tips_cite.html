@@ -11,7 +11,7 @@
     </div>
 
     <div class="tips-cite">
-        <div class="span3" onclick="discuss('{% url 'exchange:discuss' mt.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
+        <div class="span3" onclick="discuss('{% url 'exchange:tipsdiscuss' mt.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
 
         {% ifequal mt.author.username usr %}
             <div class="span3"><i id="{{ mt.pk }}" class="icon-remove icon-white"></i><span>{{ mt.follow|default:0 }}</span></div>

@@ -27,12 +27,13 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 
 from dh.models import *
 from exchange.decorators import tt_login_required
-from exchange.forms import TipsModelForm
-from exchange.models import Tips, UserTips
+from exchange.forms import TipsModelForm, BlogInfoModelForm
+from exchange.models import Tips, UserTips, BlogInfo
 
 from utils.utils import *
 
@@ -43,6 +44,8 @@ EXCHANGEBACKLINKS = [
 ]
 
 TIPSBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'TIPS', 'url': 'exchange:tipshome', 'para': ''}, ]
+
+BLOGBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'BLOG', 'url': 'exchange:bloghome', 'para': ''}, ]
 
 
 def pages(setlist, p):
@@ -65,6 +68,12 @@ def getTipsDict(request):
     usr, ui = getUsrUI(request)
     display_bg = ui.display_bg if ui else True
     return {'backlinks': TIPSBACKLINKS, 'lists': getNav(request, 'tips'), 'usr': usr, 'display_bg': display_bg}
+
+
+def getBlogDict(request):
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+    return {'backlinks': BLOGBACKLINKS, 'lists': getNav(request, 'blog'), 'usr': usr, 'display_bg': display_bg}
 
 
 def exchange(request):
@@ -158,8 +167,8 @@ def tipssearch(request, p=1):
     )
 
 
-def discuss(request, tipid):
-    tip = Tips.objects.get(pk=tipid, display=True).data
+def tipsdiscuss(request, pk):
+    tip = Tips.objects.get(pk=pk, display=True).data
     return render(
         request,
         'exchange/tips/discuss.html',
@@ -171,3 +180,130 @@ def forumhome(request):
     """ Function Forum's home """
 
     return render(request, 'exchange/tips/tipshome.html', dict(**getTipsDict(request)))
+
+
+def bloghome(request):
+    """ Function Blog's home - Blog """
+
+    return redirect(reverse('exchange:blogall'))
+
+
+def blogrecord(request, p=1):
+    status = False
+    user = getUI(getUsr(request))
+
+    if request.method == 'GET':
+        form = BlogInfoModelForm()
+    else:
+        form = BlogInfoModelForm(request.POST, request=request)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+
+            title = cleaned_data['title']
+            blog = cleaned_data['blog']
+            tag = cleaned_data['tag']
+
+            BlogInfo.objects.get_or_create(title=title, blog=blog, tag=tag, user=user)
+
+            form = BlogInfoModelForm()
+            status = True
+
+    mineblog = BlogInfo.objects.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
+    blogs = pages(mineblog, int(p))
+    mineblog = [blog.data for blog in blogs.object_list]
+
+    return render(
+        request,
+        'exchange/blog/record.html',
+        dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', form=form, status=status, **getBlogDict(request))
+    )
+
+
+@tt_login_required
+def blogmine(request, p=1):
+    mineblog = BlogInfo.objects.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
+    blogs = pages(mineblog, int(p))
+    mineblog = [blog.data for blog in blogs.object_list]
+
+    return render(
+        request,
+        'exchange/blog/mine.html',
+        dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', **getBlogDict(request))
+    )
+
+    # try:
+    #     mineblog = BlogInfo.objects.get(user=ui, display=True).data
+    # except:
+    #     mineblog = {}
+    # return render(
+    #     request,
+    #     'exchange/blog/mine.html',
+    #     dict(blog=mineblog, ui=ui, userinfo=ui.data, **getBlogDict(request))
+    # )
+
+
+def blogall(request, p=1):
+    allblog = BlogInfo.objects.filter(display=True).order_by('-modify_time')
+    blogs = pages(allblog, int(p))
+    allblog = [blog.data for blog in blogs.object_list]
+
+    return render(
+        request,
+        'exchange/blog/all.html',
+        dict(blog=allblog, pages=blogs, next_url='exchange:blogall', **getBlogDict(request))
+    )
+
+
+@tt_login_required
+def blogedit(request, pk):
+    if request.method == "POST":
+        try:
+            mineblog = BlogInfo.objects.get(pk=pk, user=getUI(getUsr(request)), display=True)
+            form = BlogInfoModelForm(request.POST, instance=mineblog)
+            if form.is_valid():
+                form.save()
+        except:
+            pass
+
+    try:
+        mineblog = model_to_dict(BlogInfo.objects.get(pk=pk, user=getUI(getUsr(request)), display=True))
+        form = BlogInfoModelForm(mineblog)
+    except:
+        form = BlogInfoModelForm()
+
+    return render(
+        request,
+        'exchange/blog/edit.html',
+        dict(pk=pk, form=form, userinfo=getUI(getUsr(request)), **getBlogDict(request))
+    )
+
+
+def blogdiscuss(request, pk):
+    try:
+        blog = BlogInfo.objects.get(pk=pk, display=True)
+    except:
+        blog = None
+
+    userinfo = blog.user.data if blog else None
+    blog = blog.data if blog else {}
+
+    return render(
+        request,
+        'exchange/blog/discuss.html',
+        dict(blog=blog, userinfo=userinfo, **getBlogDict(request))
+    )
+
+
+def blogsearch(request, p=1):
+    _query = request.GET.get('query', '')
+    searchblog = BlogInfo.objects.filter(Q(title__contains=_query) | Q(blog__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
+    if searchblog.count():
+        blogs = pages(searchblog, int(p))
+        searchblog = [blog.data for blog in blogs.object_list]
+        return render(
+            request,
+            'exchange/blog/search.html',
+            dict(blog=searchblog, pages=blogs, next_url='exchange:blogsearch', query='?query=' + _query, **getBlogDict(request))
+        )
+    else:
+        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
