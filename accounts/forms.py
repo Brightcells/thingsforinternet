@@ -32,7 +32,7 @@ class SignupUserInfoModelForm(ModelForm):
             'password': PasswordInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('Password')}
             ),
-            'email': EmailInput(attrs={'placeholder': _('Password')}),
+            'email': EmailInput(attrs={'placeholder': _('Email')}),
             'status': HiddenInput(),
         }
 

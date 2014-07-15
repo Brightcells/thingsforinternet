@@ -188,6 +188,7 @@ def bloghome(request):
     return redirect(reverse('exchange:blogall'))
 
 
+@tt_login_required
 def blogrecord(request, p=1):
     status = False
     user = getUI(getUsr(request))

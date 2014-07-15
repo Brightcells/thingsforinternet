@@ -107,7 +107,9 @@ def signup(request):
     if request.method == 'POST':
         form = SignupUserInfoModelForm(request.POST)
         if form.is_valid():
-            form.save()
+            f = form.save(commit=False)
+            f.display_bg = True
+            f.save()
             response = HttpResponseRedirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']))
             return response
