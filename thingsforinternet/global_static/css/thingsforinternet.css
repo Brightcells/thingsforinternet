@@ -581,3 +581,22 @@ menuNav > a {
 .unvisible {
     visibility: hidden;
 }
+
+/* -
+    #################################################
+    For: itgps' website which doesn't have logo
+    #################################################
+   - */
+.ppadding {
+    padding-top: 35px;
+}
+
+.a_replace_img {
+    display: block;
+    padding: 35px 0;
+    font: normal 25px "方正细珊瑚简体", "宋体", Arial, Times;
+}
+
+.img-desc a:link {
+    text-decoration: none;
+}

@@ -6,8 +6,17 @@
 {% endif %}
 <div class="span3 img-desc" onmouseover="mouseOn(event, this, 0)" onmouseout="mouseOut(event, this, 0)">
     <p class="text-center">
-        <a href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.pk }}');">
-            <img src="{{ site.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.descr }}"></a>
+        {% ifequal site.logo '' %}
+            <p class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9">
+                <a class="a_replace_img" href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.pk }}');">
+                    {{ site.name }}
+                </a>
+            </p>
+        {% else %}
+            <a href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.pk }}');">
+                <img src="{{ site.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.descr }}">
+            </a>
+        {% endifequal %}
         <div class="cite">
             <div class="span3" onclick="discuss('{% url 'resources:discuss' site.pk %}')"><i id="{{ site.pk }}" class="icon-fullscreen icon-white"></i></div>
 

@@ -111,7 +111,7 @@ def itgpsdiy(request):
         form = WebSiteDiyModelForm(request.POST, request.FILES)
         if form.is_valid():
             wsi = form.save(commit=False)
-            wsi.display = False
+            # wsi.display = False
             wsi.save()
             try:
                 _usr, _host = getUsrHost(request)
