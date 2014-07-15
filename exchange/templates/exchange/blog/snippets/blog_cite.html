@@ -10,7 +10,7 @@
         {% if res.tag|length == 1 and res.tag|first == '' %}
         {% else %}
             <p>{% for t in res.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
-        {% endifequal %}
+        {% endif %}
         </br>
     </div>
 
