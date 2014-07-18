@@ -119,7 +119,10 @@ def getFunc(request, _app):
         @paras:
         @returns: func dict query set
     '''
-    return FunctionInfo.objects.filter(app__name=string.upper(_app), display=True).order_by('position')
+    if _app:
+        return FunctionInfo.objects.filter(app__name=string.upper(_app), display=True).order_by('position')
+    else:
+        return FunctionInfo.objects.filter(display=True).order_by('position')
 
 
 def getNav(request, _func):

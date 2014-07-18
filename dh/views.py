@@ -61,3 +61,11 @@ def dh(request):
     display_bg = ui.display_bg if ui else True
 
     return render(request, 'dh/dh.html', dict(backlinks=backlinks, lists=getApp(request), usr=usr, display_bg=display_bg))
+
+
+def dh2(request):
+    backlinks = [{'name': 'TT4IT', 'url': 'dh:dh', 'para': ''}]
+    usr, ui = getUsrUI(request)
+    display_bg = ui.display_bg if ui else True
+
+    return render(request, 'dh/dh2.html', dict(usr=usr, display_bg=display_bg))

@@ -9,9 +9,9 @@
 
 /*
  * @description ajax to post site's visited
- * 
+ *
  * @param
- * 
+ *
  * @return
  */
 function visit(_iObj, _url, _id){
@@ -28,15 +28,15 @@ function visit(_iObj, _url, _id){
 
 /*
  * @description ajax to post site's like & favorite
- * 
+ *
  * @param
- * 
+ *
  * @return
  */
 function myLikeFavAjax(_iObj, _spanObj, _url, _data){
     var iObj = _iObj;
     var spanObj = _spanObj;
-        
+
     iObj.classList.add("clicked");
     $.ajax({
         type: "post",
@@ -56,14 +56,14 @@ function myLikeFavAjax(_iObj, _spanObj, _url, _data){
         }
     });
     event.preventDefault();
-    iObj.classList.remove("clicked");   
+    iObj.classList.remove("clicked");
 }
 
 /*
  * @description check the browser you are using
- * 
+ *
  * @param
- * 
+ *
  * @return {Object} Sys
  */
 function browserCheck() {
@@ -83,9 +83,9 @@ function browserCheck() {
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Control backtop button's display & exec back top
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -105,9 +105,9 @@ function backtop() {
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Control sidr's open and close by specify button
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -140,11 +140,11 @@ var jsidr = false;
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
- * Control sidr's open and close 
- * by using gesture support by hammer.js 
+ *
+ * Control sidr's open and close
+ * by using gesture support by hammer.js
  * and double click Ctrl realize by self
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -175,9 +175,9 @@ function close_sidr() {
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Backgroud's setting support by pam.js
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
