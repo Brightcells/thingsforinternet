@@ -12,7 +12,7 @@ from dh.models import FunctionInfo
 
 
 # 网站导航信息表， 其中必然有一个 （school - 学校） 导航， 处理学校相关网站
-class NavInfo(models.Model):
+class NavInfo(CreateUpdateMixin):
     name = models.CharField(_(u'name'), max_length=255, help_text=u'导航名称')
     title = models.CharField(_(u'title'), max_length=255, blank=True, null=True, help_text=u'导航标题')
     image = models.ImageField(_(u'image'), upload_to='nav', blank=True, null=True, help_text=u'导航图标')
@@ -20,8 +20,6 @@ class NavInfo(models.Model):
     func = models.ForeignKey(FunctionInfo, verbose_name=_(u'function'), blank=True, null=True, help_text='Function')
     position = models.IntegerField(_(u'position'), blank=True, null=True, default=0, help_text=u'导航位置')
     display = models.BooleanField(_('display'), default=True, help_text=u'导航是否显示 True for display && False for not display')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'navinfo'
@@ -33,7 +31,7 @@ class NavInfo(models.Model):
 
 
 # 网站导航分类信息表
-class ClassifyInfo(models.Model):
+class ClassifyInfo(CreateUpdateMixin):
     name = models.CharField(_(u'name'), max_length=255, help_text=u'分类名称')
     title = models.CharField(_(u'title'), max_length=255, blank=True, null=True, help_text=u'分类标题')
     descr = models.TextField(_(u'description'), blank=True, null=True, help_text=u'分类描述')
@@ -42,8 +40,6 @@ class ClassifyInfo(models.Model):
     nav = models.ForeignKey(NavInfo, verbose_name=_(u'nav'), blank=True, null=True, help_text=u'分类所属导航')
     position = models.IntegerField(_(u'position'), default=0, help_text=u'分类位置')
     display = models.BooleanField(_('display'), default=True, help_text=u'分类是否显示 True for display && False for not display')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'classifyinfo'
@@ -68,10 +64,11 @@ class ClassifyInfo(models.Model):
 
 
 # 网站信息表
-class WebSiteInfo(models.Model):
+class WebSiteInfo(CreateUpdateMixin):
     url = models.CharField(_(u'url'), max_length=255, blank=True, null=True, help_text=u'网站网址')
     name = models.CharField(_(u'name'), max_length=255, blank=True, null=True, help_text=u'网站名称')
     logo = models.ImageField(_(u'image'), upload_to='logo', blank=True, null=True, help_text=u'网站 logo')
+    slogan = models.TextField(_(u'slogan'), blank=True, null=True, help_text=u'网站一句话介绍')
     descr = models.TextField(_(u'description'), blank=True, null=True, help_text=u'网站描述')
     tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'网站标签')
     srcode = models.CharField(_(u'srcode'), max_length=255, blank=True, null=True, help_text=u'网站源码')
@@ -81,8 +78,6 @@ class WebSiteInfo(models.Model):
     unlike = models.IntegerField(_(u'unlike'), default=0, help_text=u'网站被踩数')
     fav = models.IntegerField(_(u'fav'), default=0, help_text=u'网站收藏数')
     display = models.BooleanField(_('display'), default=True, help_text=u'网站是否显示 True for display && False for not display')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'websiteinfo'
@@ -98,8 +93,9 @@ class WebSiteInfo(models.Model):
             'url': self.url,
             'name': self.name,
             'logo': self.logo.url if self.logo else '',
+            'slogan': self.slogan,
             'descr': self.descr,
-            'tag': self.tag,
+            'tag': self.tag.split(' '),
             'srcode': self.srcode,
             'visit': self.visit,
             'like': self.like,
@@ -111,15 +107,13 @@ class WebSiteInfo(models.Model):
 
 
 # 网站相关信息表
-class WebsiteRelatedInfo(models.Model):
+class WebsiteRelatedInfo(CreateUpdateMixin):
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='related_website', help_text=u'网站')
     name = models.CharField(_(u'name'), max_length=255, blank=True, null=True, help_text=u'网站相关信息名称')
     url = models.CharField(_(u'url'), max_length=255, blank=True, null=True, help_text=u'网站相关信息网址')
     descr = models.TextField(_(u'description'), blank=True, null=True, help_text=u'网站相关信息描述')
     srcode = models.CharField(_(u'srcode'), max_length=255, blank=True, null=True, help_text=u'网站相关信息源码')
     display = models.BooleanField(_('display'), default=True, help_text=u'网站相关信息是否显示 True for display && False for not display')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'websiterelatedinfo'
@@ -131,11 +125,9 @@ class WebsiteRelatedInfo(models.Model):
 
 
 # 网站标签信息表
-class TagInfo(models.Model):
+class TagInfo(CreateUpdateMixin):
     tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'网站网址')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='taginfo_website', help_text=u'网站')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'taginfo'
@@ -147,12 +139,10 @@ class TagInfo(models.Model):
 
 
 # 网站导航分类 -- 网站
-class CsySite(models.Model):
+class CsySite(CreateUpdateMixin):
     classify = models.ForeignKey(ClassifyInfo, verbose_name=_(u'classify'), blank=True, null=True, help_text=u'网站导航分类')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='csysite_website', help_text=u'网站')
     display = models.BooleanField(_(u'display'), default=True, help_text=u'网站是否显示 True for display && False for not')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'csysite'
@@ -173,13 +163,11 @@ class CsySite(models.Model):
 
 
 # 评价记录表
-class Evaluate(models.Model):
+class Evaluate(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户， blank=True代表陌生人评论')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'评论 IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='evaluate_website', help_text=u'网站')
     content = models.TextField(_(u'content'), blank=True, null=True, help_text=u'用户评价内容')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'evaluate'
@@ -191,13 +179,11 @@ class Evaluate(models.Model):
 
 
 # 赞/踩记录表
-class Like(models.Model):
+class Like(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户， blank=True 代表陌生人赞/踩')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'赞/踩IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='like_website', help_text=u'网站')
     flag = models.BooleanField(_('flag'), default=True, help_text=u'赞 or 踩 True for like && False for unlike')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'like'
@@ -209,12 +195,10 @@ class Like(models.Model):
 
 
 # 收藏记录表
-class Favorite(models.Model):
+class Favorite(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'收藏 IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='favorite_website', help_text=u'网站')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'favorite'
@@ -236,12 +220,10 @@ class Favorite(models.Model):
 
 
 # DIY 记录表
-class DIY(models.Model):
+class DIY(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'收藏 IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='diy_website', help_text=u'网站')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         verbose_name = _(u'diy')
@@ -262,12 +244,10 @@ class DIY(models.Model):
 
 
 # 访问记录表
-class Visit(models.Model):
+class Visit(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text=u'访问 IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='visit_website', help_text=u'网站')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'visit'
@@ -279,13 +259,11 @@ class Visit(models.Model):
 
 
 # 统一 Log 记录表
-class Log(models.Model):
+class Log(CreateUpdateMixin):
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'用户')
     host = models.GenericIPAddressField(_('host'), max_length=20, blank=True, null=True, help_text='IP')
     website = models.ForeignKey(WebSiteInfo, verbose_name=_(u'website'), blank=True, null=True, related_name='log_website', help_text=u'网站')
     descr = models.TextField(_('description'), blank=True, null=True, help_text=u'Log 描述')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'log'
@@ -297,12 +275,10 @@ class Log(models.Model):
 
 
 # 站点提交记录表
-class WebSiteSubmit(models.Model):
+class WebSiteSubmit(CreateUpdateMixin):
     url = models.CharField(_(u'url'), max_length=255, blank=True, null=True, help_text=u'网站网址')
     tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'网站标签')
     deal = models.BooleanField(_('deal'), default=False, help_text=u'网站提交是否已处理 True for deal && False for not')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'添加时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'websitesubmit'

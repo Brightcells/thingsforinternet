@@ -14,7 +14,7 @@
             </p>
         {% else %}
             <a href="{{ site.url }}" target="_blank" onclick="visit(this, '{% url 'resources:visit' %}', '{{ site.pk }}');">
-                <img src="{{ site.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.descr }}">
+                <img src="{{ site.logo }}" class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9" title="{{ site.slogan|default:'' }}">
             </a>
         {% endifequal %}
         <div class="cite">
