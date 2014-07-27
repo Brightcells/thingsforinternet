@@ -13,10 +13,7 @@
         <link rel="icon" type="image/png" href="">
 
         <!-- Le styles -->
-        <!-- <link href="{% static 'css/thingsforinternet.css' %}" rel="stylesheet">
-        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet">
-        <link href="{% static 'css/pam.css' %}" rel="stylesheet"> -->
+        <link href="{% static 'css/new_home.css' %}" rel="stylesheet">
 
         {% block hcss %}
         {% endblock %}
@@ -39,227 +36,6 @@
               s.parentNode.insertBefore(hm, s);
             })();
         </script>
-
-        <style type="text/css" media="screen">
-            /* For Searchbox and Searchbutton */
-            .new_home_search {
-                position: relative;
-                top: 178px;
-            }
-            .new_home_searchbox, .new_home_searchbutton {
-                height: 40px;
-                /* margin-top: 250px; */
-                padding-left: 15px;
-                box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-            }
-            .new_home_searchbutton {
-                margin-left: 6px;
-                padding: 0 15px;
-                background-color: white;
-            }
-
-            @media (min-width: 650px) {
-                .new_home_search {
-                    width: 591px;
-                    /* margin: auto; */
-                }
-                .new_home_searchbox {
-                    width: 500px;
-                }
-                .new_home_searchbutton {
-                    width: 85px;
-                }
-            }
-            @media (max-width: 650px) {
-                .new_home_search {
-                    width: 90%;
-                }
-                .new_home_searchbox {
-                    width: 80%;
-                }
-                .new_home_searchbutton {
-                    width: 9%px;
-                }
-            }
-            .new_home_search_radio {
-                margin-top: 15px;
-            }
-            .new_home_search_radio ul {
-                list-style: none;
-                margin-left: 0;
-            }
-            .new_home_search_radio li {
-                list-style: none;
-                float: left;
-                margin-left: 15px;
-            }
-            .new_home_search_radio input, .new_home_search_radio label {
-                vertical-align: middle;
-                float: left;
-                font-size: 16px;
-            }
-            .search_type {
-
-            }
-
-            /* For bgDiv and infoDiv */
-            .bgDiv {
-                /* margin: 74px 46px 80px 46px; */
-                display: none;
-            }
-            .infoDiv {
-                display: none;
-            }
-
-            /* For background */
-            body{
-                background-image: url(../../static/img/tt4it-bg.png);
-            }
-            a:link { text-decoration: none; }
-            a:active { text-decoration:blink; }
-            a:hover { text-decoration:underline; }
-            a:visited { text-decoration: none; }
-
-            /* For navbar */
-            .navbar-inner {
-                border: 0;
-                background-color: rgba(255, 255, 255, 0); /* background color will be black for all browsers */
-                background-image: none;
-                background-repeat: no-repeat;
-                filter: none;
-            }
-            .navbar-fixed-top{
-                position: static;
-            }
-            .navbar-inner .container {
-                width: auto;
-                margin: 0;
-            }
-            .navbar .nav>li>a {
-                color: #b4b4b4;
-                text-shadow: none;
-            }
-            .navbar .nav>li>a:hover {
-                color: #fff;
-            }
-            .navbar .nav>li:first-child a {
-                padding-left: 0;
-            }
-
-            /* For center content */
-            .body-container {
-                margin: 20px;
-            }
-            .center-content {
-                max-width: 1366px;
-                max-height: 800px;
-                margin: auto;
-            }
-            .header {
-                overflow: hidden;
-            }
-            .header li {
-                display: inline;
-                margin-left: 44px;
-            }
-            .header li>a {
-                color: #b4b4b4;
-            }
-            .header li>a:hover {
-                color: #fff;
-            }
-            .header li:first-child {
-                margin-left: 0;
-            }
-            .header .left {
-                float: left;
-                padding-left: 0;
-                margin: 14px 0;
-            }
-            .header .right {
-                float: right;
-            }
-
-            .bgdiv {
-                width: 100%;
-                height: 100%;
-                max-height: 720px;
-                position: relative;
-            }
-            div.bgdiv>img {
-                width: 100%;
-                height: 100%;
-                max-height: 720px;
-                border: 0;
-            }
-            div.bgdiv>.content {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-            .logo {
-                position: relative;
-                top: 74px;
-            }
-            .mask-layer {
-                position: absolute;
-                height: 80px;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 16px 46px;
-                box-sizing: border-box;
-                background-color: black;
-                filter: alpha(opacity = 50);
-                opacity: .50;
-                color: white;
-            }
-            .mask-left {
-                clear: left;
-                float: left;
-                width: 33%;
-                text-align: left;
-            }
-            .my-tt {
-                font: bold 16px "宋体", Arial, Times;
-                color: white;
-                float: left;
-            }
-            .my-tt-intro {
-                font: italic 14px "宋体", Arial, Times;
-                color: white;
-            }
-            .my-tt-dropdown{
-                margin-left: 5px;
-            }
-            .mask-center {
-                float: left;
-                width: 34%;
-            }
-            .mask-right {
-                float: right;
-                width: 33%;
-                text-align: right;
-            }
-
-            .empty-footer {
-                height: 50px;
-            }
-
-
-            html, body, #hp_table, #hp_cellCenter {
-                height: 100%;
-                width: 100%;
-                border-collapse: collapse;
-                margin: 0;
-                padding: 0;
-                border: 0;
-            }
-        </style>
     </head>
 
     <body>
@@ -267,39 +43,8 @@
             <tbody>
                 <tr>
                     <td id="hp_cellCenter" style="padding-top: 0px;">
-                        <div class="body-container">
-                            <div class="center-content">
-                                <!-- <div class="navbar navbar-fixed-top">
-                                    <div class="navbar-inner">
-                                        <div class="container">
-                                            <div class="nav-collapse collapse">
-                                                <ul class="nav">
-                                                    <li><a href="{% url 'resources:itgpshome' %}" target="_blank">网站导航</a></li>
-                                                    <li><a href="{% url 'resources:apihome' %}" target="_blank">API 收集</a></li>
-                                                    <li><a href="{% url 'exchange:tipshome' %}" target="_blank">知识便签</a></li>
-                                                    <li><a href="{% url 'exchange:bloghome' %}" target="_blank">博客</a></li>
-                                                    <li><a href="{% url 'lab:lab' %}" target="_blank">实验室</a></li>
-                                                    <li><a href="{% url 'resume:resume2home' %}" target="_blank">简历中心</a></li>
-                                                </ul>
-                                                <ul class="nav pull-right">
-                                                    {% if usr %}
-                                                        <li><a href="{% url 'accounts:member' %}">{{ usr }}</a></li>
-                                                        <li class="dropdown">
-                                                            <a data-toggle="dropdown" class="dropdown-toggle"><strong class="caret"></strong></a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="{% url 'accounts:logout' %}">退出</a></li>
-                                                                <li><a href="{% url 'accounts:settings' %}">设置</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    {% else %}
-                                                        <li><a href="{% url 'accounts:login' %}">登录</a></li>
-                                                    {% endif %}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-
+                        <div class="wrap">
+                            <div class="container">
                                 <div class="header">
                                     <ul class="left">
                                         <li><a href="{% url 'resources:itgpshome' %}" target="_blank">网站导航</a></li>
@@ -309,21 +54,19 @@
                                         <li><a href="{% url 'lab:lab' %}" target="_blank">实验室</a></li>
                                         <li><a href="{% url 'resume:resume2home' %}" target="_blank">简历中心</a></li>
                                     </ul>
-                                    <div class="right">
-                                        <ul class="">
-                                            {% if usr %}
-                                                <li><a href="{% url 'accounts:member' %}">{{ usr }}</a></li>
-                                                <li><a href="{% url 'accounts:logout' %}">退出</a></li>
-                                                <li><a href="{% url 'accounts:settings' %}">设置</a></li>
-                                            {% else %}
-                                                <li><a href="{% url 'accounts:login' %}">登录</a></li>
-                                            {% endif %}
-                                        </ul>
-                                    </div>
+                                    <ul class="right">
+                                        {% if usr %}
+                                            <li><a href="{% url 'accounts:member' %}">{{ usr }}</a></li>
+                                            <li><a href="{% url 'accounts:logout' %}">退出</a></li>
+                                            <li><a href="{% url 'accounts:settings' %}">设置</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'accounts:login' %}">登录</a></li>
+                                        {% endif %}
+                                    </ul>
                                 </div>
 
                                 <div class="bgdiv">
-                                    <img src="http://pamjs.com/media/pamjs/image/20146/1402251230.98.jpg">
+                                    <img id="tt4it-bg" src="">
                                     <div class="content">
                                         <center>
                                             <div class="logo">
@@ -346,14 +89,20 @@
                                                         <p class="my-tt-intro">程序员使用的导航网站</p>
                                                     </a>
                                                 </div>
-                                                <div class="mask-center">Today's Picture's Story</div>
-                                                <div class="mask-right">O'clock</div>
+                                                <div class="mask-center">
+                                                    <a id="tt4it-bg-info-url" href="" target="_blank">
+                                                        <span class="pic-story">今日图片故事</span>
+                                                        <p id="tt4it-bg-info" class="pic-story-intro"></p>
+                                                    </a>
+                                                </div>
+                                                <div class="mask-right">
+                                                    <span id="hms" class="hms"></span>
+                                                    <p id="ymd" class="ymd"></p>
+                                                </div>
                                             </div>
                                         </center>
                                     </div>
                                 </div>
-
-                                <div class="empty-footer"></div>
                             </div>
                         </div>
                     </td>
@@ -361,36 +110,68 @@
             </tbody>
         </table>
 
-        <!-- <div>
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <center>
-                        <div class="new_home_search">
-                            <input id="new_home_searchbox" class="new_home_searchbox"><button id="new_home_searchbutton" class="new_home_searchbutton">搜索</button>
-                            <div class="new_home_search_radio">
-                                <ul>
-                                    <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
-                                    <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
-                                    <li><input type="radio" name="search_type" value="tt4it" class="search_type"><label>本站</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </center>
-                </div>
-           </div>
-               </div> -->
-
         <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <!-- <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script> -->
         <script src="{% static 'js/pam.js' %}" type="text/javascript"></script>
         <script>
             {% if display_bg %}
                 _bg(1, 0, 10000);
             {% endif %}
 
+            var _tt4it_bg = null,
+                _tt4it_time = null;
+
+            function delay() {
+                var bgImg = $("#_bgImg"),
+                    aInfo = $("#aInfo");
+                if(bgImg.length) {
+                    $("#tt4it-bg")[0].src = bgImg[0].src;
+                    if(aInfo.length) {
+                        $("#tt4it-bg-info-url")[0].href = aInfo[0].href;
+                        $("#tt4it-bg-info")[0].innerHTML = aInfo[0].text;
+                    }
+                    window.clearInterval(_tt4it_bg);
+                }
+            }
+
+            function tt4it_bg() {
+                _tt4it_bg = window.setInterval("delay()", 1000);
+            }
+
+            String.prototype.format= function(){
+               var args = arguments;
+               return this.replace(/\{(\d+)\}/g,function(s,i){
+                 return args[i];
+               });
+            }
+
+            function hms(){
+                var d = new Date();
+                var hours = d.getHours();
+                var minutes = d.getMinutes();
+                var seconds = d.getSeconds();
+                $("#hms")[0].innerHTML = "{0}:{1}:{2}".format(hours, minutes, seconds);
+            }
+
+            function ymd(){
+                var d = new Date();
+                var year = d.getFullYear();// 获取4位的年份
+                var month = d.getMonth();// 从0-11
+                var day = d.getDate();
+                $("#ymd")[0].innerHTML = "{0}/{1}/{2}".format(year, month, day);
+            }
+
+            function tt4it_time() {
+                ymd()
+                _tt4it_time = setInterval(hms, 1000); // 1秒钟执行一次t方法。
+            }
+
             jQuery(document).ready(function() {
+                tt4it_bg();
+
+                tt4it_time();
+
                 $( "#new_home_searchbutton" ).click(function() {
                     var qw = $("#new_home_searchbox").val(),
                         s_type = $("input[name='search_type']:checked").val();
