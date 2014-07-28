@@ -13,7 +13,7 @@
         <link rel="icon" type="image/png" href="">
 
         <!-- Le styles -->
-        <link href="{% static 'css/new_home.css' %}" rel="stylesheet">
+        <link href="{% static 'css/new_home2.css' %}" rel="stylesheet">
 
         {% block hcss %}
         {% endblock %}
@@ -73,14 +73,20 @@
                                                 <img src="../../static/img/tt4it-logo.png">
                                             </div>
                                             <div class="new_home_search">
-                                                <input id="new_home_searchbox" class="new_home_searchbox"><button id="new_home_searchbutton" class="new_home_searchbutton">搜索</button>
-                                                <div class="new_home_search_radio">
+                                                <select name="tt4it_dropdown" id="tt4it_dropdown" class="egg_imagedropdown">
+                                                    <option>../../static/img/tt4it-google.png</option>
+                                                    <option>../../static/img/tt4it-baidu.png</option>
+                                                    <option>../../static/img/tt4it-tt.png</option>
+                                                </select>
+                                                <input id="new_home_searchbox" class="new_home_searchbox"><!-- <button id="new_home_searchbutton" class="new_home_searchbutton">搜索</button> -->
+                                                <div id="tt4it-magnifier" class="tt4it-magnifier"></div>
+                                                <!-- <div class="new_home_search_radio">
                                                     <ul>
                                                         <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
                                                         <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
                                                         <li><input type="radio" name="search_type" value="tt4it" class="search_type"><label>本站</label></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="mask-layer">
                                                 <div class="mask-left">
@@ -114,6 +120,7 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="{% static 'js/pam.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/egg.js' %}" type="text/javascript"></script>
         <script>
             {% if display_bg %}
                 _bg(1, 0, 10000);
@@ -169,10 +176,10 @@
 
             function tt4it_search() {
                 var qw = $("#new_home_searchbox").val(),
-                    s_type = $("input[name='search_type']:checked").val();
-                if(s_type == 'google') {
+                    s_type = $(".egg_imagedropdown_header>img")[0].src;
+                if(s_type.indexOf("google") >= 0) {
                     window.open("https://www.google.com/search?q=" + qw);
-                } else if(s_type == 'baidu'){
+                } else if(s_type.indexOf("baidu") >= 0){
                     window.open("http://www.baidu.com/s?wd=" + qw);
                 } else {
 
@@ -184,7 +191,13 @@
 
                 tt4it_time();
 
-                $( "#new_home_searchbutton" ).click(function() {
+                $('#tt4it_dropdown').EggImageDropdown(
+                    {
+                        border: false
+                    }
+                );
+
+                $( "#tt4it-magnifier" ).click(function() {
                     tt4it_search()
                 });
 
