@@ -78,15 +78,9 @@
                                                     <option>../../static/img/tt4it-baidu.png</option>
                                                     <option>../../static/img/tt4it-tt.png</option>
                                                 </select>
-                                                <input id="new_home_searchbox" class="new_home_searchbox"><!-- <button id="new_home_searchbutton" class="new_home_searchbutton">搜索</button> -->
+                                                <img id="tt4it-dropdown-triangle" class="tt4it-dropdown-triangle" src="../../static/img/tt4it-dropdown-triangle.png">
+                                                <input id="new_home_searchbox" class="new_home_searchbox">
                                                 <div id="tt4it-magnifier" class="tt4it-magnifier"></div>
-                                                <!-- <div class="new_home_search_radio">
-                                                    <ul>
-                                                        <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
-                                                        <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
-                                                        <li><input type="radio" name="search_type" value="tt4it" class="search_type"><label>本站</label></li>
-                                                    </ul>
-                                                </div> -->
                                             </div>
                                             <div class="mask-layer">
                                                 <div class="mask-left">
@@ -187,17 +181,18 @@
             }
 
             jQuery(document).ready(function() {
-                tt4it_bg();
-
-                tt4it_time();
-
                 $('#tt4it_dropdown').EggImageDropdown(
                     {
                         border: false
                     }
                 );
 
-                $( "#tt4it-magnifier" ).click(function() {
+                $("#tt4it-dropdown-triangle").click(function() {
+                    var s_display = $("div.egg_imagedropdown_dropdown").get(0).style.display;
+                    s_display = "block" ? s_display == "none" : "none"
+                })
+
+                $("#tt4it-magnifier").click(function() {
                     tt4it_search()
                 });
 
@@ -207,6 +202,10 @@
                         tt4it_search();
                     }
                 });
+
+                tt4it_bg();
+
+                tt4it_time();
             });
         </script>
         {% block script %}{% endblock %}
