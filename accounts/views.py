@@ -23,6 +23,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.encoding import smart_str
@@ -87,7 +88,7 @@ def login(request):
         form = LoginUserInfoModelForm(request.POST)
         if form.is_valid():
             response = HttpResponseRedirect(next_url)
-            response.set_cookie('usr', smart_str(form.cleaned_data['username']))
+            response.set_cookie('usr', smart_str(form.cleaned_data['username']), settings.DJANGO_COOKIE_MAX_AGE)
             return response
 
     usr, ui = getUsrUI(request)
@@ -111,7 +112,7 @@ def signup(request):
             f.display_bg = True
             f.save()
             response = HttpResponseRedirect(next_url)
-            response.set_cookie('usr', smart_str(form.cleaned_data['username']))
+            response.set_cookie('usr', smart_str(form.cleaned_data['username']), settings.DJANGO_COOKIE_MAX_AGE)
             return response
 
     usr, ui = getUsrUI(request)
