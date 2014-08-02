@@ -38,6 +38,9 @@ import json
 from utils.utils import *
 
 
+MAX_AGE = settings.COOKIE_MAX_AGE
+
+
 BACKLINKS = [
     {'name': 'TT4IT', 'url': 'dh:dh', 'para': ''},
 ]
@@ -88,9 +91,7 @@ def login(request):
         form = LoginUserInfoModelForm(request.POST)
         if form.is_valid():
             response = HttpResponseRedirect(next_url)
-            response.set_cookie('usr', smart_str(form.cleaned_data['username']), settings.DJANGO_COOKIE_MAX_AGE)
-            return response
-
+            response.set_cookie('usr', smart_str(form.cleaned_data['username']), MAX_AGE)
     usr, ui = getUsrUI(request)
     display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
@@ -112,7 +113,7 @@ def signup(request):
             f.display_bg = True
             f.save()
             response = HttpResponseRedirect(next_url)
-            response.set_cookie('usr', smart_str(form.cleaned_data['username']), settings.DJANGO_COOKIE_MAX_AGE)
+            response.set_cookie('usr', smart_str(form.cleaned_data['username']), MAX_AGE)
             return response
 
     usr, ui = getUsrUI(request)
