@@ -92,6 +92,8 @@ def login(request):
         if form.is_valid():
             response = HttpResponseRedirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']), MAX_AGE)
+            return response
+
     usr, ui = getUsrUI(request)
     display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
