@@ -122,7 +122,13 @@ html, body, #hp_table, #hp_cellCenter {
     -webkit-box-sizing: border-box;
 }
 
+.new_home_searchbox {
+    font-size: 20px;
+}
+
 .new_home_searchbutton {
+    position: relative;
+    top: -2px;
     margin-left: 6px;
     padding: 0 15px;
     background-color: white;
