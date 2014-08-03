@@ -182,7 +182,9 @@ LOGGING = {
 
 COOKIE_MAX_AGE = 1 * 30 * 24 * 60 * 60  # one month
 
-GOOGLE_SEARCH = 'http://203.208.46.146/search?q='
+GOOGLE_SEARCH = 'https://www.google.com/search?q='
 
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99
+
+from local_settings import *

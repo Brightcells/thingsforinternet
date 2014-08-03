@@ -2,4 +2,4 @@
 *.swp
 *.db*
 *media*
-settings.py
+local_settings.py
