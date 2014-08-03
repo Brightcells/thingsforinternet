@@ -34,8 +34,8 @@ function visit(_iObj, _url, _id){
  * @return
  */
 function myLikeFavAjax(_iObj, _spanObj, _url, _data){
-    var iObj = _iObj;
-    var spanObj = _spanObj;
+    var iObj = _iObj,
+          spanObj = _spanObj;
 
     iObj.classList.add("clicked");
     $.ajax({
@@ -67,9 +67,9 @@ function myLikeFavAjax(_iObj, _spanObj, _url, _data){
  * @return {Object} Sys
  */
 function browserCheck() {
-    var Sys = {};
-    var ua = navigator.userAgent.toLowerCase();
-    var s;
+    var Sys = {},
+         ua = navigator.userAgent.toLowerCase(),
+         s;
 
     (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] : (s = ua
             .match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] : (s = ua
@@ -116,8 +116,8 @@ $(document).ready(function() {
 });
 
 var flag = false,
-    ftime = 0,
-    jsidr = false;
+      ftime = 0,
+      jsidr = false;
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
@@ -153,40 +153,25 @@ function close_sidr() {
     }
 }
 
-var el = document.body;
-var hammer = Hammer(el, {
-    drag: true,
-    drag_block_horizontal: true,
-    drag_min_distance: 3,
-    hold: false,
-    release: true,
-    swipe: false,
-    tap: false,
-    touch: false,
-    transform: false
-});
-/* 双击 */
-Hammer(el).on("doubletap", function(event) {
-    open_close_sidr();
-});
+var el = document.body,
+      hammer = Hammer(el, {
+          drag: true,
+          drag_block_horizontal: true,
+          drag_min_distance: 88,
+          hold: false,
+          release: true,
+          swipe: false,
+          tap: false,
+          touch: false,
+          transform: false
+      });
+
 /* 向右拖拽 */
 hammer.on("dragright", function(event) {
     open_sidr();
 });
+
 /* 向左拖拽 */
 hammer.on("dragleft", function(event) {
     close_sidr();
 });
-
-/*
- * ########## ########## ########## ########## ########## ########## ##########
- * ########## ########## ########## ########## ########## ########## ##########
- *
- * Backgroud's setting support by pam.js
- *
- * ########## ########## ########## ########## ########## ########## ##########
- * ########## ########## ########## ########## ########## ########## ##########
- */
-/*var path = '/static/img/background/',
-    res = [ path+'background.jpg', ];
-_bg(0, res, 10000);*/

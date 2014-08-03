@@ -34,8 +34,8 @@ function visit(_iObj, _url, _id){
  * @return
  */
 function myLikeFavAjax(_iObj, _spanObj, _url, _data){
-    var iObj = _iObj;
-    var spanObj = _spanObj;
+    var iObj = _iObj,
+          spanObj = _spanObj;
 
     iObj.classList.add("clicked");
     $.ajax({
@@ -67,9 +67,9 @@ function myLikeFavAjax(_iObj, _spanObj, _url, _data){
  * @return {Object} Sys
  */
 function browserCheck() {
-    var Sys = {};
-    var ua = navigator.userAgent.toLowerCase();
-    var s;
+    var Sys = {},
+          ua = navigator.userAgent.toLowerCase(),
+          s;
 
     (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] : (s = ua
             .match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] : (s = ua
@@ -115,8 +115,8 @@ $(document).ready(function() {
     $('#simple-menu').sidr();
 
     var limit=300, //灵敏度，两次Ctrl之间的间隔，单位：ms
-        k=0,
-        ti=0;
+          k=0,
+          ti=0;
 
     document.addEventListener('keyup', function(e) {
         if(k>=1 && ((new Date()).valueOf()-ti<=limit)) {
@@ -171,16 +171,3 @@ function close_sidr() {
         jsidr = false;
     }
 }
-
-/*
- * ########## ########## ########## ########## ########## ########## ##########
- * ########## ########## ########## ########## ########## ########## ##########
- *
- * Backgroud's setting support by pam.js
- *
- * ########## ########## ########## ########## ########## ########## ##########
- * ########## ########## ########## ########## ########## ########## ##########
- */
-/*var path = '/static/img/background/',
-    res = [ path+'background.jpg', ];
-_bg(0, res, 10000);*/
