@@ -175,11 +175,12 @@
 
             function tt4it_search() {
                 var qw = $("#new_home_searchbox").val(),
+                    qw = encodeURIComponent(qw),
                     s_type = $("input[name='search_type']:checked").val();
                 if(s_type == 'google') {
                     window.open("https://www.google.com/search?q=" + qw);
                 } else if(s_type == 'baidu'){
-                    window.open("http://www.baidu.com/s?wd=" + qw);
+                    window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
                 } else {
 
                 }

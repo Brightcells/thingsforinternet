@@ -176,11 +176,12 @@
 
             function tt4it_search() {
                 var qw = $("#new_home_searchbox").val(),
+                    qw = encodeURIComponent(qw),
                     s_type = $(".egg_imagedropdown_header>img")[0].src;
                 if(s_type.indexOf("google") >= 0) {
                     window.open("https://www.google.com/search?q=" + qw);
                 } else if(s_type.indexOf("baidu") >= 0){
-                    window.open("http://www.baidu.com/s?wd=" + qw);
+                    window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
                 } else {
 
                 }
