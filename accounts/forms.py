@@ -116,6 +116,9 @@ class SettingsUserInfoModelForm(ModelForm):
             'classify': Select(
                 attrs={'autocomplete': 'off', 'placeholder': _('Background Classify')}
             ),
+            'search_engine': Select(
+                attrs={'autocomplete': 'off', 'placeholder': _('Search Engine')}
+            ),
             'email': TextInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('Email')}
             ),

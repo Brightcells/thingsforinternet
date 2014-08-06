@@ -74,22 +74,22 @@ def dh(request):
 def dh2(request):
     backlinks = [{'name': 'TT4IT', 'url': 'dh:dh', 'para': ''}]
     usr, ui = getUsrUI(request)
-    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+    display_bg, slide_image_classify, search_engine = (ui.display_bg, ui.classify, ui.search_engine) if ui else (True, '', '')
 
     return render(
         request,
         'dh/dh2.html',
-        dict(usr=usr, display_bg=display_bg, slide_image_classify=slide_image_classify)
+        dict(usr=usr, display_bg=display_bg, slide_image_classify=slide_image_classify, search_engine=search_engine)
     )
 
 
 def dh3(request):
     backlinks = [{'name': 'TT4IT', 'url': 'dh:dh', 'para': ''}]
     usr, ui = getUsrUI(request)
-    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+    display_bg, slide_image_classify, search_engine = (ui.display_bg, ui.classify, ui.search_engine) if ui else (True, '', '')
 
     return render(
         request,
         'dh/dh3.html',
-        dict(usr=usr, display_bg=display_bg, slide_image_classify=slide_image_classify)
+        dict(usr=usr, display_bg=display_bg, slide_image_classify=slide_image_classify, search_engine=search_engine)
     )

@@ -79,7 +79,7 @@
                                                         <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
                                                         <li><input type="radio" name="search_type" value="tmd"><label>TMD123</label></li>
                                                         <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
-                                                        <li><input type="radio" name="search_type" value="tt4it" class="search_type"><label>本站</label></li>
+                                                        <li><input type="radio" name="search_type" value="tt" class="search_type"><label>本站</label></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -190,6 +190,8 @@
             }
 
             jQuery(document).ready(function() {
+                $("input[value='{{ search_engine }}']").prop("checked", true);
+
                 tt4it_bg();
 
                 tt4it_time();

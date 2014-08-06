@@ -74,10 +74,10 @@
                                             </div>
                                             <div class="new_home_search">
                                                 <select name="tt4it_dropdown" id="tt4it_dropdown" class="egg_imagedropdown">
-                                                    <option>../../static/img/tt4it-google.png</option>
-                                                    <option>../../static/img/tt4it-tmd.jpg</option>
-                                                    <option>../../static/img/tt4it-baidu.png</option>
-                                                    <option>../../static/img/tt4it-tt.png</option>
+                                                    <option value="google">../../static/img/tt4it-google.png</option>
+                                                    <option value="tmd">../../static/img/tt4it-tmd.jpg</option>
+                                                    <option value="baidu">../../static/img/tt4it-baidu.png</option>
+                                                    <option value="tt">../../static/img/tt4it-tt.png</option>
                                                 </select>
                                                 <img id="tt4it-dropdown-triangle" class="tt4it-dropdown-triangle" src="../../static/img/tt4it-dropdown-triangle.png">
                                                 <input id="new_home_searchbox" class="new_home_searchbox" autofocus>
@@ -191,9 +191,13 @@
             }
 
             jQuery(document).ready(function() {
-                $('#tt4it_dropdown').EggImageDropdown(
+                {% if search_engine %}
+                    $("#tt4it_dropdown option[value='{{ search_engine }}']").attr("selected", true);
+                {% endif %}
+
+                $('#tt4it_dropdown').EggImageDropdown(null,
                     {
-                        border: false
+                        border: false,
                     }
                 );
 

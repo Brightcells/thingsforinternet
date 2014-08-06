@@ -12,6 +12,13 @@ SLIDE_IMAGE_CLASSIFY = (
     ('dw', _(u'DongWu')),
 )
 
+SEARCH_ENGINE = (
+    ('google', _(u'Google')),
+    ('tmd', _(u'TMD123')),
+    ('baidu', _(u'百度')),
+    ('tt', _(u'TT站内')),
+)
+
 
 # 用户注册信息表
 class UserInfo(models.Model):
@@ -21,6 +28,7 @@ class UserInfo(models.Model):
     login_page = models.URLField(_(u'login_page'), max_length=255, blank=True, null=True, help_text=u'登录首页')
     display_bg = models.BooleanField(_('display_bg'), default=True, help_text=u'是否显示背景图')
     classify = models.CharField(_(u'classify'), max_length=255, choices=SLIDE_IMAGE_CLASSIFY, blank=True, null=True, help_text=u'背景图分类')
+    search_engine = models.CharField(_(u'search_engine'), max_length=255, choices=SEARCH_ENGINE, blank=True, null=True, help_text=u'默认搜索引擎')
     company = models.CharField(_(u'company'), max_length=255, blank=True, null=True, help_text=u'所在公司')
     github = models.CharField(_(u'github'), max_length=255, blank=True, null=True, help_text='Github')
     sof = models.CharField(_(u'stackoverflow'), max_length=255, blank=True, null=True, help_text='StackOverflow')
@@ -49,6 +57,7 @@ class UserInfo(models.Model):
             'login_page': self.login_page,
             'display_bg': self.display_bg,
             'classify': self.classify,
+            'search_engine': self.search_engine,
             'company': self.company,
             'github': self.github,
             'sof': self.sof,
