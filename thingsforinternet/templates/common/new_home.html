@@ -77,6 +77,7 @@
                                                 <div class="new_home_search_radio">
                                                     <ul>
                                                         <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
+                                                        <li><input type="radio" name="search_type" value="tmd"><label>TMD123</label></li>
                                                         <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
                                                         <li><input type="radio" name="search_type" value="tt4it" class="search_type"><label>本站</label></li>
                                                     </ul>
@@ -179,7 +180,9 @@
                     s_type = $("input[name='search_type']:checked").val();
                 if(s_type == 'google') {
                     window.open("https://www.google.com/search?q=" + qw);
-                } else if(s_type == 'baidu'){
+                } else if(s_type == 'tmd'){
+                    window.open("http://www.tmd123.com/search/?q=" + qw);
+                }  else if(s_type == 'baidu'){
                     window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
                 } else {
 

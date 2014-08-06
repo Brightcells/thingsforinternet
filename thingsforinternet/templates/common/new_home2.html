@@ -75,6 +75,7 @@
                                             <div class="new_home_search">
                                                 <select name="tt4it_dropdown" id="tt4it_dropdown" class="egg_imagedropdown">
                                                     <option>../../static/img/tt4it-google.png</option>
+                                                    <option>../../static/img/tt4it-tmd.jpg</option>
                                                     <option>../../static/img/tt4it-baidu.png</option>
                                                     <option>../../static/img/tt4it-tt.png</option>
                                                 </select>
@@ -180,6 +181,8 @@
                     s_type = $(".egg_imagedropdown_header>img")[0].src;
                 if(s_type.indexOf("google") >= 0) {
                     window.open("https://www.google.com/search?q=" + qw);
+                } else if(s_type.indexOf("tmd") >= 0){
+                    window.open("http://www.tmd123.com/search/?q=" + qw);
                 } else if(s_type.indexOf("baidu") >= 0){
                     window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
                 } else {
