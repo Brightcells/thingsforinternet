@@ -203,7 +203,12 @@
 
                 $("#tt4it-dropdown-triangle").click(function() {
                     var s_display = $("div.egg_imagedropdown_dropdown").get(0).style.display;
-                    s_display = "block" ? s_display == "none" : "none"
+                    /*s_display = s_display == "none" ? "block" : "none";*/
+                    if(s_display == "none") {
+                        $("div.egg_imagedropdown_dropdown").get(0).style.display = "block";
+                    } else {
+                        $("div.egg_imagedropdown_dropdown").get(0).style.display = "none";
+                    }
                 })
 
                 $("#tt4it-magnifier").click(function() {
