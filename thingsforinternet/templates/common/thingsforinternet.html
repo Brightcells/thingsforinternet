@@ -114,55 +114,55 @@
         {% endblock %}
 
         <div id="Div">
-        {% block bodyer %}
-            <div id="bodyer" class="bodyer">
-                <div id="wrap">
-                    <div class="container-fluid">
-                        <div class="row-fluid">
-                            <div class="span1"></div>
-                            <div class="span10">{% block befcon %}{% endblock %}</div>
-                            <div class="span1"></div>
-                        </div>
+            {% block bodyer %}
+                <div id="bodyer" class="bodyer">
+                    <div id="wrap">
+                        <div class="container-fluid">
+                            <div class="row-fluid">
+                                <div class="span1"></div>
+                                <div class="span10">{% block befcon %}{% endblock %}</div>
+                                <div class="span1"></div>
+                            </div>
 
-                        <br>
+                            <br>
 
-                        <div class="row-fluid">
-                            <div class="span1"></div>
-                            <div class="span10">{% block content %}{% endblock %}</div>
-                            <div class="span1"></div>
-                        </div>
+                            <div class="row-fluid">
+                                <div class="span1"></div>
+                                <div class="span10">{% block content %}{% endblock %}</div>
+                                <div class="span1"></div>
+                            </div>
 
-                        <br>
+                            <br>
 
-                        <div class="row-fluid">
-                            <div class="span1"></div>
-                            <div class="span10">{% block aftcon %}{% endblock %}</div>
-                            <div class="span1"></div>
-                        </div>
-                   </div>
+                            <div class="row-fluid">
+                                <div class="span1"></div>
+                                <div class="span10">{% block aftcon %}{% endblock %}</div>
+                                <div class="span1"></div>
+                            </div>
+                       </div>
+                    </div>
                 </div>
-            </div>
-        {% endblock %}
+            {% endblock %}
 
-        {% block bodyer2 %}
-            <div id="bodyer" class="bodyer">
-                <div id="wrap">
-                    <div class="container-fluid">
-                        <div class="row-fluid">
-                            <div class="span1"></div>
-                            <div class="span10">{% block content2 %}{% endblock %}</div>
-                            <div class="span1"></div>
-                        </div>
+            {% block bodyer2 %}
+                <div id="bodyer" class="bodyer">
+                    <div id="wrap">
+                        <div class="container-fluid">
+                            <div class="row-fluid">
+                                <div class="span1"></div>
+                                <div class="span10">{% block content2 %}{% endblock %}</div>
+                                <div class="span1"></div>
+                            </div>
 
-                        <div class="row-fluid">
-                            <div class="span1"></div>
-                            <div class="span10">{% block paginator %}{% endblock %}</div>
-                            <div class="span1"></div>
-                        </div>
-                   </div>
+                            <div class="row-fluid">
+                                <div class="span1"></div>
+                                <div class="span10">{% block paginator %}{% endblock %}</div>
+                                <div class="span1"></div>
+                            </div>
+                       </div>
+                    </div>
                 </div>
-            </div>
-        {% endblock %}
+            {% endblock %}
         </div>
 
         {% block footer %}
@@ -179,46 +179,20 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+
         {% if request.mobile %}
         {% else %}
             <script src="{% static 'js/menu.js' %}" type="text/javascript"></script>
         {% endif %}
         <script src="{% static 'js/pam.js' %}" type="text/javascript"></script>
-        <!--
-        {% if request.is_mobile %}
-            <p>https://djangosnippets.org/snippets/2001/</p>
-        {% endif %}
-        -->
+
         {% if request.mobile %}
             <script src="{% static 'js/thingsforinternet_mobile.js' %}" type="text/javascript"></script>
         {% else %}
             <script src="{% static 'js/thingsforinternet.js' %}" type="text/javascript"></script>
         {% endif %}
+
         <script>
-            (function(){
-                var url = window.location.pathname,
-                    nav = url.split("/")[2];
-
-                if(nav in {"": "", "login": "login", "signup": "signup", "accounts": "accounts"}){
-                    // do nothing
-                }else{
-                    $(".nav a").each(function(){
-                        // Because of <ul class="nav pull-right"> has 'a' tag without 'href'
-                        // So we should judge it first
-                        var navHerf = this.getAttribute("href")
-                        if(navHerf && navHerf.indexOf(nav) != -1){
-                            $(".nav .active").removeAttr("class");
-                            $(this).parent().addClass("active");
-                        }
-                    });
-                }
-
-                function stopScrolling(touchEvent) {
-                    touchEvent.preventDefault();
-                }
-                document.addEventListener('touchmove', stopScrolling, false);
-            })();
-
             {% if display_bg %}
                 init({
                     site: "tt4it",
@@ -230,7 +204,6 @@
             {% endif %}
 
             function discuss(url){
-                /*location.replace(url);*/
                 location.href=url;
             }
         </script>
