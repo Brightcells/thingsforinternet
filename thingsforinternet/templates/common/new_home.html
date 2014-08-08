@@ -206,6 +206,11 @@
                         tt4it_search();
                     }
                 });
+
+                function stopScrolling(touchEvent) {
+                    touchEvent.preventDefault();
+                }
+                document.addEventListener('touchmove', stopScrolling, false);
             });
         </script>
         {% block script %}{% endblock %}

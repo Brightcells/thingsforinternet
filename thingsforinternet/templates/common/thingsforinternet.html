@@ -212,6 +212,11 @@
                         }
                     });
                 }
+
+                function stopScrolling(touchEvent) {
+                    touchEvent.preventDefault();
+                }
+                document.addEventListener('touchmove', stopScrolling, false);
             })();
 
             {% if display_bg %}

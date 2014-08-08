@@ -225,6 +225,11 @@
                 tt4it_bg();
 
                 tt4it_time();
+
+                function stopScrolling(touchEvent) {
+                    touchEvent.preventDefault();
+                }
+                document.addEventListener('touchmove', stopScrolling, false);
             });
         </script>
         {% block script %}{% endblock %}

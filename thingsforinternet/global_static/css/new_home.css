@@ -76,13 +76,19 @@ html, body, #hp_table, #hp_cellCenter {
     position: relative;
 }
 
-@media (min-height: 650px) {
+@media (min-height: 760px) {
     .bgdiv {
         height: 700px;
     }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 759px) and (min-height: 660px) {
+    .bgdiv {
+        height: 600px;
+    }
+}
+
+@media (max-height: 659px) {
     .bgdiv {
         height: 540px;
     }
