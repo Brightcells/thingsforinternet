@@ -21,8 +21,8 @@ class ClassifyInfoAdmin(admin.ModelAdmin):
 
 
 class WebSiteInfoAdmin(admin.ModelAdmin):
-    list_display = ('url', 'name', 'logo', 'descr', 'tag', 'srcode', 'visit', 'evaluate', 'like', 'unlike', 'fav', 'display', 'create_time', 'modify_time')
-    search_fields = ('url', 'name', 'logo', 'descr', 'tag', 'srcode')
+    list_display = ('url', 'name', 'logo', 'slogan', 'descr', 'tag', 'srcode', 'visit', 'evaluate', 'like', 'unlike', 'fav', 'display', 'create_time', 'modify_time')
+    search_fields = ('url', 'name', 'logo', 'slogan', 'descr', 'tag', 'srcode')
     list_filter = ('display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
 

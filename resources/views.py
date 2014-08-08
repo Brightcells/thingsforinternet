@@ -234,7 +234,7 @@ def getFavoriteDiySite(request, p):
 
 
 def getSearchSite(request, _query, p):
-    searchSiteSetList = WebSiteInfo.objects.filter(Q(url__contains=_query) | Q(name__contains=_query) | Q(logo__contains=_query) | Q(descr__contains=_query) | Q(tag__contains=_query) | Q(srcode__contains=_query), display=True).order_by('-create_time')
+    searchSiteSetList = WebSiteInfo.objects.filter(Q(url__contains=_query) | Q(name__contains=_query) | Q(logo__contains=_query) | Q(slogan=_query) | Q(descr__contains=_query) | Q(tag__contains=_query) | Q(srcode__contains=_query), display=True).order_by('-create_time')
 
     searchSiteSetList = pages(searchSiteSetList, int(p), 2 * spp)
 
