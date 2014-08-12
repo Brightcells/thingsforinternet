@@ -120,6 +120,7 @@
                 init({
                     site: "tt4it",
                     usr: "{{ usr|default:'' }}",
+                    device: "{% if request.mobile %}M{% else %}C{% endif %}",
                     display: true,
                     slide_image_classify: "{{ slide_image_classify|default:'' }}"
                 });

@@ -14,6 +14,9 @@ var config = {
     site: '',
     usr: '',
 
+    cache: 'true',
+    device: 'C',
+
     img_index: 0, // the index of the picList
 
     slide_image_num: 5, // number of side image from server
@@ -22,11 +25,12 @@ var config = {
     global_bg_time: 0, // global backgroud interval time
     global_bg_res: [], // global backgroud res
 
-    pic_jsonp_url: "http://pamjs.com/api/pic/?site=%1&usr=%2&num=%3&callback=pamjs&cache=true&device=C&classify=%4",
-    daily_pic_jsonp_url: "http://pamjs.com/api/daily_pic/?site=%1&usr=%2&num=%3&callback=pamjs&cache=true&device=C&classify=%4",
+    pic_jsonp_url: "http://pamjs.com/api/pic/?site=%1&usr=%2&num=%3&callback=pamjs&cache=%4&device=%5&classify=%6",
+    daily_pic_jsonp_url: "http://pamjs.com/api/daily_pic/?site=%1&usr=%2&num=%3&callback=pamjs&cache=%4&device=%5&classify=%6",
 
     ctrl: true,  // 是否显示控制按钮
-    display: false  // Div 内内容是否显示
+    con_div: 'Div',  // 控制按钮控制区域
+    display: false  // 控制区域内内容是否显示
 }
 
 /**
@@ -157,10 +161,10 @@ var pamjs = function(data) {
     }
 };
 
-function getRemoteInfo(url, site, usr, num, classify) {
+function getRemoteInfo(url, site, usr, num, cache, device, classify) {
     // 创建script标签，设置其属性
     var script = document.createElement('script');
-    script.setAttribute('src', String.format(url, site, usr, num, classify));
+    script.setAttribute('src', String.format(url, site, usr, num, cache, device, classify));
     // 把script标签加入head，此时调用开始
     document.getElementsByTagName('head')[0].appendChild(script);
 }
@@ -204,12 +208,12 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
         if (1 == _bg_res) { // order to set picture on server in the list as background
             config.global_bg_time = _bg_time;
             /* set a timer, to set background every interval time */
-            getRemoteInfo(config.pic_jsonp_url, config.site, config.usr, config.slide_image_num, config.slide_image_classify);
+            getRemoteInfo(config.pic_jsonp_url, config.site, config.usr, config.slide_image_num, config.cache, config.device, config.slide_image_classify);
         } else if(-1 == _bg_res) {
-            getRemoteInfo(config.dailypic_jsonp_url, config.site, config.usr, config.slide_image_num, config.slide_image_classify);
+            getRemoteInfo(config.dailypic_jsonp_url, config.site, config.usr, config.slide_image_num, config.cache, config.device, config.slide_image_classify);
         }else { // set one random picture as background
             config.global_bg_time = _bg_time;
-            getRemoteInfo(config.pic_jsonp_url, config.site, config.usr, 1, config.slide_image_classify);
+            getRemoteInfo(config.pic_jsonp_url, config.site, config.usr, 1, config.cache, config.device, config.slide_image_classify);
         }
     } else {
         if (1 == _bg_res.length) {
@@ -748,11 +752,11 @@ function showid(idDiv, imgPath, imgName) {
  */
 window.onload = function () {
     if(config.ctrl) {
-        var _conDiv = document.getElementById("Div"),
+        var _conDiv = document.getElementById(config.con_div),
             _ctrlSpan = document.createElement("span");
         _ctrlSpan.id = "ctrlSpan";
         _ctrlSpan.className = "ctrlSpan";
-        if(config.display){
+        if(config.display && _conDiv){
             _conDiv.style.display = "";
             _ctrlSpan.innerHTML = "隐藏";
         } else {
@@ -764,8 +768,10 @@ window.onload = function () {
         _ctrlSpan.addEventListener("click", function() {
             if("" == _conDiv.style.display) {
                 _conDiv.style.display = "none";
+                _ctrlSpan.innerHTML = "显示";
             } else {
                 _conDiv.style.display = "";
+                _ctrlSpan.innerHTML = "隐藏";
             }
         }, false);
     }
