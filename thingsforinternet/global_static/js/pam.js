@@ -309,7 +309,9 @@ function setBackground(_bg_res) {
         }
     } else {
         var _infoDiv = document.getElementById("infoDiv");
-        _infoDiv.parentNode.removeChild(_infoDiv);
+        if(_infoDiv) {
+            _infoDiv.parentNode.removeChild(_infoDiv);
+        }
     }
 }
 
@@ -752,27 +754,30 @@ function showid(idDiv, imgPath, imgName) {
  */
 window.onload = function () {
     if(config.ctrl) {
-        var _conDiv = document.getElementById(config.con_div),
-            _ctrlSpan = document.createElement("span");
-        _ctrlSpan.id = "ctrlSpan";
-        _ctrlSpan.className = "ctrlSpan";
-        if(config.display && _conDiv){
-            _conDiv.style.display = "";
-            _ctrlSpan.innerHTML = "隐藏";
-        } else {
-            _conDiv.style.display = "none";
-            _ctrlSpan.innerHTML = "显示";
-        }
-        var object = document.body.appendChild(_ctrlSpan);
+        var _conDiv = document.getElementById(config.con_div);
+        if (_conDiv) {
+            var _ctrlSpan = document.createElement("span");
 
-        _ctrlSpan.addEventListener("click", function() {
-            if("" == _conDiv.style.display) {
-                _conDiv.style.display = "none";
-                _ctrlSpan.innerHTML = "显示";
-            } else {
+            _ctrlSpan.id = "ctrlSpan";
+            _ctrlSpan.className = "ctrlSpan";
+            if(config.display && _conDiv){
                 _conDiv.style.display = "";
                 _ctrlSpan.innerHTML = "隐藏";
+            } else {
+                _conDiv.style.display = "none";
+                _ctrlSpan.innerHTML = "显示";
             }
-        }, false);
+            var object = document.body.appendChild(_ctrlSpan);
+
+            _ctrlSpan.addEventListener("click", function() {
+                if("" == _conDiv.style.display) {
+                    _conDiv.style.display = "none";
+                    _ctrlSpan.innerHTML = "显示";
+                } else {
+                    _conDiv.style.display = "";
+                    _ctrlSpan.innerHTML = "隐藏";
+                }
+            }, false);
+        }
     }
 }
