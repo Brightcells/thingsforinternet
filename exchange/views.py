@@ -120,6 +120,7 @@ def lcrdict(obj, flag):
     return {'left': lcr(obj, 0, flag), 'center': lcr(obj, 1, flag), 'right': lcr(obj, 2, flag)}
 
 
+@tt_login_required
 def tipsrecord(request, p=1):
     status = False
     user = getUI(getUsr(request))
@@ -252,16 +253,6 @@ def blogmine(request, p=1):
         'exchange/blog/mine.html',
         dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', **getBlogDict(request))
     )
-
-    # try:
-    #     mineblog = BlogInfo.objects.get(user=ui, display=True).data
-    # except:
-    #     mineblog = {}
-    # return render(
-    #     request,
-    #     'exchange/blog/mine.html',
-    #     dict(blog=mineblog, ui=ui, userinfo=ui.data, **getBlogDict(request))
-    # )
 
 
 def blogall(request, p=1):
