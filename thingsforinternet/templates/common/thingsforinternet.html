@@ -113,6 +113,7 @@
             {% endif %}
         {% endblock %}
 
+        <div id="Div">
         {% block bodyer %}
             <div id="bodyer" class="bodyer">
                 <div id="wrap">
@@ -162,6 +163,7 @@
                 </div>
             </div>
         {% endblock %}
+        </div>
 
         {% block footer %}
             <div class="footer"></div>
@@ -213,6 +215,7 @@
             })();
 
             {% if display_bg %}
+                init({display: true})
                 _bg(1, 0, 10000);
             {% endif %}
 

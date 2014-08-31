@@ -10,14 +10,36 @@
 /**
  * Global Variable
  */
-var img_index = 0, // the index of the picList
-    slide_image_num = 5, // number of side image from server
-    global_bg_time = 0, // global backgroud interval time
-    global_bg_res = [], // global backgroud res
-    pic_jsonp_url = "http://pamjs.com/api/pic/?num=%1&callback=pamjs&cache=true",
-    daily_pic_jsonp_url = "http://pamjs.com/api/daily_pic/?num=%1&callback=pamjs",
-    ctrl = true,  // 是否显示控制按钮
-    display = false; // Div 内内容是否显示
+var config = {
+    img_index: 0, // the index of the picList
+
+    slide_image_num: 5, // number of side image from server
+    slide_image_classify: "",  // classify of side image from server
+
+    global_bg_time: 0, // global backgroud interval time
+    global_bg_res: [], // global backgroud res
+
+    pic_jsonp_url: "http://pamjs.com/api/pic/?num=%1&callback=pamjs&cache=true&device=C&classify=%2",
+    daily_pic_jsonp_url: "http://pamjs.com/api/daily_pic/?num=%1&callback=pamjs",
+
+    ctrl: true,  // 是否显示控制按钮
+    display: false  // Div 内内容是否显示
+}
+
+/**
+ * @description Override global var config
+ *
+ * @param conf
+ *
+ * @return
+ */
+function init(conf) {
+    for(c in conf) {
+        if(c in config) {
+            config[c] = conf[c];
+        }
+    }
+}
 
 /**
  * ########## ########## ########## ########## ########## ########## ##########
@@ -105,13 +127,12 @@ Date.prototype.pattern=function(fmt) {
  *            string formated
  */
 String.format = function(str) {
-    var args = arguments, re = new RegExp("%([1-" + args.length + "])", "g");
-    return String(str).replace(
-        re,
-        function($1, $2) {
-            return args[$2];
-        }
-    );
+    var args = arguments,
+        re = new RegExp("%([1-" + args.length + "])", "g");
+
+    return String(str).replace(re, function($1, $2) {
+        return args[$2];
+    });
 };
 
 /**
@@ -124,19 +145,19 @@ String.format = function(str) {
  * ########## ########## ########## ########## ########## ########## ##########
  */
 var pamjs = function(data) {
-    global_bg_res = data[0];
-    if (1 == global_bg_res.length) {
-        setBackground(global_bg_res[0]);
+    config.global_bg_res = data[0];
+    if (1 == config.global_bg_res.length) {
+        setBackground(config.global_bg_res[0]);
     } else {
-        timeId = window.setInterval("slideSetBackground(global_bg_res)", global_bg_time);
-        slideSetBackground(global_bg_res);
+        timeId = window.setInterval("slideSetBackground(config.global_bg_res)", config.global_bg_time);
+        slideSetBackground(config.global_bg_res);
     }
 };
 
-function getRemoteInfo(url, num) {
+function getRemoteInfo(url, num, classify) {
     // 创建script标签，设置其属性
     var script = document.createElement('script');
-    script.setAttribute('src', String.format(url, num));
+    script.setAttribute('src', String.format(url, num, classify));
     // 把script标签加入head，此时调用开始
     document.getElementsByTagName('head')[0].appendChild(script);
 }
@@ -178,14 +199,14 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
      */
     if (1 == _bg_mode) {
         if (1 == _bg_res) { // order to set picture on server in the list as background
-            global_bg_time = _bg_time;
+            config.global_bg_time = _bg_time;
             /* set a timer, to set background every interval time */
-            getRemoteInfo(pic_jsonp_url, slide_image_num);
+            getRemoteInfo(config.pic_jsonp_url, config.slide_image_num, config.slide_image_classify);
         } else if(-1 == _bg_res) {
-            getRemoteInfo(dailypic_jsonp_url, slide_image_num);
+            getRemoteInfo(config.dailypic_jsonp_url, config.slide_image_num, config.slide_image_classify);
         }else { // set one random picture as background
-            global_bg_time = _bg_time;
-            getRemoteInfo(pic_jsonp_url, 1);
+            config.global_bg_time = _bg_time;
+            getRemoteInfo(config.pic_jsonp_url, 1, config.slide_image_classify);
         }
     } else {
         if (1 == _bg_res.length) {
@@ -195,10 +216,10 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
              */
             setBackground(_bg_res[0]);
         } else {
-            global_bg_res = _bg_res;
+            config.global_bg_res = _bg_res;
             /* set a timer, to set background every interval time */
-            var timeId = window.setInterval("slideSetBackground(global_bg_res)", _bg_time);
-            slideSetBackground(global_bg_res);
+            var timeId = window.setInterval("slideSetBackground(config.global_bg_res)", _bg_time);
+            slideSetBackground(config.global_bg_res);
         }
     }
 }
@@ -212,10 +233,10 @@ function _bg(_bg_mode, _bg_res, _bg_time) {
  */
 function slideSetBackground(_bg_res) {
     /* judge the index of the picture to be set as background */
-    if (img_index >= _bg_res.length) {
-        img_index = 0;
+    if (config.img_index >= _bg_res.length) {
+        config.img_index = 0;
     }
-    setBackground(_bg_res[img_index++]);
+    setBackground(_bg_res[config.img_index++]);
 }
 
 /**
@@ -723,12 +744,12 @@ function showid(idDiv, imgPath, imgName) {
  * ########## ########## ########## ########## ########## ########## ##########
  */
 window.onload = function () {
-    if(ctrl) {
+    if(config.ctrl) {
         var _conDiv = document.getElementById("Div"),
             _ctrlSpan = document.createElement("span");
         _ctrlSpan.id = "ctrlSpan";
         _ctrlSpan.className = "ctrlSpan";
-        if(display){
+        if(config.display){
             _conDiv.style.display = "";
             _ctrlSpan.innerHTML = "隐藏";
         } else {
