@@ -146,16 +146,14 @@ def api_user_check(request):
 
 
 def member(request, uid=None):
+    usr, ui = getUsrUI(request)
+    userinfo, display_bg, slide_image_classify = (ui.data, ui.display_bg, ui.classify) if ui else (None, True, '')
+
     if uid:
         try:
-            ui = UserInfo.objects.get(pk=uid)
-            userinfo, display_bg = ui.data, ui.display_bg
+            userinfo = UserInfo.objects.get(pk=uid).data
         except:
-            usr = ui = userinfo = None
-            display_bg = True
-    else:
-        usr, ui = getUsrUI(request)
-        userinfo, display_bg, slide_image_classify = (ui.data, ui.display_bg, ui.classify) if ui else (None, None, '')
+            userinfo = None
 
     return render(
         request,
