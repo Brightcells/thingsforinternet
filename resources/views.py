@@ -63,20 +63,41 @@ def pages(setlist, p, num):
 
 def getResourcesDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': RESOURCESBACKLINKS, 'lists': getFunc(request, 'resources'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': RESOURCESBACKLINKS,
+        'lists': getFunc(request, 'resources'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getItgpsDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': ITGPSBACKLINKS, 'lists': getNav(request, 'itgps'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': ITGPSBACKLINKS,
+        'lists': getNav(request, 'itgps'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getApiDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': APIBACKLINKS, 'lists': getNav(request, 'api'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': APIBACKLINKS,
+        'lists': getNav(request, 'api'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def resources(request):

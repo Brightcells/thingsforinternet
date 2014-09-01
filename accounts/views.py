@@ -91,12 +91,12 @@ def login(request):
             return response
 
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
     return render(
         request,
         'accounts/login.html',
-        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg)
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify)
     )
 
 
@@ -115,12 +115,12 @@ def signup(request):
             return response
 
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
     return render(
         request,
         'accounts/signup.html',
-        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg)
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify)
     )
 
 
@@ -151,7 +151,7 @@ def member(request, uid=None):
             display_bg = True
     else:
         usr, ui = getUsrUI(request)
-        userinfo, display_bg = (ui.data, ui.display_bg) if ui else (None, None)
+        userinfo, display_bg, slide_image_classify = (ui.data, ui.display_bg, ui.classify) if ui else (None, None, '')
 
     return render(
         request,
@@ -162,7 +162,7 @@ def member(request, uid=None):
 
 def settings(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
     form = SettingsUserInfoModelForm(initial=ui.data)
 
@@ -174,5 +174,5 @@ def settings(request):
     return render(
         request,
         'accounts/settings.html',
-        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request), display_bg=display_bg)
+        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request), display_bg=display_bg, slide_image_classify=slide_image_classify)
     )

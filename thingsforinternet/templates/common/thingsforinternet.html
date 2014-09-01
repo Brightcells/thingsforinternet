@@ -215,7 +215,7 @@
             })();
 
             {% if display_bg %}
-                init({display: true})
+                init({display: true, slide_image_classify: '{{ slide_image_classify|default:'' }}'})
                 _bg(1, 0, 10000);
             {% endif %}
 

@@ -58,14 +58,28 @@ def pages(setlist, p):
 
 def getResumeDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': RESUMEBACKLINKS, 'lists': getFunc(request, 'resume'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': RESUMEBACKLINKS,
+        'lists': getFunc(request, 'resume'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getResume2Dict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': RESUME2BACKLINKS, 'lists': getNav(request, 'resume2'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': RESUME2BACKLINKS,
+        'lists': getNav(request, 'resume2'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def resume(request):

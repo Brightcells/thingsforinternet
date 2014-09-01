@@ -54,14 +54,27 @@ pinnimeibacklinks = labbacklinks + [{'name': 'Pinnimei', 'url': 'lab:pinnimei', 
 
 def getLabDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': labbacklinks, 'lists': getFunc(request, 'lab'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': labbacklinks,
+        'lists': getFunc(request, 'lab'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getPinnimeiDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': pinnimeibacklinks, 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': pinnimeibacklinks,
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def lab(request):

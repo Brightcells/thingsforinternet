@@ -60,20 +60,41 @@ def pages(setlist, p):
 
 def getResourcesDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': EXCHANGEBACKLINKS, 'lists': getFunc(request, 'exchange'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': EXCHANGEBACKLINKS,
+        'lists': getFunc(request, 'exchange'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getTipsDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': TIPSBACKLINKS, 'lists': getNav(request, 'tips'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': TIPSBACKLINKS,
+        'lists': getNav(request, 'tips'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def getBlogDict(request):
     usr, ui = getUsrUI(request)
-    display_bg = ui.display_bg if ui else True
-    return {'backlinks': BLOGBACKLINKS, 'lists': getNav(request, 'blog'), 'usr': usr, 'display_bg': display_bg}
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': BLOGBACKLINKS,
+        'lists': getNav(request, 'blog'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def exchange(request):
