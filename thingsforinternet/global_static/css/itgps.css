@@ -48,6 +48,12 @@ body {
     text-align: center;
 }
 
+.scrolltitlestyle:first-child {
+    padding-top: 0;
+    border-top: 0;
+    margin-top: 0;
+}
+
 .red {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     font-size: 40px;
