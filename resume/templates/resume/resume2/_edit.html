@@ -18,10 +18,10 @@
             <form class="form-horizontal text-center" method='post' action="{% url 'resume:resume2edit' %}" enctype='multipart/form-data'>
                 <div class="control-group">
                     <span class="errorlist text-left">
-                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
-                        {% for err in form.resume.errors %}{{ err }}</br>{% endfor %}
-                        {% for err in form.pdf.errors %}{{ err }}</br>{% endfor %}
-                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}
+                        {% for err in form.resume.errors %}{{ err }}<br>{% endfor %}
+                        {% for err in form.pdf.errors %}{{ err }}<br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}<br>{% endfor %}
                     </span>
                 </div>
 

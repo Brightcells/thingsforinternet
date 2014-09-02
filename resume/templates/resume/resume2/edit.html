@@ -15,7 +15,7 @@
 
     <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ form.resume.value|default_if_none:""|safe }}</textarea></div>
     <div class="list-hero-unit"><div id="epiceditor"></div></div>
-    </br>
+    <br>
 
     <div class="list-hero-unit">
         <form id="resumeForm" class="form-horizontal text-center" method='post' action="{% url 'resume:resume2edit' %}" enctype='multipart/form-data'>

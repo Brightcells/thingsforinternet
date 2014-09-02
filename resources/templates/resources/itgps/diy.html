@@ -14,7 +14,7 @@
                         <form class="form-horizontal text-center" action="{% url 'resources:itgpsdiy' %}" method='post' enctype='multipart/form-data'>
                             <div class="control-group">
                                 <span class="errorlist text-left">
-                                    {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
+                                    {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}
                                 </span>
                             </div>
 

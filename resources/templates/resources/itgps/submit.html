@@ -11,9 +11,9 @@
             <form class="form-horizontal text-center" action="{% url 'resources:itgpssubmit' %}" method='post'>
                 <div class="control-group">
                     <span class="errorlist text-left">
-                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
-                        {% for err in form.url.errors %}{{ err }}</br>{% endfor %}
-                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}
+                        {% for err in form.url.errors %}{{ err }}<br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}<br>{% endfor %}
                     </span>
                 </div>
 

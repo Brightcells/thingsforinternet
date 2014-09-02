@@ -2,12 +2,12 @@
 
 <div class="tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
     <div class="tips-hero-unit">
-        <pre>{{ mt.api|linebreaksbr }}</br></br>{{ mt.func|linebreaksbr }}</pre>
+        <pre>{{ mt.api|linebreaksbr }}<br><br>{{ mt.func|linebreaksbr }}</pre>
         {% if mt.tag|length == 1 and mt.tag|first == '' %}
         {% else %}
             <p class="text-center">{% for t in mt.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
         {% endif %}
-        </br>
+        <br>
     </div>
 
     <div class="tips-cite">
@@ -27,5 +27,5 @@
 
         <div class="span3"><i id="{{ mt.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ mt.like|default:0 }}</span></div>
     </div>
-    </br>
+    <br>
 </div>

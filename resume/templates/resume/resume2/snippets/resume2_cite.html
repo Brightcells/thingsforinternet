@@ -11,7 +11,7 @@
         {% else %}
             <p>{% for t in res.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
         {% endif %}
-        </br>
+        <br>
     </div>
 
     <div class="tips-cite">
@@ -31,5 +31,5 @@
 
         <div class="span3"><i id="{{ res.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ res.like|default:0 }}</span></div>
     </div>
-    </br>
+    <br>
 </div>

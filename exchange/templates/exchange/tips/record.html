@@ -13,10 +13,10 @@
                 <div class="control-group">
                     <span class="errorlist text-left">
                         {% if status %}{% trans 'Record tips success' %}{% endif %}
-                        {% for err in form.non_field_errors %}{{ err}}</br>{% endfor %}
-                        {% for err in form.tips.errors %}{{ err }}</br>{% endfor %}
-                        {% for err in form.tag.errors %}{{ err }}</br>{% endfor %}
-                        {% for err in form.url.errors %}{{ err }}</br>{% endfor %}
+                        {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}
+                        {% for err in form.tips.errors %}{{ err }}<br>{% endfor %}
+                        {% for err in form.tag.errors %}{{ err }}<br>{% endfor %}
+                        {% for err in form.url.errors %}{{ err }}<br>{% endfor %}
                     </span>
                 </div>
 

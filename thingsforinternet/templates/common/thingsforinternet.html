@@ -196,8 +196,8 @@
         {% endif %}
         <script>
             (function(){
-                var url = window.location.pathname;
-                var nav = url.split("/")[2];
+                var url = window.location.pathname,
+                    nav = url.split("/")[2];
 
                 if(nav in {"": "", "login": "login", "signup": "signup", "accounts": "accounts"}){
                     // do nothing

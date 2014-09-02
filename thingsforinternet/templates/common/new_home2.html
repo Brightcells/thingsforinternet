@@ -154,18 +154,18 @@
             }
 
             function hms(){
-                var d = new Date();
-                var hours = d.getHours();
-                var minutes = d.getMinutes();
-                var seconds = d.getSeconds();
+                var d = new Date(),
+                    hours = d.getHours(),
+                    minutes = d.getMinutes(),
+                    seconds = d.getSeconds();
                 $("#hms")[0].innerHTML = "{0}:{1}:{2}".format(hours, minutes, seconds);
             }
 
             function ymd(){
-                var d = new Date();
-                var year = d.getFullYear();// 获取4位的年份
-                var month = d.getMonth();// 从0-11
-                var day = d.getDate();
+                var d = new Date(),
+                    year = d.getFullYear(), // 获取4位的年份
+                    month = d.getMonth(), // 从0-11
+                    day = d.getDate();
                 $("#ymd")[0].innerHTML = "{0}/{1}/{2}".format(year, month, day);
             }
 
