@@ -166,7 +166,7 @@ var hammer = Hammer(el, {
     transform: false
 });
 /* 双击 */
-Hammer(element).on("doubletap", function(event) {
+Hammer(el).on("doubletap", function(event) {
     open_close_sidr();
 });
 /* 向右拖拽 */
