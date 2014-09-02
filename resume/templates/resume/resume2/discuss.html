@@ -47,5 +47,5 @@
 {% endblock %}
 
 {% block subscript %}
-    editor.preview();
+    _epiceditor = window.setInterval("delay_preview(editor)", 250);
 {% endblock %}

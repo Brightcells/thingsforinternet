@@ -24,6 +24,12 @@
 
 {% block script %}
     <script>
+        var _epiceditor = null;
+        function delay_preview(ed) {
+            ed.preview();
+            window.clearInterval(_epiceditor);
+        }
+
         (function(){
             var opts = {
                 container: 'epiceditor',
@@ -64,7 +70,7 @@
                 autogrow: true
             }
 
-            var editor = new EpicEditor(opts).load();
+            editor = new EpicEditor(opts).load();
 
             {% block subscript %}{% endblock %}
         })();
