@@ -9,9 +9,9 @@
 
 /*
  * @description ajax to post site's visited
- * 
+ *
  * @param
- * 
+ *
  * @return
  */
 function visit(_iObj, _url, _id){
@@ -28,15 +28,15 @@ function visit(_iObj, _url, _id){
 
 /*
  * @description ajax to post site's like & favorite
- * 
+ *
  * @param
- * 
+ *
  * @return
  */
 function myLikeFavAjax(_iObj, _spanObj, _url, _data){
     var iObj = _iObj;
     var spanObj = _spanObj;
-        
+
     iObj.classList.add("clicked");
     $.ajax({
         type: "post",
@@ -56,14 +56,14 @@ function myLikeFavAjax(_iObj, _spanObj, _url, _data){
         }
     });
     event.preventDefault();
-    iObj.classList.remove("clicked");   
+    iObj.classList.remove("clicked");
 }
 
 /*
  * @description check the browser you are using
- * 
+ *
  * @param
- * 
+ *
  * @return {Object} Sys
  */
 function browserCheck() {
@@ -83,9 +83,9 @@ function browserCheck() {
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Control backtop button's display & exec back top
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -105,9 +105,9 @@ function backtop() {
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Control sidr's open and close by specify button
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -121,11 +121,11 @@ var flag = false,
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
- * Control sidr's open and close 
- * by using gesture support by hammer.js 
+ *
+ * Control sidr's open and close
+ * by using gesture support by hammer.js
  * and double click Ctrl realize by self
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
@@ -153,29 +153,40 @@ function close_sidr() {
     }
 }
 
-var element = document.body;
+var el = document.body;
+var hammer = Hammer(el, {
+    drag: true,
+    drag_block_horizontal: true,
+    drag_min_distance: 3,
+    hold: false,
+    release: true,
+    swipe: false,
+    tap: false,
+    touch: false,
+    transform: false
+});
 /* 双击 */
 Hammer(element).on("doubletap", function(event) {
     open_close_sidr();
 });
 /* 向右拖拽 */
-Hammer(element).on("dragright", function(event) {
+hammer.on("dragright", function(event) {
     open_sidr();
 });
 /* 向左拖拽 */
-Hammer(element).on("dragleft", function(event) {
+hammer.on("dragleft", function(event) {
     close_sidr();
 });
 
 /*
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
- * 
+ *
  * Backgroud's setting support by pam.js
- * 
+ *
  * ########## ########## ########## ########## ########## ########## ##########
  * ########## ########## ########## ########## ########## ########## ##########
  */
 /*var path = '/static/img/background/',
     res = [ path+'background.jpg', ];
-_bg(0, res, 10000);*/ 
+_bg(0, res, 10000);*/
