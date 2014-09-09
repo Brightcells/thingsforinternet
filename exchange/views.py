@@ -33,7 +33,7 @@ from django.shortcuts import render, redirect
 from dh.models import *
 from exchange.decorators import tt_login_required
 from exchange.forms import TipsModelForm, BlogInfoModelForm
-from exchange.models import Tips, UserTips, BlogInfo
+from exchange.models import Tips, UserTips, BlogInfo, BlogSelectedInfo
 
 from utils.utils import *
 
@@ -253,16 +253,6 @@ def blogmine(request, p=1):
         dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', **getBlogDict(request))
     )
 
-    # try:
-    #     mineblog = BlogInfo.objects.get(user=ui, display=True).data
-    # except:
-    #     mineblog = {}
-    # return render(
-    #     request,
-    #     'exchange/blog/mine.html',
-    #     dict(blog=mineblog, ui=ui, userinfo=ui.data, **getBlogDict(request))
-    # )
-
 
 def blogall(request, p=1):
     allblog = BlogInfo.objects.filter(display=True).order_by('-modify_time')
@@ -329,3 +319,15 @@ def blogsearch(request, p=1):
         )
     else:
         return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
+
+
+def blogselected(request, p=1):
+    selectedblog = BlogSelectedInfo.objects.filter(display=True).order_by('-modify_time')
+    blogs = pages(selectedblog, int(p))
+    selectedblog = [blog.data for blog in blogs.object_list]
+
+    return render(
+        request,
+        'exchange/blog/selected.html',
+        dict(blog=selectedblog, pages=blogs, next_url='exchange:blogselected', **getBlogDict(request))
+    )

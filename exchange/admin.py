@@ -27,6 +27,14 @@ class BlogInfoAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
 
+class BlogSelectedInfoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'url', 'tag', 'author', 'user', 'visit', 'evaluate', 'like', 'unlike', 'follow', 'display', 'create_time', 'modify_time')
+    search_fields = ('title', 'tag', 'author')
+    list_filter = ('display', 'create_time', 'modify_time')
+    date_hierarchy = 'create_time'
+
+
 admin.site.register(Tips, TipsAdmin)
 admin.site.register(UserTips, UserTipsAdmin)
 admin.site.register(BlogInfo, BlogInfoAdmin)
+admin.site.register(BlogSelectedInfo, BlogSelectedInfoAdmin)

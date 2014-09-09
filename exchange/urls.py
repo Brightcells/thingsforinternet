@@ -34,4 +34,7 @@ urlpatterns = patterns('exchange.views',
     url(r'^blog/discuss/(?P<pk>\d+)/$', 'blogdiscuss', name='blogdiscuss'),
     url(r'^blog/search$', 'blogsearch', name='blogsearch'),
     url(r'^blog/search/(?P<p>\d+)/$', 'blogsearch', name='blogsearch'),
+
+    url(r'^blog/selected$', 'blogselected', name='blogselected'),
+    url(r'^blog/selected/(?P<p>\d+)/$', 'blogselected', name='blogselected'),
 )
