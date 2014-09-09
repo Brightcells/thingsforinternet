@@ -1,13 +1,12 @@
 {% load staticfiles %}
 
 <div class="tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
-    <div class="tips-hero-unit">
-        <pre>{{ mt.tips|linebreaksbr }}</pre>
+    <div class="tips-hero-unit text-center">
+        <pre><p class="text-left" onclick="discuss('{% url 'exchange:tipsdiscuss' mt.pk %}')">{{ mt.tips|linebreaksbr }}</p><a href="{% url 'accounts:member' mt.uid %}">{{ mt.uname }}</a></pre>
         {% if mt.tag|length == 1 and mt.tag|first == '' %}
         {% else %}
             <p class="text-center">{% for t in mt.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
         {% endif %}
-        <br>
     </div>
 
     <div class="tips-cite">

@@ -6,12 +6,11 @@
 {% endif %}
 <div class="span4 tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
     <div class="tips-hero-unit text-center">
-        <pre><strong><em><h3>{{ res.title }}</h3></em></strong><span>{{ res.uname }}</span></pre>
+        <pre><strong><em><h3 onclick="discuss('{% url 'exchange:blogdiscuss' res.pk %}')">{{ res.title }}</h3></em></strong><a href="{% url 'accounts:member' res.uid %}">{{ res.uname }}</a></pre>
         {% if res.tag|length == 1 and res.tag|first == '' %}
         {% else %}
             <p>{% for t in res.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
         {% endif %}
-        <br>
     </div>
 
     <div class="tips-cite">
