@@ -6,7 +6,7 @@
 {% endif %}
 <div class="span4 tips-desc" onmouseover="mouseOn(event, this, 1)" onmouseout="mouseOut(event, this, 1)">
     <div class="tips-hero-unit text-center">
-        <pre><strong><em><h3>{{ res.title }}</h3></em></strong><span>{{ res.author|default:'' }}</span></pre>
+        <pre><strong><em><h3 onclick="window.open('{{ res.url }}')">{{ res.title }}</h3></em></strong><span>{{ res.author|default:'' }}</span></pre>
         {% if res.tag|length == 1 and res.tag|first == '' %}
         {% else %}
             <p>{% for t in res.tag %}<a class="tag">{{ t }}</a>{% endfor %}</p>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="tips-cite">
-        <div class="span3" onclick="discuss('{% url 'exchange:blogdiscuss' res.pk %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
+        <div class="span3" onclick="window.open('{{ res.url }}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
 
         {% ifequal res.uname usr %}
             <div class="span3"><i id="{{ res.pk }}" class="icon-remove icon-white"></i><span>{{ res.follow|default:0 }}</span></div>
