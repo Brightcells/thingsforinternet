@@ -46,5 +46,5 @@ if settings.DEBUG:
 # urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns('thingsforinternet.views',
-    url(r'^search$', 'search', name='search'),
+    url(r'^search/$', 'search', name='search'),
 )

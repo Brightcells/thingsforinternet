@@ -6,6 +6,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('huntjob.views',
     url(r'^$', 'huntjob', name='huntjob'),
-    url(r'^index$', 'huntjob', name='huntjob'),
-    url(r'^home$', 'huntjob', name='huntjob'),
+    url(r'^index/$', 'huntjob', name='huntjob'),
+    url(r'^home/$', 'huntjob', name='huntjob'),
 )

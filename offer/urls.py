@@ -6,6 +6,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('offer.views',
     url(r'^$', 'offer', name='offer'),
-    url(r'^index$', 'offer', name='offer'),
-    url(r'^home$', 'offer', name='offer'),
+    url(r'^index/$', 'offer', name='offer'),
+    url(r'^home/$', 'offer', name='offer'),
 )

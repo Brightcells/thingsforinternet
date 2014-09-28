@@ -44,7 +44,7 @@ class TagInfoAdmin(admin.ModelAdmin):
 
 class CsySiteAdmin(admin.ModelAdmin):
     list_display = ('classify', 'website', 'display', 'create_time', 'modify_time')
-    search_fields = ('classify__name', 'website__url' , 'website__name', 'website__logo', 'website__slogan', 'website__descr', 'website__tag', 'website__srcode')
+    search_fields = ('classify__name', 'website__url', 'website__name', 'website__logo', 'website__slogan', 'website__descr', 'website__tag', 'website__srcode')
     list_filter = ('display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
     raw_id_fields = ('classify', )
