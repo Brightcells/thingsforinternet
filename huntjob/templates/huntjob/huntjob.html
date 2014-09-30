@@ -1,18 +1,31 @@
-{% extends "common/coming.html" %}
+{% extends "common/thingsforinternet.html" %}
+{% load staticfiles %}
 
 {% block title %}
-	<title>ThingsForInternet - 求职</title>
+    <title>求职 (Huntjob) -- ThingsForInternet</title>
 {% endblock %}
 
-{% block befcon %}
-	<div class="container">
-		<div class="row-fluid">
-			<div class="span12">
-				<a name="unpaid"></a>
-				<div class="hero-unit">
-				    题库 - 面经 - 面试时间管理提醒
-				</div>
-			</div>
-		</div>
-	</div>
+{% block nav %}
+    {% for n in lists %}
+        <li><a href="{% url 'huntjob:'|add:n.name|lower|add:'home' %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}</a></li>
+    {% endfor %}
 {% endblock %}
+
+{% block bodyer %}
+    {% for n in lists %}
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="list-hero-unit">
+                        <a href="{% url 'huntjob:'|add:n.name|lower|add:'home' %}" title="{{ n.title }}">
+                            <img class="img-list" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

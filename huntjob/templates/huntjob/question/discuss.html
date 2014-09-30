@@ -1,0 +1,51 @@
+{% extends "huntjob/question/base_question.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">查看</h2>
+    </div>
+
+    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ resume.resume|default_if_none:""|safe }}</textarea></div>
+    <div class="row-fluid">
+        <div class="span9"><div class="list-hero-unit"><div id="epiceditor"></div></div></div>
+        <div class="span3"><div class="list-hero-unit">{% include 'resume/resume2/snippets/userinfo.html' %}</div></div>
+    </div>
+    <br>
+
+    <div class="list-hero-unit text-center">
+        <!-- <pre>{{ resume.resume|djangomarkdown }}</pre> -->
+        <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
+        <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block aftcon %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block ctrl %}
+    button: {
+        preview: false,
+        fullscreen: false,
+        bar: ""
+    },
+{% endblock %}
+
+{% block subscript %}
+    _epiceditor = window.setInterval("delay_preview(editor)", 250);
+{% endblock %}

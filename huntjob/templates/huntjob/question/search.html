@@ -1,0 +1,27 @@
+{% extends "huntjob/question/base_question.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>查询结果 -- 简历 (Resume) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">搜索到的简历</h2>
+    </div>
+
+    <div class="block-hero-unit">
+        <div class="row-fluid">
+            {% for res in resume %}
+                {% include 'resume/resume2/snippets/resume2_cite.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block paginator %}{% if pages|length %}{% include "common/pages.html" %}{% endif %}{% endblock %}
+
+{% block script %}{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "huntjob/question/base_question.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">查看</h2>
+        <a class="more" href="{% url 'resume:resume2edit' %}" target="_blank">编辑</a>
+        {% if ui %}
+            <span>|</span>
+            <a class="more" href="{% url 'resume:resume2discuss' 1 %}" target="_blank">查看评论</a>
+        {% endif %}
+    </div>
+
+    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ resume.resume|default_if_none:""|safe }}</textarea></div>
+    <div class="row-fluid">
+        <div class="span9"><div class="list-hero-unit"><div id="epiceditor"></div></div></div>
+        <div class="span3"><div class="list-hero-unit">{% include 'resume/resume2/snippets/userinfo.html' %}</div></div>
+    </div>
+    <br>
+
+    <div class="list-hero-unit text-center">
+        <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
+        <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+    </div>
+{% endblock %}
+
+{% block ctrl %}
+    button: {
+        preview: false,
+        fullscreen: false,
+        bar: ""
+    },
+{% endblock %}
+
+{% block subscript %}
+    editor.preview();
+{% endblock %}

@@ -1,31 +1,203 @@
-# Create your views here.
 # -*- coding: utf-8 -*-
 
-from django.contrib.auth.models import User
-from dh.models import *
+"""
+Copyright (c) 2014 Qimin Huang <kimi.huang@brightcells.com>
 
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""
+
+from django.conf import settings
+from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
-
 from django.db.models import Q
-from django.db.models import Count
-
-from django.core import serializers
-from django.utils.encoding import smart_str
 from django.forms.models import model_to_dict
+from django.shortcuts import render, redirect
 
-import re
-import json
-import time
-import random
-import hashlib
+from dh.models import *
+from huntjob.decorators import tt_login_required
+from huntjob.forms import QuestionInfoModelForm
+from huntjob.models import QuestionInfo
 
-from utils.utils import getRef, getErrorCode, usercheck, pwd2hash, get_referer_view, delCookie
+from utils.utils import *
+
+
+HUNTJOBBACKLINKS = [
+    {'name': 'TT4IT', 'url': 'dh:dh', 'para': ''},
+    {'name': '求职', 'url': 'huntjob:huntjob', 'para': ''},
+]
+
+QUESTIONBACKLINKS = HUNTJOBBACKLINKS + [{'name': '面试题', 'url': 'huntjob:questionhome', 'para': ''}, ]
+
+
+def pages(setlist, p):
+    """ Paginator """
+
+    paginator = Paginator(setlist, settings.TIPS_PER_PAGE)
+    try:
+        return paginator.page(p)
+    except:
+        return paginator.page(1)
+
+
+def getHuntjobDict(request):
+    usr, ui = getUsrUI(request)
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': HUNTJOBBACKLINKS,
+        'lists': getFunc(request, 'huntjob'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
+
+
+def getQuestionDict(request):
+    usr, ui = getUsrUI(request)
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return {
+        'backlinks': QUESTIONBACKLINKS,
+        'lists': getNav(request, 'question'),
+        'usr': usr,
+        'display_bg': display_bg,
+        'slide_image_classify': slide_image_classify
+    }
 
 
 def huntjob(request):
-    reDict = {}
-    response = render_to_response('huntjob/huntjob.html', reDict)
-    return response
+    """ APP Huntjob's home """
+
+    return render(request, 'huntjob/huntjob.html', getHuntjobDict(request))
+
+
+def questionhome(request):
+    """ Function Question's home - Upload、Manage、Scan interview questions """
+
+    return redirect(reverse('huntjob:questionall'))
+
+
+@tt_login_required
+def questionrecord(request, p=1):
+    status = False
+    user = getUI(getUsr(request))
+
+    if request.method == 'GET':
+        form = QuestionInfoModelForm()
+    else:
+        form = QuestionInfoModelForm(request.POST, request=request)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+
+            title = cleaned_data['title']
+            blog = cleaned_data['blog']
+            tag = cleaned_data['tag']
+
+            QuestionInfo.objects.get_or_create(question=question, answer=answer, tag=tag, user=user)
+
+            form = BlogInfoModelForm()
+            status = True
+
+    mineblog = BlogInfo.objecsts.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
+    blogs = pages(mineblog, int(p))
+    mineblog = [blog.data for blog in blogs.object_list]
+
+    return render(
+        request,
+        'exchange/blog/record.html',
+        dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', form=form, status=status, **getBlogDict(request))
+    )
+
+
+def questionall(request, p=1):
+    allquestion = QuestionInfo.objects.filter(display=True).order_by('-modify_time')
+    questions = pages(allquestion, int(p))
+    allquestion = [question.data for question in questions.object_list]
+    return render(
+        request,
+        'huntjob/question/all.html',
+        dict(question=allquestion, pages=questions, next_url='huntjob:questionall', **getQuestionDict(request))
+    )
+
+
+@tt_login_required
+def questionmine(request):
+    ui = getUI(getUsr(request))
+    try:
+        minequestion = questionInfo.objects.get(user=ui, display=True).data
+    except:
+        minequestion = {}
+    return render(
+        request,
+        'huntjob/question/mine.html',
+        dict(question=minequestion, ui=ui, userinfo=ui.data, **getQuestionDict(request))
+    )
+
+
+@tt_login_required
+def questionedit(request):
+    if request.method == "POST":
+        minequestion, created = questionInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
+        form = questionInfoModelForm(request.POST, request.FILES, instance=minequestion)
+        if form.is_valid():
+            form.save()
+
+    try:
+        minequestion = model_to_dict(questionInfo.objects.get(user=getUI(getUsr(request)), display=True))
+        form = questionInfoModelForm(minequestion)
+    except:
+        form = questionInfoModelForm()
+
+    return render(
+        request,
+        'huntjob/question/edit.html',
+        dict(form=form, userinfo=getUI(getUsr(request)), **getQuestionDict(request))
+    )
+
+
+def questiondiscuss(request, uid):
+    try:
+        question = questionInfo.objects.get(user__pk=uid, display=True)
+    except:
+        question = None
+
+    userinfo = question.user.data if question else None
+    question = question.data if question else {}
+
+    return render(
+        request,
+        'huntjob/question/discuss.html',
+        dict(question=question, userinfo=userinfo, **getQuestionDict(request))
+    )
+
+
+def questionsearch(request, p=1):
+    _query = request.GET.get('query', '')
+    searchquestion = questionInfo.objects.filter(Q(question__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
+    if searchquestion.count():
+        questions = pages(searchquestion, int(p))
+        searchquestion = [question.info for question in questions.object_list]
+        return render(
+            request,
+            'huntjob/question/search.html',
+            dict(question=searchquestion, pages=questions, next_url='huntjob:questionsearch', query='?query=' + _query, **getquestionDict(request))
+        )
+    else:
+        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
