@@ -20,7 +20,7 @@
             <div class="span12">
                 <div class="sl-hero-unit">
                     <div class="divCenter">
-                        <form class="form-horizontal text-center" action="{% url 'accounts:settings' %}" method='post'>
+                        <form class="form-horizontal text-center" action="{% url 'accounts:settings' %}?next={{ next }}" method='post'>
                             <div class="control-group">
                                 <span class="errorlist text-left">
                                     {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}

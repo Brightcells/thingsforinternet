@@ -163,6 +163,7 @@ def member(request, uid=None):
 
 
 def settings(request):
+    next_url = request.GET.get('next', '') or get_referer_view(request)
     usr, ui = getUsrUI(request)
 
     form = SettingsUserInfoModelForm(initial=ui.data)
@@ -171,11 +172,12 @@ def settings(request):
         form = SettingsUserInfoModelForm(request.POST, instance=ui)
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect(next_url)
 
     display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
     return render(
         request,
         'accounts/settings.html',
-        dict(backlinks=BACKLINKS, usr=usr, form=form, lists=getApp(request), display_bg=display_bg, slide_image_classify=slide_image_classify)
+        dict(backlinks=BACKLINKS, usr=usr, form=form, next=next_url, lists=getApp(request), display_bg=display_bg, slide_image_classify=slide_image_classify)
     )
