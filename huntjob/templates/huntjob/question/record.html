@@ -1,0 +1,48 @@
+{% extends "huntjob/question/base_question.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>记录面试题 (Record Questions) -- 面试题 (Questions) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">面试题</h2>
+    </div>
+
+    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_question">{{ form.question.value|default_if_none:""|safe }}</textarea></div>
+    <div class="list-hero-unit"><div id="epiceditor"></div></div>
+    <br>
+
+    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_answer">{{ form.answer.value|default_if_none:""|safe }}</textarea></div>
+    <div class="list-hero-unit"><div id="epiceditor_answer"></div></div>
+    <br>
+
+    <div class="list-hero-unit">
+        <form id="questionForm" class="form-horizontal text-center" method='post' action="{% url 'huntjob:questionrecord' %}">
+            <div class="control-group" style="visibility:hidden; display:none">{{ form.question }}</div>
+            <div class="control-group" style="visibility:hidden; display:none">{{ form.answer }}</div>
+            <div class="control-group">{{ form.tag }}</div>
+
+            <div class="control-group"><button type="button" id="btn" class="btn">保存</button></div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block subscript %}
+    jQuery("#btn").click(function () {
+        // editor_content = editor.getElement('editor').body.innerHTML;
+        editor_content = editor.exportFile();
+        console.log(editor_content); // Returns the editor's content
+        jQuery("#id_question").val(editor_content);
+        
+        editor_answer_content = editor_answer.exportFile();
+        console.log(editor_answer_content); // Returns the editor's content
+        jQuery("#id_answer").val(editor_answer_content);
+
+        jQuery("#questionForm").submit();
+    });
+{% endblock %}

@@ -16,7 +16,7 @@ urlpatterns = patterns('huntjob.views',
     url(r'^question/all/(?P<p>\d+)/$', 'questionall', name='questionall'),
     url(r'^question/mine/$', 'questionmine', name='questionmine'),
     url(r'^question/edit/$', 'questionedit', name='questionedit'),
-    url(r'^question/discuss/(?P<uid>\d+)/$', 'questiondiscuss', name='questiondiscuss'),
+    url(r'^question/discuss/(?P<qid>\d+)/$', 'questiondiscuss', name='questiondiscuss'),
     url(r'^question/search/$', 'questionsearch', name='questionsearch'),
     url(r'^question/search/(?P<p>\d+)/$', 'questionsearch', name='questionsearch'),
 )

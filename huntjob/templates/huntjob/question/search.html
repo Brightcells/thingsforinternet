@@ -3,20 +3,20 @@
 {% load djangomarkdown %}
 
 {% block title %}
-    <title>查询结果 -- 简历 (Resume) -- ThingsForInternet</title>
+    <title>查询结果 -- 面试题 (Questions) -- ThingsForInternet</title>
 {% endblock %}
 
 {% block bodyer %}{% endblock %}
 
 {% block content2 %}
     <div class="scrolltitlestyle">
-        <h2 class="red">搜索到的简历</h2>
+        <h2 class="red">搜索到的面试题</h2>
     </div>
 
     <div class="block-hero-unit">
         <div class="row-fluid">
-            {% for res in resume %}
-                {% include 'resume/resume2/snippets/resume2_cite.html' %}
+            {% for res in question %}
+                {% include 'huntjob/question/snippets/question_cite.html' %}
             {% endfor %}
         </div>
     </div>

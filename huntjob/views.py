@@ -106,23 +106,23 @@ def questionrecord(request, p=1):
         if form.is_valid():
             cleaned_data = form.cleaned_data
 
-            title = cleaned_data['title']
-            blog = cleaned_data['blog']
+            question = cleaned_data['question']
+            answer = cleaned_data['answer']
             tag = cleaned_data['tag']
 
             QuestionInfo.objects.get_or_create(question=question, answer=answer, tag=tag, user=user)
 
-            form = BlogInfoModelForm()
+            form = QuestionInfoModelForm()
             status = True
 
-    mineblog = BlogInfo.objecsts.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
-    blogs = pages(mineblog, int(p))
-    mineblog = [blog.data for blog in blogs.object_list]
+    minequestion = QuestionInfo.objects.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
+    questions = pages(minequestion, int(p))
+    minequestion = [question.data for question in questions.object_list]
 
     return render(
         request,
-        'exchange/blog/record.html',
-        dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', form=form, status=status, **getBlogDict(request))
+        'huntjob/question/record.html',
+        dict(blog=minequestion, pages=questions, next_url='huntjob:questionmine', form=form, status=status, **getQuestionDict(request))
     )
 
 
@@ -138,16 +138,15 @@ def questionall(request, p=1):
 
 
 @tt_login_required
-def questionmine(request):
-    ui = getUI(getUsr(request))
-    try:
-        minequestion = questionInfo.objects.get(user=ui, display=True).data
-    except:
-        minequestion = {}
+def questionmine(request, p=1):
+    minequestion = QuestionInfo.objects.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
+    questions = pages(minequestion, int(p))
+    minequestion = [question.data for question in questions.object_list]
+
     return render(
         request,
         'huntjob/question/mine.html',
-        dict(question=minequestion, ui=ui, userinfo=ui.data, **getQuestionDict(request))
+        dict(question=minequestion, pages=questions, next_url='huntjob:questionmine', **getQuestionDict(request))
     )
 
 
@@ -172,9 +171,9 @@ def questionedit(request):
     )
 
 
-def questiondiscuss(request, uid):
+def questiondiscuss(request, qid):
     try:
-        question = questionInfo.objects.get(user__pk=uid, display=True)
+        question = QuestionInfo.objects.get(pk=qid, display=True)
     except:
         question = None
 
@@ -190,14 +189,14 @@ def questiondiscuss(request, uid):
 
 def questionsearch(request, p=1):
     _query = request.GET.get('query', '')
-    searchquestion = questionInfo.objects.filter(Q(question__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
+    searchquestion = QuestionInfo.objects.filter(Q(question__contains=_query) | Q(answer__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
     if searchquestion.count():
         questions = pages(searchquestion, int(p))
-        searchquestion = [question.info for question in questions.object_list]
+        searchquestion = [question.data for question in questions.object_list]
         return render(
             request,
             'huntjob/question/search.html',
-            dict(question=searchquestion, pages=questions, next_url='huntjob:questionsearch', query='?query=' + _query, **getquestionDict(request))
+            dict(question=searchquestion, pages=questions, next_url='huntjob:questionsearch', query='?query=' + _query, **getQuestionDict(request))
         )
     else:
         return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)

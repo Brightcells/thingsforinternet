@@ -3,7 +3,7 @@
 {% load djangomarkdown %}
 
 {% block title %}
-    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+    <title>我的面试题 (Mine Questions) -- 面试题 (Questions) -- ThingsForInternet</title>
 {% endblock %}
 
 {% block befcon %}
@@ -11,17 +11,21 @@
         <h2 class="red">查看</h2>
     </div>
 
-    <div class="control-group" style="visibility:hidden; display:none"><textarea id="editor_resume">{{ resume.resume|default_if_none:""|safe }}</textarea></div>
     <div class="row-fluid">
-        <div class="span9"><div class="list-hero-unit"><div id="epiceditor"></div></div></div>
+        <div class="span9">
+            <div class="list-hero-unit">{{ question.question|djangomarkdown }}</div>
+            <br>
+            <div class="list-hero-unit">{{ question.answer|djangomarkdown }}</div>
+        </div>
         <div class="span3"><div class="list-hero-unit">{% include 'resume/resume2/snippets/userinfo.html' %}</div></div>
     </div>
     <br>
 
     <div class="list-hero-unit text-center">
-        <!-- <pre>{{ resume.resume|djangomarkdown }}</pre> -->
-        <div><a href="{{ resume.pdf }}" target="_blank">{{ resume.pdf }}</a></div>
-        <div>{% for t in resume.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+        {% if question.tag|length == 1 and question.tag|first == '' %}
+        {% else %}
+            <div>{% for t in question.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -38,14 +42,4 @@
 
 {% block bodyer2 %}{% endblock %}
 
-{% block ctrl %}
-    button: {
-        preview: false,
-        fullscreen: false,
-        bar: ""
-    },
-{% endblock %}
-
-{% block subscript %}
-    _epiceditor = window.setInterval("delay_preview(editor)", 250);
-{% endblock %}
+{% block script %}{% endblock %}

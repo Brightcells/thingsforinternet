@@ -33,7 +33,7 @@
         (function(){
             var opts = {
                 container: 'epiceditor',
-                textarea: 'editor_resume',
+                textarea: 'editor_question',
                 basePath: '/static/resume/resume2',
                 clientSideStorage: true,
                 localStorageName: 'epiceditor',
@@ -71,6 +71,11 @@
             }
 
             editor = new EpicEditor(opts).load();
+
+            var opts_answer = opts;
+            opts_answer['container'] = opts_answer['localStorageName'] = opts_answer['file']['name'] = 'epiceditor_answer';
+            opts_answer['textarea'] = 'editor_answer';
+            editor_answer = new EpicEditor(opts_answer).load();
 
             {% block subscript %}{% endblock %}
         })();
