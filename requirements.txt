@@ -1,4 +1,5 @@
 Django==1.6
+django-markdown-deux==1.0.5
 django-mobi==0.1.7
 ipdb==0.8
 ipython==2.0.0
