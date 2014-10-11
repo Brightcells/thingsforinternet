@@ -16,6 +16,6 @@ def djangomarkdown(value):
     return mark_safe(
         markdown2.markdown(
             force_unicode(value),
-            extras=["code-friendly"]
+            extras=['fenced-code-blocks']
         )
     )

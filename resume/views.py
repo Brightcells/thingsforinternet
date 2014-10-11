@@ -156,6 +156,22 @@ def resume2discuss(request, uid):
     )
 
 
+def resume2discuss2(request, uid):
+    try:
+        resume = ResumeInfo.objects.get(user__pk=uid, display=True)
+    except:
+        resume = None
+
+    userinfo = resume.user.data if resume else None
+    resume = resume.data if resume else {}
+
+    return render(
+        request,
+        'resume/resume2/discuss2.html',
+        dict(resume=resume, userinfo=userinfo, **getResume2Dict(request))
+    )
+
+
 def resume2search(request, p=1):
     _query = request.GET.get('query', '')
     searchresume = ResumeInfo.objects.filter(Q(resume__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')

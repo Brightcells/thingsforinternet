@@ -5,7 +5,9 @@ ipython==2.0.0
 markdown2==2.2.1
 MySQL-python==1.2.5
 pep8==1.5.7
-PIL==1.1.7 or Pillow==2.5.1
+PIL==1.1.7
+Pillow==2.5.1
+Pygments==1.6
 pytz==2014.1
 requests==2.3.0
 South==0.8.4
