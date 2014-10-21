@@ -14,21 +14,25 @@
     </div>
 
     <div class="tips-cite">
-        <div class="span3" onclick="discuss('{% url 'resume:resume2discuss' res.uid %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
-
-        {% ifequal res.uname usr %}
-            <div class="span3"><i id="{{ res.pk }}" class="icon-remove icon-white"></i><span>{{ res.follow|default:0 }}</span></div>
+        {% if request.mobile %}
+            <div class="span12" onclick="discuss('{% url 'resume:resume2discuss' res.uid %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
         {% else %}
-            <div class="span3"><i id="{{ res.pk }}" class="icon-bookmark icon-white"></i><span>{{ res.follow|default:0 }}</span></div>
-        {% endifequal %}
+            <div class="span3" onclick="discuss('{% url 'resume:resume2discuss' res.uid %}')"><i id="{{ site.site.website.pk }}" class="icon-fullscreen icon-white"></i><span>{{ site.site.website.visit }}</span></div>
 
-        {% if res.url %}
-            <div class="span3" onclick=""><i id="{{ res.pk }}" class="icon-eye-open icon-white"></i><span>{{ res.visit|default:0 }}</span></div>
-        {% else %}
-            <div class="span3"><i id="{{ res.pk }}" class="icon-eye-open"></i></div>
+            {% ifequal res.uname usr %}
+                <div class="span3"><i id="{{ res.pk }}" class="icon-remove icon-white"></i><span>{{ res.follow|default:0 }}</span></div>
+            {% else %}
+                <div class="span3"><i id="{{ res.pk }}" class="icon-bookmark icon-white"></i><span>{{ res.follow|default:0 }}</span></div>
+            {% endifequal %}
+
+            {% if res.url %}
+                <div class="span3" onclick=""><i id="{{ res.pk }}" class="icon-eye-open icon-white"></i><span>{{ res.visit|default:0 }}</span></div>
+            {% else %}
+                <div class="span3"><i id="{{ res.pk }}" class="icon-eye-open"></i></div>
+            {% endif %}
+
+            <div class="span3"><i id="{{ res.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ res.like|default:0 }}</span></div>
         {% endif %}
-
-        <div class="span3"><i id="{{ res.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ res.like|default:0 }}</span></div>
     </div>
     <br>
 </div>

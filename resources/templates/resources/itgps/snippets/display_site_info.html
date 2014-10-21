@@ -18,20 +18,24 @@
             </a>
         {% endifequal %}
         <div class="cite">
-            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-fullscreen icon-white"></i></div>
-
-            {% if site.ffav %}
-                <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark"></i><span>{{ site.website.fav }}</span></div>
+            {% if request.mobile %}
+                <div class="span12" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-fullscreen icon-white"></i></div>
             {% else %}
-                <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark icon-white"></i><span>{{ site.website.fav }}</span></div>
-            {% endif %}
+                <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-fullscreen icon-white"></i></div>
 
-            <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-eye-open icon-white"></i><span>{{ site.website.visit }}</span></div>
+                {% if site.ffav %}
+                    <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark"></i><span>{{ site.website.fav }}</span></div>
+                {% else %}
+                    <div class="span3"><i id="{{ site.website.pk }}" class="icon-bookmark icon-white"></i><span>{{ site.website.fav }}</span></div>
+                {% endif %}
 
-            {% if site.flike %}
-                <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up"></i><span>{{ site.website.like }}</span></div>
-            {% else %}
-                <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ site.website.like }}</span></div>
+                <div class="span3" onclick="discuss('{% url 'resources:discuss' site.website.pk %}')"><i id="{{ site.website.pk }}" class="icon-eye-open icon-white"></i><span>{{ site.website.visit }}</span></div>
+
+                {% if site.flike %}
+                    <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up"></i><span>{{ site.website.like }}</span></div>
+                {% else %}
+                    <div class="span3"><i id="{{ site.website.pk }}" class="icon-thumbs-up icon-white"></i><span>{{ site.website.like }}</span></div>
+                {% endif %}
             {% endif %}
         </div>
     </p>
