@@ -28,7 +28,7 @@
     <br>
 
     <div class="list-hero-unit text-center">
-        <div>{% for t in blog.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+        <div>{% if tip.tag|length == 1 and tip.tag|first == '' %}{% else %}{% for t in blog.tag %}<a class="tag">{{ t }}</a>{% endfor %}{% endif %}</div>
     </div>
 {% endblock %}
 

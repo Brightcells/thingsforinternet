@@ -22,9 +22,10 @@
         <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 10px;">
             <div class="span2 text-right"><span class="disc-color">标签：</span></div>
             <div class="span10">
-                {% for t in api.tag %}
-                    <a class="tag">{{ t }}</a>
-                {% endfor %}
+                {% if tip.tag|length == 1 and tip.tag|first == '' %}
+                {% else %}
+                    {% for t in api.tag %}<a class="tag">{{ t }}</a>{% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
