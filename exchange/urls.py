@@ -32,6 +32,7 @@ urlpatterns = patterns('exchange.views',
     url(r'^blog/edit/$', 'blogedit', name='blogedit'),
     url(r'^blog/edit/(?P<pk>\d+)/$', 'blogedit', name='blogedit'),
     url(r'^blog/discuss/(?P<pk>\d+)/$', 'blogdiscuss', name='blogdiscuss'),
+    url(r'^blog/discuss2/(?P<pk>\d+)/$', 'blogdiscuss2', name='blogdiscuss2'),
     url(r'^blog/search/$', 'blogsearch', name='blogsearch'),
     url(r'^blog/search/(?P<p>\d+)/$', 'blogsearch', name='blogsearch'),
 

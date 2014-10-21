@@ -307,6 +307,22 @@ def blogdiscuss(request, pk):
     )
 
 
+def blogdiscuss2(request, pk):
+    try:
+        blog = BlogInfo.objects.get(pk=pk, display=True)
+    except:
+        blog = None
+
+    userinfo = blog.user.data if blog else None
+    blog = blog.data if blog else {}
+
+    return render(
+        request,
+        'exchange/blog/discuss2.html',
+        dict(blog=blog, userinfo=userinfo, **getBlogDict(request))
+    )
+
+
 def blogsearch(request, p=1):
     _query = request.GET.get('query', '')
     searchblog = BlogInfo.objects.filter(Q(title__contains=_query) | Q(blog__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
