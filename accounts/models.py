@@ -10,13 +10,18 @@ SLIDE_IMAGE_CLASSIFY = (
     ('kt', _(u'KaTong')),
     ('bc', _(u'BianCheng')),
     ('dw', _(u'DongWu')),
+    ('mx', _(u'MingXing')),
+    ('yx', _(u'YouXi')),
+    ('zs', _(u'ZheSi')),
 )
 
 SEARCH_ENGINE = (
     ('google', _(u'Google')),
+    ('stackoverflow', _(u'StackOverflow')),
+    ('bing', _(u'Bing')),
     ('tmd', _(u'TMD123')),
-    ('baidu', _(u'百度')),
-    ('tt', _(u'TT站内')),
+    ('baidu', _(u'Baidu')),
+    ('tt', _(u'tt4it')),
 )
 
 
