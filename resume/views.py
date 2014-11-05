@@ -175,13 +175,10 @@ def resume2discuss2(request, uid):
 def resume2search(request, p=1):
     _query = request.GET.get('query', '')
     searchresume = ResumeInfo.objects.filter(Q(resume__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
-    if searchresume.count():
-        resumes = pages(searchresume, int(p))
-        searchresume = [resume.info for resume in resumes.object_list]
-        return render(
-            request,
-            'resume/resume2/search.html',
-            dict(resume=searchresume, pages=resumes, next_url='resume:resume2search', query='?query=' + _query, **getResume2Dict(request))
-        )
-    else:
-        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
+    resumes = pages(searchresume, int(p))
+    searchresume = [resume.info for c in resumes.object_list]
+    return render(
+        request,
+        'resume/resume2/search.html',
+        dict(resume=searchresume, pages=resumes, next_url='resume:resume2search', query='?query=' + _query, **getResume2Dict(request))
+    )

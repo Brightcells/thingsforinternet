@@ -29,8 +29,8 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 from django.forms.models import model_to_dict
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.utils.encoding import smart_str
 
 import re
@@ -44,4 +44,9 @@ from utils.utils import *
 
 def search(request):
     _query = request.GET.get('query', '')
-    return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
+    try:
+        usr, ui = getUsrUI(request)
+        search_engine = ui.search_engine
+    except:
+        search_engine = 'google'
+    return redirect(settings.SEARCH_ENGINE.get(search_engine, 'google') % (_query))

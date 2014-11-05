@@ -17,10 +17,9 @@ SLIDE_IMAGE_CLASSIFY = (
 
 SEARCH_ENGINE = (
     ('google', _(u'Google')),
-    ('stackoverflow', _(u'StackOverflow')),
     ('bing', _(u'Bing')),
-    ('tmd', _(u'TMD123')),
     ('baidu', _(u'Baidu')),
+    ('sof', _(u'StackOverflow')),
     ('tt', _(u'tt4it')),
 )
 
@@ -33,7 +32,7 @@ class UserInfo(models.Model):
     login_page = models.URLField(_(u'login_page'), max_length=255, blank=True, null=True, help_text=u'登录首页')
     display_bg = models.BooleanField(_('display_bg'), default=True, help_text=u'是否显示背景图')
     classify = models.CharField(_(u'classify'), max_length=255, choices=SLIDE_IMAGE_CLASSIFY, blank=True, null=True, help_text=u'背景图分类')
-    search_engine = models.CharField(_(u'search_engine'), max_length=255, choices=SEARCH_ENGINE, blank=True, null=True, help_text=u'默认搜索引擎')
+    search_engine = models.CharField(_(u'search_engine'), max_length=255, choices=SEARCH_ENGINE, default='google', blank=True, null=True, help_text=u'默认搜索引擎')
     company = models.CharField(_(u'company'), max_length=255, blank=True, null=True, help_text=u'所在公司')
     github = models.CharField(_(u'github'), max_length=255, blank=True, null=True, help_text='Github')
     sof = models.CharField(_(u'stackoverflow'), max_length=255, blank=True, null=True, help_text='StackOverflow')

@@ -190,13 +190,10 @@ def questiondiscuss(request, qid):
 def questionsearch(request, p=1):
     _query = request.GET.get('query', '')
     searchquestion = QuestionInfo.objects.filter(Q(question__contains=_query) | Q(answer__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
-    if searchquestion.count():
-        questions = pages(searchquestion, int(p))
-        searchquestion = [question.data for question in questions.object_list]
-        return render(
-            request,
-            'huntjob/question/search.html',
-            dict(question=searchquestion, pages=questions, next_url='huntjob:questionsearch', query='?query=' + _query, **getQuestionDict(request))
-        )
-    else:
-        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
+    questions = pages(searchquestion, int(p))
+    searchquestion = [question.data for question in questions.object_list]
+    return render(
+        request,
+        'huntjob/question/search.html',
+        dict(question=searchquestion, pages=questions, next_url='huntjob:questionsearch', query='?query=' + _query, **getQuestionDict(request))
+    )

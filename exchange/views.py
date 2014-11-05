@@ -326,16 +326,13 @@ def blogdiscuss2(request, pk):
 def blogsearch(request, p=1):
     _query = request.GET.get('query', '')
     searchblog = BlogInfo.objects.filter(Q(title__contains=_query) | Q(blog__contains=_query) | Q(tag__contains=_query), display=True).order_by('-modify_time')
-    if searchblog.count():
-        blogs = pages(searchblog, int(p))
-        searchblog = [blog.data for blog in blogs.object_list]
-        return render(
-            request,
-            'exchange/blog/search.html',
-            dict(blog=searchblog, pages=blogs, next_url='exchange:blogsearch', query='?query=' + _query, **getBlogDict(request))
-        )
-    else:
-        return HttpResponseRedirect(settings.GOOGLE_SEARCH + _query)
+    blogs = pages(searchblog, int(p))
+    searchblog = [blog.data for blog in blogs.object_list]
+    return render(
+        request,
+        'exchange/blog/search.html',
+        dict(blog=searchblog, pages=blogs, next_url='exchange:blogsearch', query='?query=' + _query, **getBlogDict(request))
+    )
 
 
 def blogselected(request, p=1):

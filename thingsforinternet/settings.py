@@ -183,7 +183,12 @@ LOGGING = {
 
 COOKIE_MAX_AGE = 1 * 30 * 24 * 60 * 60  # one month
 
-GOOGLE_SEARCH = 'https://www.google.com/search?q='
+SEARCH_ENGINE = {
+    'google': 'https://www.google.com/search?q=%s',
+    'bing': 'http://cn.bing.com/search?q=%s',
+    'baidu': 'http://www.baidu.com/s?wd=%s&ie=utf-8',
+    'sof': 'http://stackoverflow.com/search?q=%s',
+}
 
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99
