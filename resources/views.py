@@ -455,6 +455,7 @@ def itgpssubmit(request, p=1):
         form = WebSiteSubmitModelForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect(reverse('resources:itgpssubmit'))
     allwsss = WebSiteSubmit.objects.all().order_by('-create_time')
     return render(
         request,
