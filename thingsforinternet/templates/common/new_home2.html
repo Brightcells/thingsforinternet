@@ -76,8 +76,9 @@
                                             <div class="new_home_search">
                                                 <select name="tt4it_dropdown" id="tt4it_dropdown" class="egg_imagedropdown">
                                                     <option value="google">../../static/img/tt4it-google.png</option>
-                                                    <option value="tmd">../../static/img/tt4it-tmd.jpg</option>
+                                                    <option value="bing">../../static/img/tt4it-bing.png</option>
                                                     <option value="baidu">../../static/img/tt4it-baidu.png</option>
+                                                    <option value="sof">../../static/img/tt4it-sof.png</option>
                                                     <option value="tt">../../static/img/tt4it-tt.png</option>
                                                 </select>
                                                 <img id="tt4it-dropdown-triangle" class="tt4it-dropdown-triangle" src="../../static/img/tt4it-dropdown-triangle.png">
@@ -183,10 +184,12 @@
                     s_type = $(".egg_imagedropdown_header>img")[0].src;
                 if(s_type.indexOf("google") >= 0) {
                     window.open("https://www.google.com/search?q=" + qw);
-                } else if(s_type.indexOf("tmd") >= 0){
-                    window.open("http://www.tmd123.com/search/?q=" + qw);
+                } else if(s_type.indexOf("bing") >= 0){
+                    window.open("http://cn.bing.com/search?q=" + qw);
                 } else if(s_type.indexOf("baidu") >= 0){
                     window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
+                } else if(s_type.indexOf("sof") >= 0){
+                    window.open("http://stackoverflow.com/search?q=" + qw);
                 } else {
 
                 }

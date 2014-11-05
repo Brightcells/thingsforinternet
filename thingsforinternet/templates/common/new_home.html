@@ -78,8 +78,9 @@
                                                 <div class="new_home_search_radio">
                                                     <ul>
                                                         <li><input type="radio" name="search_type" value="google" checked><label>Google</label></li>
-                                                        <li><input type="radio" name="search_type" value="tmd"><label>TMD123</label></li>
+                                                        <li><input type="radio" name="search_type" value="bing"><label>Bing</label></li>
                                                         <li><input type="radio" name="search_type" value="baidu" class="search_type"><label>百度</label></li>
+                                                        <li><input type="radio" name="search_type" value="sof" class="search_type"><label>StackOverflow</label></li>
                                                         <li><input type="radio" name="search_type" value="tt" class="search_type"><label>本站</label></li>
                                                     </ul>
                                                 </div>
@@ -182,10 +183,12 @@
                     s_type = $("input[name='search_type']:checked").val();
                 if(s_type == 'google') {
                     window.open("https://www.google.com/search?q=" + qw);
-                } else if(s_type == 'tmd'){
-                    window.open("http://www.tmd123.com/search/?q=" + qw);
+                } else if(s_type == 'bing'){
+                    window.open("http://cn.bing.com/search?q=" + qw);
                 }  else if(s_type == 'baidu'){
                     window.open("http://www.baidu.com/s?wd=" + qw + "&ie=utf-8");
+                } else if(s_type.indexOf("sof") >= 0){
+                    window.open("http://stackoverflow.com/search?q=" + qw);
                 } else {
 
                 }
