@@ -9,7 +9,7 @@
 {% block befcon %}
     <div class="scrolltitlestyle">
         <h2 class="red">查看</h2>
-        {% ifequal blog.uname usr %}<a class="more" href="{% url 'exchange:blogedit' blog.pk %}" target="_blank">编辑</a>{% endifequal %}
+        {% ifequal blog.uname usr %}<a class="more" href="{% url 'exchange:blogedit' blog.pk %}" target="_self">编辑</a>{% endifequal %}
     </div>
 
     <div class="row-fluid">
