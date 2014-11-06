@@ -226,10 +226,9 @@ def blogrecord(request, p=1):
             blog = cleaned_data['blog']
             tag = cleaned_data['tag']
 
-            BlogInfo.objects.get_or_create(title=title, blog=blog, tag=tag, user=user)
+            blog = BlogInfo.objects.get_or_create(title=title, blog=blog, tag=tag, user=user)
 
-            form = BlogInfoModelForm()
-            status = True
+            return redirect(reverse('exchange:blogdiscuss', args=(blog.pk, )))
 
     mineblog = BlogInfo.objects.filter(user=getUI(getUsr(request)), display=True).order_by('-modify_time')
     blogs = pages(mineblog, int(p))
@@ -275,6 +274,7 @@ def blogedit(request, pk):
             form = BlogInfoModelForm(request.POST, instance=mineblog)
             if form.is_valid():
                 form.save()
+                return redirect(reverse('exchange:blogdiscuss', args=(pk, )))
         except:
             pass
 

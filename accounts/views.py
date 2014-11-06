@@ -24,8 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.utils.encoding import smart_str
 
 from accounts.models import UserInfo
@@ -90,7 +90,7 @@ def login(request):
     if request.method == 'POST':
         form = LoginUserInfoModelForm(request.POST)
         if form.is_valid():
-            response = HttpResponseRedirect(next_url)
+            response = redirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']), MAX_AGE)
             return response
 
@@ -114,7 +114,7 @@ def signup(request):
             f = form.save(commit=False)
             f.display_bg = True
             f.save()
-            response = HttpResponseRedirect(next_url)
+            response = redirect(next_url)
             response.set_cookie('usr', smart_str(form.cleaned_data['username']), MAX_AGE)
             return response
 
@@ -130,7 +130,7 @@ def signup(request):
 
 def logout(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
-    response = HttpResponseRedirect(next_url)
+    response = redirect(next_url)
     del_cookie(request, response, 'usr')
     return response
 
@@ -172,7 +172,7 @@ def settings(request):
         form = SettingsUserInfoModelForm(request.POST, instance=ui)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(next_url)
+            return redirect(next_url)
 
     display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 

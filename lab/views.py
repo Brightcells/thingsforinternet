@@ -29,7 +29,7 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 from django.forms.models import model_to_dict
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.encoding import smart_str
 
