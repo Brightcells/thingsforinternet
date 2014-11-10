@@ -226,7 +226,7 @@ def blogrecord(request, p=1):
             blog = cleaned_data['blog']
             tag = cleaned_data['tag']
 
-            blog = BlogInfo.objects.get_or_create(title=title, blog=blog, tag=tag, user=user)
+            blog, created = BlogInfo.objects.get_or_create(title=title, blog=blog, tag=tag, user=user)
 
             return redirect(reverse('exchange:blogdiscuss', args=(blog.pk, )))
 
