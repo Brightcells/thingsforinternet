@@ -590,51 +590,45 @@ menuNav > a {
     padding-top: 35px;
 }
 
+.a_replace_img {
+    display: block;
+    color: #fff !important;
+    font: normal 40px "Open Sans Light", sans-serif, "方正细珊瑚简体", "宋体", Arial, Times;
+}
+
 @media (min-width: 1400px) {
     .a_replace_img {
-        display: block;
         padding: 27px 0;
-        font: normal 40px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
 @media (max-width: 1400px) and (min-width: 1200px) {
     .a_replace_img {
-        display: block;
         padding: 28px 0;
-        font: normal 35px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
 @media (max-width: 1200px) and (min-width: 1000px) {
     .a_replace_img {
-        display: block;
         padding: 29px 0;
-        font: normal 30px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
 @media (max-width: 1000px) and (min-width: 900px) {
     .a_replace_img {
-        display: block;
         padding: 31px 0;
-        font: normal 25px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
 @media (max-width: 900px) and (min-width: 767px) {
     .a_replace_img {
-        display: block;
         padding: 33px 0;
-        font: normal 20px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
 @media (max-width: 767px) {
     .a_replace_img {
-        display: block;
         padding: 29px 0;
-        font: normal 30px "方正细珊瑚简体", "宋体", Arial, Times;
     }
 }
 
