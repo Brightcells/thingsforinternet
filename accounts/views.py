@@ -147,6 +147,10 @@ def api_user_check(request):
 
 def member(request, uid=None):
     usr, ui = getUsrUI(request)
+
+    if not ui and not uid:
+        return redirect(reverse('accounts:login'))
+
     userinfo, display_bg, slide_image_classify = (ui.data, ui.display_bg, ui.classify) if ui else (None, True, '')
 
     if uid:
@@ -165,6 +169,9 @@ def member(request, uid=None):
 def settings(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
     usr, ui = getUsrUI(request)
+
+    if not ui:
+        return redirect(reverse('accounts:login'))
 
     form = SettingsUserInfoModelForm(initial=ui.data)
 
