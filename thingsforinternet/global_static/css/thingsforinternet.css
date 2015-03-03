@@ -590,13 +590,24 @@ menuNav > a {
     padding-top: 35px;
 }
 
+p.img.img-well.img-polaroid.img-hover.animated.tada:before {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    font-size: 0;
+}
+
 .a_replace_img {
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
+    width: 88%;
+    /*display: block;*/
     color: #fff !important;
     font: normal 40px "Open Sans Light", sans-serif, "方正细珊瑚简体", "宋体", Arial, Times;
 }
 
-@media (min-width: 1400px) {
+/*@media (min-width: 1400px) {
     .a_replace_img {
         padding: 27px 0;
     }
@@ -630,7 +641,7 @@ menuNav > a {
     .a_replace_img {
         padding: 29px 0;
     }
-}
+}*/
 
 .img-desc a:link {
     text-decoration: none;
