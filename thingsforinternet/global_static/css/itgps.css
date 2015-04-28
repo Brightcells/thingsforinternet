@@ -228,6 +228,7 @@ h2 {
     width: 100%;
     padding: 0px;
     border-top: 1px solid #999;
+    margin: 0 10px;
     display: none;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
