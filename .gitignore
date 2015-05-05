@@ -1,7 +1,8 @@
+*.db*
+*.idea*
 *.pyc
 *.swp
-*.db*
-*media*
 *.TMP
 *.DS_Store
+*media*
 local_settings.py

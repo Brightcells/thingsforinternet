@@ -9,6 +9,8 @@ urlpatterns = patterns('resources.views',
     url(r'^index/$', 'resources', name='resources'),
     url(r'^home/$', 'resources', name='resources'),
 
+    url(r'^itgps/keyboard/$', 'itgpskeyboard', name='itgpskeyboard'),
+
     url(r'^itgps/home/$', 'itgpshome', name='itgpshome'),
     url(r'^itgps/home/(?P<p>\d+)/$', 'itgpshome', name='itgpshome'),
     url(r'^itgps/fav/$', 'itgpsfav', name='itgpsfav'),

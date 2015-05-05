@@ -469,6 +469,10 @@ def itgpssubmit(request, p=1):
     )
 
 
+def itgpskeyboard(request):
+    return render(request, 'resources/itgps/keyboard.html', {})
+
+
 def apihome(request):
     """ Function API's home - Upload、Manage、Scan api of development """
 
