@@ -648,3 +648,12 @@ p.img.img-well.img-polaroid.img-hover.animated.tada:before {
     word-break: break-all;
     word-wrap: break-word;
 }
+
+/* -
+    #################################################
+    For: Editor.md
+    #################################################
+   - */
+.editormd-preview-active {
+    padding:20px !important;
+}
