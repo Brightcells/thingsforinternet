@@ -659,9 +659,13 @@ p.img.img-well.img-polaroid.img-hover.animated.tada:before {
 }
 
 .markdown-body ol ol, .markdown-body ol ul, .markdown-body ul ol, .markdown-body ul ul {
-    margin-left: 0;
+    margin-left: 0 !important;
+}
+
+.markdown-body blockquote, .markdown-body dl, .markdown-body ol, .markdown-body p, .markdown-body pre, .markdown-body table, .markdown-body ul {
+    margin-left: 0 !important;
 }
 
 ol.linenums {
-    margin-left: 0;
+    margin-left: 0 !important;
 }
