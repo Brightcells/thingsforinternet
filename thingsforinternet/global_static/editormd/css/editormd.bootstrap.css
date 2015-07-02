@@ -27,6 +27,12 @@ ol.linenums {
 
 /* code tag */
 .editormd-html-preview code, .editormd-preview-container code {
-    color: #000;
-    font-size: 12px;
+    padding: 0 !important;
+    color: #000 !important;
+    font-size: 12px !important;
+}
+
+/*  */
+.editormd-html-preview pre.prettyprint, .editormd-preview-container pre.prettyprint {
+    margin-top: 16px;
 }
