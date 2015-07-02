@@ -454,6 +454,7 @@ def itgpssearch(request, p=1):
         return redirect(settings.SEARCH_ENGINE.get(search_engine, 'google') % (_query))
 
 
+@tt_login_required
 def itgpssubmit(request, p=1):
     form = WebSiteSubmitModelForm()
     if request.method == 'POST':
