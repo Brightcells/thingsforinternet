@@ -135,7 +135,7 @@ def resume2edit(request):
 
     return render(
         request,
-        'resume/resume2/edit.html',
+        'resume/resume2/edit_editormd.html',
         dict(form=form, userinfo=getUI(getUsr(request)), **getResume2Dict(request))
     )
 
@@ -151,7 +151,7 @@ def resume2discuss(request, uid):
 
     return render(
         request,
-        'resume/resume2/discuss.html',
+        'resume/resume2/discuss_editormd.html',
         dict(resume=resume, userinfo=userinfo, **getResume2Dict(request))
     )
 

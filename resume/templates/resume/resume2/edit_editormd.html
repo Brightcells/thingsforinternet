@@ -1,0 +1,37 @@
+{% extends "resume/resume2/base_resume2_editormd.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的简历 (Mine Resume) -- 简历 (Resume) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">修改</h2>
+    </div>
+
+    <div class="list-hero-unit"><div id="tt4it-editormd"><textarea>{{ form.resume.value|default_if_none:""|safe }}</textarea></div></div>
+    <br>
+
+    <div class="list-hero-unit">
+        <form id="resumeForm" class="form-horizontal text-center" method='post' action="{% url 'resume:resume2edit' %}" enctype='multipart/form-data'>
+            <div class="control-group" style="visibility:hidden; display:none">{{ form.resume }}</div>
+            <div class="control-group" style="visibility:hidden; display:none">{{ form.resume_html }}</div>
+            <div class="control-group">{{ form.pdf }}</div>
+            <div class="control-group">{{ form.tag }}</div>
+
+            <div class="control-group"><button type="button" id="btn" class="btn">保存</button></div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block subscript %}
+    jQuery("#btn").click(function () {
+        jQuery("#id_resume").html(tt4itEditor.getMarkdown());
+        jQuery("#id_resume_html").html(tt4itEditor.getHTML());
+        jQuery("#resumeForm").submit();
+    });
+{% endblock %}

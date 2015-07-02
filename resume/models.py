@@ -29,6 +29,7 @@ def upload_path(instance, old_filename):
 # 简历
 class ResumeInfo(CreateUpdateMixin):
     resume = models.TextField(_(u'resume'), blank=True, null=True, help_text=u'resume content which markdown support')
+    resume_html = models.TextField(_(u'resume_html'), blank=True, null=True, help_text=u'resume content which html support')
     pdf = models.FileField(_(u'pdf'), upload_to=upload_path, blank=True, null=True, help_text=u'pdf or doc(x)')
     tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'resume tag')
     user = models.ForeignKey(UserInfo, verbose_name=_(u'user'), blank=True, null=True, help_text=u'resume owner')
@@ -47,6 +48,7 @@ class ResumeInfo(CreateUpdateMixin):
         return {
             'pk': self.pk,
             'resume': self.resume,
+            'resume_html': self.resume_html,
             'pdf': self.pdf.url if self.pdf else '',
             'tag': self.tag.split(' '),
             'uid': self.user.pk,

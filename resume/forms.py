@@ -17,10 +17,13 @@ class ResumeInfoModelForm(ModelForm):
 
     class Meta:
         model = ResumeInfo
-        fields = ('resume', 'pdf', 'tag')
+        fields = ('resume', 'resume_html', 'pdf', 'tag')
         widgets = {
             'resume': Textarea(
-                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'onscroll': 'this.rows++;', 'placeholder': _('Resume Content')}
+                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'onscroll': 'this.rows++;', 'placeholder': _('Resume Markdown Content')}
+            ),
+            'resume_html': Textarea(
+                attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'onscroll': 'this.rows++;', 'placeholder': _('Resume Html Content')}
             ),
             'pdf': FileInput(
                 attrs={'autocomplete': 'off', 'placeholder': _('pdf or docx')}
