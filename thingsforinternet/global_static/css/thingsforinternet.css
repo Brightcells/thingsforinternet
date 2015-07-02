@@ -657,3 +657,7 @@ p.img.img-well.img-polaroid.img-hover.animated.tada:before {
 .editormd-preview-active {
     padding:20px !important;
 }
+
+.markdown-body ol ol, .markdown-body ol ul, .markdown-body ul ol, .markdown-body ul ul {
+    margin-left: 0;
+}
