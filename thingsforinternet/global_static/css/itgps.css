@@ -130,7 +130,7 @@ body {
 }
 
 /* set h2 not line feed */
-h2 {
+.scrolltitlestyle>h2 {
     display: inline;
 }
 
