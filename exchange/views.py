@@ -236,7 +236,7 @@ def blogrecord(request, p=1):
 
     return render(
         request,
-        'exchange/blog/record.html',
+        'exchange/blog/record_editormd.html',
         dict(blog=mineblog, pages=blogs, next_url='exchange:blogmine', form=form, status=status, **getBlogDict(request))
     )
 
