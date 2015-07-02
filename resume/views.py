@@ -114,7 +114,7 @@ def resume2mine(request):
         mineresume = {}
     return render(
         request,
-        'resume/resume2/mine.html',
+        'resume/resume2/mine_editormd.html',
         dict(resume=mineresume, ui=ui, userinfo=ui.data, **getResume2Dict(request))
     )
 
@@ -126,6 +126,8 @@ def resume2edit(request):
         form = ResumeInfoModelForm(request.POST, request.FILES, instance=mineresume)
         if form.is_valid():
             form.save()
+
+        return redirect(reverse('resume:resume2mine'))
 
     try:
         mineresume = model_to_dict(ResumeInfo.objects.get(user=getUI(getUsr(request)), display=True))
