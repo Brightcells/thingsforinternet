@@ -607,65 +607,17 @@ p.img.img-well.img-polaroid.img-hover.animated.tada:before {
     font: normal 40px "Open Sans Light", sans-serif, "方正细珊瑚简体", "宋体", Arial, Times;
 }
 
-/*@media (min-width: 1400px) {
-    .a_replace_img {
-        padding: 27px 0;
-    }
-}
-
-@media (max-width: 1400px) and (min-width: 1200px) {
-    .a_replace_img {
-        padding: 28px 0;
-    }
-}
-
-@media (max-width: 1200px) and (min-width: 1000px) {
-    .a_replace_img {
-        padding: 29px 0;
-    }
-}
-
-@media (max-width: 1000px) and (min-width: 900px) {
-    .a_replace_img {
-        padding: 31px 0;
-    }
-}
-
-@media (max-width: 900px) and (min-width: 767px) {
-    .a_replace_img {
-        padding: 33px 0;
-    }
-}
-
-@media (max-width: 767px) {
-    .a_replace_img {
-        padding: 29px 0;
-    }
-}*/
-
 .img-desc a:link {
     text-decoration: none;
     word-break: break-all;
     word-wrap: break-word;
 }
 
-/* -
-    #################################################
-    For: Editor.md
-    #################################################
-   - */
+/* 预览 padding 值调整 */
 .editormd-preview-active {
     padding:20px !important;
 }
-
-.markdown-body ol ol, .markdown-body ol ul, .markdown-body ul ol, .markdown-body ul ul {
-    margin-left: 0 !important;
-}
-
-.markdown-body blockquote, .markdown-body dl, .markdown-body ol, .markdown-body p, .markdown-body pre, .markdown-body table, .markdown-body ul {
-    margin-left: 0 !important;
-}
-
-ol.linenums {
-    margin-left: 0 !important;
+/* 全屏处理 */
+.editormd-fullscreen {
+    z-index: 999999999;
 }
