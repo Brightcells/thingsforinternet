@@ -286,7 +286,7 @@ def blogedit(request, pk):
 
     return render(
         request,
-        'exchange/blog/edit.html',
+        'exchange/blog/edit_editormd.html',
         dict(pk=pk, form=form, userinfo=getUI(getUsr(request)), **getBlogDict(request))
     )
 
@@ -302,7 +302,7 @@ def blogdiscuss(request, pk):
 
     return render(
         request,
-        'exchange/blog/discuss.html',
+        'exchange/blog/discuss_editormd.html',
         dict(blog=blog, userinfo=userinfo, **getBlogDict(request))
     )
 

@@ -1,0 +1,35 @@
+{% extends "exchange/blog/base_blog_editormd.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的博客 (Mine Blog) -- 博客 (Blog) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}{% endblock %}
+
+{% block content2 %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">修改</h2>
+    </div>
+
+    <div class="list-hero-unit"><div id="tt4it-editormd"><textarea>{{ form.blog.value|default_if_none:""|safe }}</textarea></div></div>
+    <br>
+
+    <div class="list-hero-unit">
+        <form id="blogForm" class="form-horizontal text-center" method='post' action="{% url 'exchange:blogedit' pk %}">
+            <div class="control-group">{{ form.title }}</div>
+            <div class="control-group" style="visibility:hidden; display:none">{{ form.blog }}</div>
+            <div class="control-group">{{ form.tag }}</div>
+
+            <div class="control-group"><button type="button" id="btn" class="btn">保存</button></div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block subscript %}
+    jQuery("#btn").click(function () {
+        jQuery("#id_blog").html(tt4itEditor.getMarkdown());
+        jQuery("#blogForm").submit();
+    });
+{% endblock %}

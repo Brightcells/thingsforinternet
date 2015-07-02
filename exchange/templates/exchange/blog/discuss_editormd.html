@@ -1,0 +1,56 @@
+{% extends "exchange/blog/base_blog_editormd.html" %}
+{% load staticfiles %}
+{% load djangomarkdown %}
+
+{% block title %}
+    <title>我的博客 (Mine Blog) -- 博客 (Blog) -- ThingsForInternet</title>
+{% endblock %}
+
+{% block befcon %}
+    <div class="scrolltitlestyle">
+        <h2 class="red">查看</h2>
+        {% ifequal blog.uname usr %}<a class="more" href="{% url 'exchange:blogedit' blog.pk %}" target="_self">编辑</a>{% endifequal %}
+    </div>
+
+    <div class="row-fluid">
+        <div class="span9">
+            <div class="list-hero-unit text-center">{{ blog.title }}</div>
+            <br>
+            <div class="list-hero-unit"><div id="tt4it-editormd"><textarea>{{ blog.blog|default_if_none:""|safe }}</textarea></div></div>
+        </div>
+        <div class="span3">
+            <div class="list-hero-unit">
+                {% include 'exchange/blog/snippets/userinfo.html' %}
+            </div>
+        </div>
+    </div>
+    <br>
+
+    {% if blog.tag|length == 1 and blog.tag|first == '' %}
+    {% else %}
+        <div class="list-hero-unit text-center">
+            <div>{% for t in blog.tag %}<a class="tag">{{ t }}</a>{% endfor %}</div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="discuss-hero-unit" style="padding-bottom: 10px;">
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1902715"></script>
+        <!-- UY END -->
+    </div>
+{% endblock %}
+
+{% block aftcon %}{% endblock %}
+
+{% block bodyer2 %}{% endblock %}
+
+{% block editormd_config %}
+    readOnly: true,
+{% endblock %}
+
+{% block editormd_loaded %}
+    this.previewing()
+{% endblock %}
