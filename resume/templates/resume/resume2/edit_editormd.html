@@ -30,8 +30,8 @@
 
 {% block subscript %}
     jQuery("#btn").click(function () {
-        jQuery("#id_resume").html(tt4itEditor.getMarkdown());
-        jQuery("#id_resume_html").html(tt4itEditor.getHTML());
+        jQuery("#id_resume").val(tt4itEditor.getMarkdown());
+        jQuery("#id_resume_html").val(tt4itEditor.getHTML());
         jQuery("#resumeForm").submit();
     });
 {% endblock %}

@@ -29,7 +29,7 @@
 
 {% block subscript %}
     jQuery("#btn").click(function () {
-        jQuery("#id_blog").html(tt4itEditor.getMarkdown());
+        jQuery("#id_blog").val(tt4itEditor.getMarkdown());
         jQuery("#blogForm").submit();
     });
 {% endblock %}
