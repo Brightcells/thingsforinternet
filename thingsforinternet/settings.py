@@ -193,4 +193,12 @@ SEARCH_ENGINE = {
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99
 
-from local_settings import *
+SEND_EMAIL = {
+    'username': 'kimi.huang@tt4it.com',
+    'password': 'tt4it'
+}
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

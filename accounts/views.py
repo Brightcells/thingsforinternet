@@ -29,16 +29,19 @@ from django.shortcuts import render, redirect
 from django.utils.encoding import smart_str
 
 from accounts.models import UserInfo
-from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm, SettingsUserInfoModelForm
+from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm, ForgotUserInfoModelForm, SettingsUserInfoModelForm
+from utils.json_utils import JsonHttpResponse
+from utils.send_email import SendEmail
 from utils.utils import getUsr, getUI
 
-import re
 import json
+import shortuuid
 
 from utils.utils import *
 
 
 MAX_AGE = settings.COOKIE_MAX_AGE
+SEND_EMAIL = settings.SEND_EMAIL
 
 
 BACKLINKS = [
@@ -135,6 +138,36 @@ def logout(request):
     return response
 
 
+def forgot(request):
+    next_url = request.GET.get('next', '') or get_referer_view(request)
+    form = ForgotUserInfoModelForm()
+
+    usr, ui = getUsrUI(request)
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    if request.method == 'POST':
+        form = ForgotUserInfoModelForm(request.POST)
+        if form.is_valid():
+            email = form.data.get('email', '')
+            new_password = shortuuid.uuid()
+            try:
+                userinfo = UserInfo.objects.get(email=email)
+            except UserInfo.DoesNotExist:
+                userinfo = None
+            if userinfo:
+                userinfo.password = hashlib.md5(new_password).hexdigest()
+                userinfo.save()
+                smail = SendEmail(SEND_EMAIL.get('username', ''), SEND_EMAIL.get('password', ''))
+                smail.send_email(email, u'tt4it.com密码重置', u'用户名：{0}\n密    码：{1}'.format(userinfo.username, new_password))
+                return redirect(next_url)
+
+    return render(
+        request,
+        'accounts/forgot.html',
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify)
+    )
+
+
 def api_user_check(request):
     _usr = request.POST.get('usr', '')
     try:
@@ -143,6 +176,20 @@ def api_user_check(request):
     except:
         status, msg = False, 'user_not_exists'
     return HttpResponse(json.dumps(dict(status=status, msg=msg)))
+
+
+def password_reset(request):
+    next_url = request.GET.get('next', '') or get_referer_view(request)
+    form = ForgotUserInfoModelForm()
+
+    usr, ui = getUsrUI(request)
+    display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
+
+    return render(
+        request,
+        'accounts/login.html',
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify)
+    )
 
 
 def member(request, uid=None):

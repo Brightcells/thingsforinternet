@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import Form, ModelForm, CharField, ModelChoiceField
+from django.forms import Form, ModelForm, CharField, EmailField, ModelChoiceField
 from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput, URLInput, CheckboxInput, Select
 from django.utils.translation import ugettext_lazy as _
 
@@ -97,6 +97,13 @@ class LoginUserInfoModelForm(Form):
                 return cleaned_data
         else:
             return cleaned_data
+
+
+class ForgotUserInfoModelForm(Form):
+    email = EmailField(
+        widget=EmailInput(attrs={'placeholder': _('Email')}),
+        error_messages={'required': _('Email is needed')}
+    )
 
 
 class SettingsUserInfoModelForm(ModelForm):

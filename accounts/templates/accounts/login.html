@@ -36,8 +36,10 @@
                                 <button type="submit" class="btn">登录</button>
                             </div>
 
-                            <div class="control-group">
+                            <div class="control-group" style="font-size:14px">
                                 <nobr>还没注册帐户？</nobr><a href="{% url 'accounts:signup' %}?next={{ next }}">立即注册</a>
+                                <br>
+                                <nobr>忘记密码？</nobr><a href="{% url 'accounts:forgot' %}?next={{ next }}">找回密码</a>
                             </div>
                         </form>
                     </div>

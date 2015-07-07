@@ -1,0 +1,39 @@
+{% extends "common/thingsforinternet.html" %}
+
+{% block title %}
+    <title>找回密码 -- ThingsForInternet</title>
+{% endblock %}
+
+{% block bodyer %}
+    <div class="container" style="margin-top: 100px;">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="sl-hero-unit">
+                    <div class="divCenter">
+                        <form class="form-horizontal text-center" action="{% url 'accounts:forgot' %}?next={{ next }}" method='post'>
+                            <div class="control-group">
+                                <span class="errorlist text-left">
+                                    {% for err in form.non_field_errors %}{{ err}}<br>{% endfor %}
+                                    {% for err in form.email.errors %}{{ err }}<br>{% endfor %}
+                                </span>
+                            </div>
+
+                            <div class="control-group">
+                                {{ form.email }}
+                            </div>
+
+                            <div class="control-group">
+                                <button type="submit" class="btn">找回密码</button>
+                            </div>
+
+                            <div class="control-group" style="font-size:14px">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyer2 %}{% endblock %}

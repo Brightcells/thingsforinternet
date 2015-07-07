@@ -3,6 +3,7 @@ django-markdown-deux==1.0.5
 django-mobi==0.1.7
 ipdb==0.8
 ipython==2.0.0
+marrow.mailer==4.0.0
 markdown2==2.2.1
 MySQL-python==1.2.5
 pep8==1.5.7
@@ -10,5 +11,6 @@ Pillow==2.5.1
 Pygments==1.6
 pytz==2014.1
 requests==2.3.0
+shortuuid==0.4.2
 South==0.8.4
 xpinyin==0.5.0
