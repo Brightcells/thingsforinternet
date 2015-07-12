@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Django settings for thingsforinternet project.
 import os
 
@@ -192,6 +194,22 @@ SEARCH_ENGINE = {
 
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99
+
+GEE_TEST = {
+    'base_url': 'api.geetest.com/get.php?gt=',
+
+    'captcha_id': 'a40fd3b0d712165c5d13e6f747e948d4',
+    'private_key': '0f1a37e33c9ed10dd2e133fe2ae9c459',
+
+    # 嵌入式
+    # 'product': 'embed',
+
+    # 浮动式
+    'product': 'float',
+
+    # 弹出式
+    # 'product': 'popup&popupbtnid=submit-button',
+}
 
 SEND_EMAIL = {
     'username': 'kimi.huang@tt4it.com',

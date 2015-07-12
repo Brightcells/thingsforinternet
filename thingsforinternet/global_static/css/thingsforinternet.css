@@ -621,3 +621,8 @@ p.img.img-well.img-polaroid.img-hover.animated.tada:before {
 .editormd-fullscreen {
     z-index: 999999999;
 }
+
+/* GEE TEST */
+.gt_holder.float {
+    margin: 0 auto;
+}

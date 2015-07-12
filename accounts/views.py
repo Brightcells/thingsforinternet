@@ -37,11 +37,13 @@ from utils.utils import getUsr, getUI
 import json
 import shortuuid
 
+from utils.geetest import geetest
 from utils.utils import *
 
 
 MAX_AGE = settings.COOKIE_MAX_AGE
 SEND_EMAIL = settings.SEND_EMAIL
+GEE_TEST = settings.GEE_TEST
 
 
 BACKLINKS = [
@@ -142,29 +144,51 @@ def forgot(request):
     next_url = request.GET.get('next', '') or get_referer_view(request)
     form = ForgotUserInfoModelForm()
 
+    base_url = GEE_TEST.get('base_url', '')
+    captcha_id = GEE_TEST.get('captcha_id', '')
+    private_key = GEE_TEST.get('private_key', '')
+    product = GEE_TEST.get('product', '')
+
+    gt = geetest(captcha_id, private_key)
+
     usr, ui = getUsrUI(request)
     display_bg, slide_image_classify = (ui.display_bg, ui.classify) if ui else (True, '')
 
     if request.method == 'POST':
         form = ForgotUserInfoModelForm(request.POST)
         if form.is_valid():
-            email = form.data.get('email', '')
-            new_password = shortuuid.uuid()
-            try:
-                userinfo = UserInfo.objects.get(email=email)
-            except UserInfo.DoesNotExist:
-                userinfo = None
-            if userinfo:
-                userinfo.password = hashlib.md5(new_password).hexdigest()
-                userinfo.save()
-                smail = SendEmail(SEND_EMAIL.get('username', ''), SEND_EMAIL.get('password', ''))
-                smail.send_email(email, u'tt4it.com密码重置', u'用户名：{0}\n密    码：{1}'.format(userinfo.username, new_password))
-                return redirect(next_url)
+            challenge = request.POST.get('geetest_challenge', '')
+            validate = request.POST.get('geetest_validate', '')
+            seccode = request.POST.get('geetest_seccode', '')
+            result = gt.geetest_validate(challenge, validate, seccode)
+
+            if result:
+                email = form.data.get('email', '')
+                try:
+                    userinfo = UserInfo.objects.get(email=email)
+                except UserInfo.DoesNotExist:
+                    userinfo = None
+                if userinfo:
+                    new_password = shortuuid.uuid()
+                    userinfo.password = hashlib.md5(new_password).hexdigest()
+                    userinfo.save()
+                    smail = SendEmail(SEND_EMAIL.get('username', ''), SEND_EMAIL.get('password', ''))
+                    smail.send_email(email, u'tt4it.com密码重置', u'用户名：{0}\n密    码：{1}'.format(userinfo.username, new_password))
+                    return redirect(next_url)
+            else:
+                form.errors['email'] = form.errors.get('email') or [u'Geetest validate error']
+
+    try:
+        challenge = gt.geetest_register()
+    except:
+        challenge = ''
+    if len(challenge) == 32:
+        url = 'http://%s%s&challenge=%s&product=%s' % (base_url, captcha_id, challenge, product)
 
     return render(
         request,
         'accounts/forgot.html',
-        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify)
+        dict(backlinks=BACKLINKS, form=form, next=next_url, display_bg=display_bg, slide_image_classify=slide_image_classify, url=url)
     )
 
 
