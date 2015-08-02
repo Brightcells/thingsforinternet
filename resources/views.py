@@ -35,9 +35,12 @@ from resources.models import *
 from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiModelForm
 
 from utils.utils import *
+from utils.json_utils import JsonHttpResponse
 
 from itertools import chain
 from operator import attrgetter
+
+import sys
 
 
 spp = settings.SITE_PER_PAGE
@@ -184,8 +187,8 @@ def getHottestSite(request, p):
     hottests = []
     for hotSiteSet in hotSiteSetList.object_list:
         hotSiteDict = hotSiteSet.data
-        hotSiteDict['flike'] = getLikeFlag(request, hotSiteSet.pk, True)
-        hotSiteDict['ffav'] = getFavFlag(request, hotSiteSet.pk)
+        # hotSiteDict['flike'] = getLikeFlag(request, hotSiteSet.pk, True)
+        # hotSiteDict['ffav'] = getFavFlag(request, hotSiteSet.pk)
         hottests.append(hotSiteDict)
 
     return hotSiteSetList, hottests
@@ -199,8 +202,8 @@ def getLasttestSite(request, p):
     lasttests = []
     for lastSiteSet in lastSiteSetList.object_list:
         lastSiteDict = lastSiteSet.data
-        lastSiteDict['flike'] = getLikeFlag(request, lastSiteSet.pk, True)
-        lastSiteDict['ffav'] = getFavFlag(request, lastSiteSet.pk)
+        # lastSiteDict['flike'] = getLikeFlag(request, lastSiteSet.pk, True)
+        # lastSiteDict['ffav'] = getFavFlag(request, lastSiteSet.pk)
         lasttests.append(lastSiteDict)
 
     return lastSiteSetList, lasttests
@@ -226,8 +229,8 @@ def getFavoriteDiySite(request, p):
     comblines = []
     for combineSiteSet in combineSiteSetList.object_list:
         combineSiteDict = combineSiteSet.data
-        combineSiteDict['flike'] = getLikeFlag(request, combineSiteSet.website.pk, True)
-        combineSiteDict['ffav'] = getFavFlag(request, combineSiteSet.website.pk)
+        # combineSiteDict['flike'] = getLikeFlag(request, combineSiteSet.website.pk, True)
+        # combineSiteDict['ffav'] = getFavFlag(request, combineSiteSet.website.pk)
         comblines.append(combineSiteDict)
 
     return combineSiteSetList, comblines
@@ -241,8 +244,8 @@ def getSearchSite(request, _query, p):
     searchs = []
     for searchSiteSet in searchSiteSetList.object_list:
         searchSiteDict = searchSiteSet.data
-        searchSiteDict['flike'] = getLikeFlag(request, searchSiteSet.pk, True)
-        searchSiteDict['ffav'] = getFavFlag(request, searchSiteSet.pk)
+        # searchSiteDict['flike'] = getLikeFlag(request, searchSiteSet.pk, True)
+        # searchSiteDict['ffav'] = getFavFlag(request, searchSiteSet.pk)
         searchs.append(searchSiteDict)
     return searchSiteSetList, searchs
 
@@ -256,9 +259,9 @@ def getLikeFlag(request, siteid, _flag):
         @returns: True or False boolean
     '''
     if 'usr' in request.COOKIES:
-        return Like.objects.filter(user__username=request.COOKIES['usr'], flag=_flag, website__pk=siteid).count() != 0
+        return Like.objects.filter(user__username=request.COOKIES['usr'], flag=_flag, website__pk=siteid).exists()
     else:
-        return Like.objects.filter(host=getIP(request), flag=_flag, website__pk=siteid).count() != 0
+        return Like.objects.filter(host=getIP(request), flag=_flag, website__pk=siteid).exists()
 
 
 def getFavFlag(request, siteid):
@@ -269,9 +272,9 @@ def getFavFlag(request, siteid):
         @returns: True or False boolean
     '''
     if 'usr' in request.COOKIES:
-        return Favorite.objects.filter(user__username=request.COOKIES['usr'], website__pk=siteid).count() != 0
+        return Favorite.objects.filter(user__username=request.COOKIES['usr'], website__pk=siteid).exists()
     else:
-        return Favorite.objects.filter(host=getIP(request), website__pk=siteid).count() != 0
+        return Favorite.objects.filter(host=getIP(request), website__pk=siteid).exists()
 
 
 def getCsySite(request, _nav, _num, _flag, pk, p):
@@ -299,8 +302,8 @@ def getCsySite(request, _nav, _num, _flag, pk, p):
         site = []
         for csySiteSet in csySiteSetList.object_list:
             csySiteDict = csySiteSet.data
-            csySiteDict['flike'] = getLikeFlag(request, csySiteSet.website.pk, True)
-            csySiteDict['ffav'] = getFavFlag(request, csySiteSet.website.pk)
+            # csySiteDict['flike'] = getLikeFlag(request, csySiteSet.website.pk, True)
+            # csySiteDict['ffav'] = getFavFlag(request, csySiteSet.website.pk)
             site.append(csySiteDict)
         csyDict['siteSet'] = site
         csyDict['has_next'] = csySiteSetList.has_next()
@@ -420,8 +423,8 @@ def getSiteInfo(request, siteid):
     sites = []
     for siteSet in siteSetList:
         siteSetDict = siteSet.data
-        siteSetDict['flike'] = getLikeFlag(request, siteSet.pk, True)
-        siteSetDict['ffav'] = getFavFlag(request, siteSet.pk)
+        # siteSetDict['flike'] = getLikeFlag(request, siteSet.pk, True)
+        # siteSetDict['ffav'] = getFavFlag(request, siteSet.pk)
         sites.append(siteSetDict)
     return sites
 
@@ -433,6 +436,18 @@ def getSiteRelatedInfo(request, siteid):
 def discuss(request, siteid):
     reDict = {'sites': getSiteInfo(request, siteid), 'relateds': getSiteRelatedInfo(request, siteid)}
     return render(request, 'resources/itgps/discuss.html', dict(reDict, **getItgpsDict(request)))
+
+
+def itgpsfavlike(request, siteid):
+    flike = getLikeFlag(request, siteid, True)
+    ffav = getFavFlag(request, siteid)
+    return JsonHttpResponse({
+        'status': 200,
+        'data': {
+            'flike': flike,
+            'ffav': ffav
+        }
+    })
 
 
 def itgpssearch(request, p=1):

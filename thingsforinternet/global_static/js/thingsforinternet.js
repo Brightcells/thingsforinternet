@@ -20,8 +20,7 @@ function visit(_iObj, _url, _id){
         url: _url,
         data: {siteid: _id},
         dataType: "json",
-        success: function(json){
-            console.log('>>> '+json['msg']);
+        success: function(data){
         }
     });
 }
@@ -35,7 +34,7 @@ function visit(_iObj, _url, _id){
  */
 function myLikeFavAjax(_iObj, _spanObj, _url, _data){
     var iObj = _iObj,
-          spanObj = _spanObj;
+        spanObj = _spanObj;
 
     iObj.classList.add("clicked");
     $.ajax({
@@ -43,13 +42,12 @@ function myLikeFavAjax(_iObj, _spanObj, _url, _data){
         url: _url,
         data: _data,
         dataType: "json",
-        success: function(json){
-            console.log('>>> '+json['msg']);
-            num = json['code'];
-            if(num in {'300': '', '400': ''}){
+        success: function(data){
+            num = data['code'];
+            if (num in {'300': '', '400': ''}) {
                 iObj.classList.remove("icon-white", "done");
                 spanObj.text(parseInt(spanObj.text())+1);
-            }else if(num in {'302': '', '402': ''}){
+            } else if (num in {'302': '', '402': ''}) {
                 iObj.classList.add("icon-white", "done");
                 spanObj.text(parseInt(spanObj.text())-1);
             }

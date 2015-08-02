@@ -184,6 +184,8 @@ def forgot(request):
         challenge = ''
     if len(challenge) == 32:
         url = 'http://%s%s&challenge=%s&product=%s' % (base_url, captcha_id, challenge, product)
+    else:
+        url = ''
 
     return render(
         request,

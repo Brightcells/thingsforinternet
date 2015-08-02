@@ -4,7 +4,7 @@
     </div>
     <div class="row-fluid">
 {% endif %}
-<div class="span3 img-desc" onmouseover="mouseOn(event, this, 0)" onmouseout="mouseOut(event, this, 0)">
+<div class="span3 img-desc" onmouseover="mouseOnItgps(event, this, 0, '{{ site.website.pk }}')" onmouseout="mouseOut(event, this, 0)">
     <p class="text-center">
         {% ifequal site.logo '' %}
             <p class="img img-well img-polaroid img-hover animated tada" style="background-color: #4EB3B9">

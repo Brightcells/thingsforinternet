@@ -1,3 +1,12 @@
+/** 格式化输入字符串 **/
+// 用法: "Hello {0}".format("World")；返回 "Hello World"
+String.prototype.format= function() {
+	var args = arguments;
+	return this.replace(/\{(\d+)\}/g, function(s, i) {
+		return args[i];
+	});
+}
+
 /**
  * @description
  *     convert timestamp to strftime, which can call by timestamp
@@ -73,11 +82,30 @@ function SetHome(url) {
 }
 
 //显示、隐藏图片的蒙版
+var current_site = '';
+function mouseOnItgps(event, obj, index, pk){
+    current_site = obj;
+    if (checkHover(event, obj)) {
+        $.ajax({
+            type: "GET",
+            url: "/resources/itgps/favlike/{0}".format(pk),
+            data: {},
+            dataType: "json",
+            success: function(data){
+                var ffav = data.data.ffav,
+                    flike = data.data.flike;
+                if (ffav) $(current_site).find(".cite .icon-bookmark").removeClass("icon-white")
+                if (flike) $(current_site).find(".cite .icon-thumbs-up").removeClass("icon-white")
+            }
+        });
+        event.preventDefault();
+        obj.getElementsByTagName('div')[index].style.display = "block";
+    }
+}
 function mouseOn(event, obj, index){
     if (checkHover(event, obj)) {
         obj.getElementsByTagName('div')[index].style.display = "block";
     }
-
 }
 function mouseOut(event, obj, index){
     if (checkHover(event, obj)) {
