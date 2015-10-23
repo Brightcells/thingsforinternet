@@ -23,25 +23,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.urlresolvers import reverse
-from django.db.models import Q, Count
-from django.forms.models import model_to_dict
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils.encoding import smart_str
 
-from accounts.models import UserInfo
-
-import re
-import json
-import time
-import random
-import hashlib
-
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 def dh_home(request):

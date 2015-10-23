@@ -36,12 +36,12 @@
                 {% else %}
                     <div class="row-fluid" style="border-bottom: 1px solid #D7D7D7; padding: 5px;">
                 {% endif %}
-                    <div class="span4 text-center" style="border-right: 1px solid #D7D7D7;"><a href="{{ p.url }}" target="_blank">{{ p.url }}</a></div>
-                    <div class="span6 text-center" style="border-right: 1px solid #D7D7D7;">{{ p.tag }}</div>
+                    <div class="span4 text-center" style="border-right:1px solid #D7D7D7;word-wrap:break-word;word-break:break-all;"><a href="{{ p.url }}" target="_blank">{{ p.url }}</a></div>
+                    <div class="span6 text-center" style="border-right:1px solid #D7D7D7;">{{ p.tag }}</div>
                     {% if p.deal %}
-                        <div class="span2 text-center"><a>已处理</a></div>
+                        <div class="span2 text-center" style="color:grey">已处理</div>
                     {% else %}
-                        <div class="span2 text-center"><a>未处理</a></div>
+                        <div class="span2 text-center" style="color:red">待处理</div>
                     {% endif %}
                 </div>
              {% endfor %}

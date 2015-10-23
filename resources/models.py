@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from thingsforinternet.basemodels import CreateUpdateMixin
 from accounts.models import UserInfo
 from dh.models import FunctionInfo
+
+from utils.qiniucdn import qiniu_file_url
 
 
 ''' The below models is for ITGPS (技术网站导航) '''
@@ -16,6 +18,7 @@ class NavInfo(CreateUpdateMixin):
     name = models.CharField(_(u'name'), max_length=255, help_text=u'导航名称')
     title = models.CharField(_(u'title'), max_length=255, blank=True, null=True, help_text=u'导航标题')
     image = models.ImageField(_(u'image'), upload_to='nav', blank=True, null=True, help_text=u'导航图标')
+    qiniu_image = models.CharField(_(u'qiniu_image'), max_length=255, default='', help_text=u'image')
     descr = models.TextField(_(u'description'), blank=True, null=True, help_text=u'导航描述')
     func = models.ForeignKey(FunctionInfo, verbose_name=_(u'function'), blank=True, null=True, help_text='Function')
     position = models.IntegerField(_(u'position'), blank=True, null=True, default=0, help_text=u'导航位置')
@@ -28,6 +31,21 @@ class NavInfo(CreateUpdateMixin):
 
     def __unicode__(self):
         return unicode(self.title)
+
+    @property
+    def image_url(self):
+        return qiniu_file_url(self.qiniu_image)
+
+    def _data(self):
+        return {
+            'pk': self.pk,
+            'name': self.name,
+            'title': self.title,
+            'image': self.image_url or (self.image.url if self.image else ''),
+            'descr': self.descr,
+        }
+
+    data = property(_data)
 
 
 # 网站导航分类信息表
@@ -68,6 +86,7 @@ class WebSiteInfo(CreateUpdateMixin):
     url = models.CharField(_(u'url'), max_length=255, blank=True, null=True, help_text=u'网站网址')
     name = models.CharField(_(u'name'), max_length=255, blank=True, null=True, help_text=u'网站名称')
     logo = models.ImageField(_(u'image'), upload_to='logo', blank=True, null=True, help_text=u'网站 logo')
+    qiniu_logo = models.CharField(_(u'qiniu_logo'), max_length=255, default='', help_text=u'logo')
     slogan = models.TextField(_(u'slogan'), blank=True, null=True, help_text=u'网站一句话介绍')
     descr = models.TextField(_(u'description'), blank=True, null=True, help_text=u'网站描述')
     tag = models.CharField(_(u'tag'), max_length=255, blank=True, null=True, help_text=u'网站标签')
@@ -87,12 +106,16 @@ class WebSiteInfo(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.url)
 
+    @property
+    def logo_url(self):
+        return qiniu_file_url(self.qiniu_logo)
+
     def _data(self):
         return {
             'pk': self.pk,
             'url': self.url,
             'name': self.name,
-            'logo': self.logo.url if self.logo else '',
+            'logo': self.logo_url or (self.logo.url if self.logo else ''),
             'slogan': self.slogan,
             'descr': self.descr,
             'tag': self.tag.split(' '),

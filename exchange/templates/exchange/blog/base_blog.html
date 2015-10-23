@@ -14,7 +14,7 @@
 
 {% block nav %}
     {% for n in lists %}
-        <li><a href="{% url 'exchange:'|add:n.name|lower %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image.url }}" title="{{ n.title }}">{{ n.title}}</a></li>
+        <li><a href="{% url 'exchange:'|add:n.name|lower %}" title="{{ n.title }}"><img class="img-nav" src="{{ n.image }}" title="{{ n.title }}">{{ n.title}}</a></li>
     {% endfor %}
 {% endblock %}
 

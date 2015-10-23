@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-
-from utils.utils import getUsr
 
 
 def tt_login_required(func):

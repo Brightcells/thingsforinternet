@@ -30,12 +30,11 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 
-from dh.models import *
 from resume.decorators import tt_login_required
 from resume.forms import ResumeInfoModelForm
 from resume.models import ResumeInfo
 
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 RESUMEBACKLINKS = [

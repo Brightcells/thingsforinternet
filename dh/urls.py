@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf.urls import patterns, include, url
 
 
@@ -6,6 +8,6 @@ urlpatterns = patterns('dh.views',
     url(r'^index/$', 'dh3', name='dh'),
     url(r'^home/$', 'dh3', name='dh'),
 
-    url(r'^home2/$', 'dh2', name='dh2'),
-    url(r'^home3/$', 'dh3', name='dh3'),
+    # url(r'^home2/$', 'dh2', name='dh2'),
+    # url(r'^home3/$', 'dh3', name='dh3'),
 )

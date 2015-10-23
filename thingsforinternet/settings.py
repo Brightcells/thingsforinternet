@@ -185,6 +185,7 @@ LOGGING = {
 
 COOKIE_MAX_AGE = 1 * 30 * 24 * 60 * 60  # one month
 
+# 搜索设置
 SEARCH_ENGINE = {
     'google': 'https://www.google.com/search?q=%s',
     'bing': 'http://cn.bing.com/search?q=%s',
@@ -192,9 +193,11 @@ SEARCH_ENGINE = {
     'sof': 'http://stackoverflow.com/search?q=%s',
 }
 
+# 分页设置
 SITE_PER_PAGE = 20
 TIPS_PER_PAGE = 99
 
+# 验证码设置
 GEE_TEST = {
     'base_url': 'api.geetest.com/get.php?gt=',
 
@@ -211,10 +214,28 @@ GEE_TEST = {
     # 'product': 'popup&popupbtnid=submit-button',
 }
 
+# 邮件设置
 SEND_EMAIL = {
     'username': 'kimi.huang@tt4it.com',
     'password': 'tt4it'
 }
+
+# 七牛设置
+QINIU = {
+    'domain': 'http://7xnqhw.com1.z0.glb.clouddn.com/',
+    'access_key': 'm7C_7pGrIvY8tfaYKkYBwfpjGAv7A4ahtMUyrHHp',
+    'secret_key': 'hmSPYHvmA2QBJYZk-1hD_w3nyffybERpkwIfdc-t',
+    'bucket': 'tt4it',
+}
+
+# 图片压缩设置
+PNG_QUANT_PATH = '/home/diors/work/pngquant/pngquant'
+QUANT_IMG_PATH = '/home/diors/work/pngquant/quant/'
+
+BEFORE_QUANT = '%s{0}.png' % (QUANT_IMG_PATH, )
+AFTER_QUANT = '%s{0}_quant.png' % (QUANT_IMG_PATH, )
+
+QUANT_CMD = r'%s --quality=65-80 %s{0}.png --force --ext _quant.png' % (PNG_QUANT_PATH, QUANT_IMG_PATH)
 
 try:
     from local_settings import *

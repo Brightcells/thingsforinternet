@@ -23,26 +23,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.urlresolvers import reverse
-from django.db.models import Q, Count
-from django.forms.models import model_to_dict
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
-from django.utils.encoding import smart_str
-
 from accounts.models import UserInfo
 from dh.models import AppInfo, FunctionInfo
-from resources.models import *
+from resources.models import NavInfo
 
-import re
-import json
-import time
-import random
 import string
-import hashlib
-import requests
 
 
 def getUsr(request):
@@ -131,4 +116,5 @@ def getNav(request, _func):
         @paras:
         @returns: nav dict query set
     '''
-    return NavInfo.objects.filter(func__name=string.upper(_func), display=True).order_by('position')
+    navs = NavInfo.objects.filter(func__name=string.upper(_func), display=True).order_by('position')
+    return [nav.data for nav in navs]

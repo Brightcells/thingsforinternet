@@ -25,17 +25,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from django.conf import settings
 from django.core.paginator import Paginator
+from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from accounts.models import UserInfo
 from resources.decorators import tt_login_required
-from resources.models import *
 from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiModelForm
+from resources.models import ClassifyInfo, WebSiteInfo, WebsiteRelatedInfo, Like, Favorite, DIY, Log, WebSiteSubmit, ApiInfo, UserApiInfo
 
-from utils.utils import *
 from utils.json_utils import JsonHttpResponse
+from utils.tt4it_utils import *
 
 from itertools import chain
 from operator import attrgetter
@@ -336,10 +335,16 @@ def visit(request):
         wsi = WebSiteInfo.objects.get(id=_siteid)
         wsi.visit += 1
         wsi.save()
-        return HttpResponse(json.dumps({'code': '200', 'msg': 'Increase visit success!'}))
-    except:
+        return JsonHttpResponse({
+            'code': '200',
+            'msg': u'Increase visit success!'
+        })
+    except WebSiteInfo.DoesNotExist:
         info = sys.exc_info()
-        return HttpResponse(json.dumps({'code': '201', 'msg': str(info[1])}))
+        return JsonHttpResponse({
+            'code': '201',
+            'msg': str(info[1])
+        })
 
 
 def favorite(request):
@@ -355,29 +360,44 @@ def favorite(request):
                 wsi.fav -= 1
                 wsi.save()
                 Log.objects.create(user=ui, host=_host, website=wsi, descr="Cancel Favorite")
-                return HttpResponse(json.dumps({'code': '302', 'msg': 'Cancel fav success!'}))
+                return JsonHttpResponse({
+                    'code': '302',
+                    'msg': u'Cancel fav success!'
+                })
             except:
                 Favorite.objects.create(website=wsi, user=ui, host=_host)
                 wsi.fav += 1
                 wsi.save()
                 Log.objects.create(user=ui, host=_host, website=wsi, descr="Insert Favorite")
-                return HttpResponse(json.dumps({'code': '300', 'msg': 'Increase fav success!'}))
+                return JsonHttpResponse({
+                    'code': '300',
+                    'msg': u'Increase fav success!'
+                })
         else:
             try:
                 Favorite.objects.get(website=wsi, host=_host).delete()
                 wsi.fav -= 1
                 wsi.save()
                 Log.objects.create(host=_host, website=wsi, descr="Cancel Favorite")
-                return HttpResponse(json.dumps({'code': '302', 'msg': 'Cancel fav success!'}))
+                return JsonHttpResponse({
+                    'code': '302',
+                    'msg': u'Cancel fav success!'
+                })
             except:
                 Favorite.objects.create(website=wsi, host=_host)
                 wsi.fav += 1
                 wsi.save()
                 Log.objects.create(host=_host, website=wsi, descr="Insert Favorite")
-                return HttpResponse(json.dumps({'code': '300', 'msg': 'Increase fav success!'}))
-    except:
+                return JsonHttpResponse({
+                    'code': '300',
+                    'msg': u'Increase fav success!'
+                })
+    except WebSiteInfo.DoesNotExist:
         info = sys.exc_info()
-        return HttpResponse(json.dumps({'code': '301', 'msg': str(info[1])}))
+        return JsonHttpResponse({
+            'code': '301',
+            'msg': str(info[1])
+        })
 
 
 def like(request):
@@ -393,29 +413,44 @@ def like(request):
                 wsi.like -= 1
                 wsi.save()
                 Log.objects.create(user=ui, host=_host, website=wsi, descr="Cancel Like")
-                return HttpResponse(json.dumps({'code': '402', 'msg': 'Cancel like success!'}))
+                return JsonHttpResponse({
+                    'code': '402',
+                    'msg': u'Cancel like success!'
+                })
             except:
                 Like.objects.create(website=wsi, user=ui, host=_host)
                 wsi.like += 1
                 wsi.save()
                 Log.objects.create(user=ui, host=_host, website=wsi, descr="Insert Like")
-                return HttpResponse(json.dumps({'code': '400', 'msg': 'Increase like success!'}))
+                return JsonHttpResponse({
+                    'code': '400',
+                    'msg': u'Increase like success!'
+                })
         else:
             try:
                 Like.objects.get(website=wsi, host=_host).delete()
                 wsi.like -= 1
                 wsi.save()
                 Log.objects.create(host=_host, website=wsi, descr="Cancel Like")
-                return HttpResponse(json.dumps({'code': '402', 'msg': 'Cancel like success!'}))
+                return JsonHttpResponse({
+                    'code': '402',
+                    'msg': u'Cancel like success!'
+                })
             except:
                 Like.objects.create(website=wsi, host=_host)
                 wsi.like += 1
                 wsi.save()
                 Log.objects.create(host=_host, website=wsi, descr="Insert Like")
-                return HttpResponse(json.dumps({'code': '400', 'msg': 'Increase like success!'}))
+                return JsonHttpResponse({
+                    'code': '402',
+                    'msg': u'Increase like success!'
+                })
     except:
         info = sys.exc_info()
-        return HttpResponse(json.dumps({'code': '401', 'msg': str(info[1])}))
+        return JsonHttpResponse({
+            'code': '401',
+            'msg': str(info[1])
+        })
 
 
 def getSiteInfo(request, siteid):

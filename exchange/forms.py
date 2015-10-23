@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import Form, ModelForm, CharField, ModelChoiceField
-from django.forms.widgets import TextInput, PasswordInput, EmailInput, URLInput, HiddenInput, Textarea
+from django.forms import ModelForm
+from django.forms.widgets import TextInput, URLInput, Textarea
 from django.utils.translation import ugettext_lazy as _
 
 from exchange.models import Tips, UserTips, BlogInfo
 
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 class TipsModelForm(ModelForm):

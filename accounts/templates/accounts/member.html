@@ -20,7 +20,7 @@
             <div class="span12">
                 <div class="list-hero-unit">
                     <h2>{{ userinfo.username }}</h2>
-                    <span>TT4IT第 {{ userinfo.pk }} 号会员，加入于 {{ userinfo.create_time|date:'Y-m-d H:i:s' }}。</span>
+                    <span>TT4IT 第 {{ userinfo.pk }} 号会员，加入于 {{ userinfo.create_time|date:'Y-m-d H:i:s' }}。</span>
                     <div>
                         {% if userinfo.github %}<strong><em>Github: </em></strong><span><a href="https://github.com/{{ userinfo.github }}" target="_blank"> {{ userinfo.github|default:'' }} </a></span>{% endif %}
                         {% if userinfo.sof %}<strong><em>Stackoverflow: </em></strong><span><a href="http://stackoverflow.com/users/{{ userinfo.sof }}" target="_blank"> {{ userinfo.sof|default:'' }} </a></span>{% endif %}

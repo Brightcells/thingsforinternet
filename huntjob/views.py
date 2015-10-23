@@ -30,12 +30,11 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 
-from dh.models import *
 from huntjob.decorators import tt_login_required
 from huntjob.forms import QuestionInfoModelForm
 from huntjob.models import QuestionInfo
 
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 HUNTJOBBACKLINKS = [
@@ -153,16 +152,16 @@ def questionmine(request, p=1):
 @tt_login_required
 def questionedit(request):
     if request.method == "POST":
-        minequestion, created = questionInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
-        form = questionInfoModelForm(request.POST, request.FILES, instance=minequestion)
+        minequestion, created = QuestionInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
+        form = QuestionInfoModelForm(request.POST, request.FILES, instance=minequestion)
         if form.is_valid():
             form.save()
 
     try:
-        minequestion = model_to_dict(questionInfo.objects.get(user=getUI(getUsr(request)), display=True))
-        form = questionInfoModelForm(minequestion)
+        minequestion = model_to_dict(QuestionInfo.objects.get(user=getUI(getUsr(request)), display=True))
+        form = QuestionInfoModelForm(minequestion)
     except:
-        form = questionInfoModelForm()
+        form = QuestionInfoModelForm()
 
     return render(
         request,

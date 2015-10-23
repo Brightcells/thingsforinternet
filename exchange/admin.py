@@ -1,9 +1,8 @@
-from django.conf import settings
-from django.contrib import admin
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+# -*- coding: utf-8 -*-
 
-from exchange.models import *
+from django.contrib import admin
+
+from exchange.models import Tips, UserTips, BlogInfo, BlogSelectedInfo
 
 
 class TipsAdmin(admin.ModelAdmin):

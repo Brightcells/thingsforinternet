@@ -24,21 +24,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.encoding import smart_str
 
-from accounts.models import UserInfo
 from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm, ForgotUserInfoModelForm, SettingsUserInfoModelForm
-from utils.json_utils import JsonHttpResponse
 from utils.send_email import SendEmail
-from utils.utils import getUsr, getUI
 
-import json
+import hashlib
+import re
 import shortuuid
 
 from utils.geetest import geetest
-from utils.utils import *
+from utils.json_utils import JsonHttpResponse
+from utils.tt4it_utils import *
 
 
 MAX_AGE = settings.COOKIE_MAX_AGE
@@ -199,9 +198,12 @@ def api_user_check(request):
     try:
         UserInfo.objects.get(username=_usr)
         status, msg = True, 'user_already_exists'
-    except:
+    except UserInfo.DoesNotExist:
         status, msg = False, 'user_not_exists'
-    return HttpResponse(json.dumps(dict(status=status, msg=msg)))
+    JsonHttpResponse({
+        'status': status,
+        'msg': msg
+    })
 
 
 def password_reset(request):

@@ -32,6 +32,10 @@ urlpatterns += patterns('',
     url(r'^lab/', include('lab.urls', namespace='lab')),
 )
 
+urlpatterns += patterns('thingsforinternet.views',
+    url(r'^search/$', 'search', name='search'),
+)
+
 # This is set for media url
 if settings.DEBUG:
     from django.conf.urls.static import static
@@ -44,7 +48,3 @@ if settings.DEBUG:
 
 # from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # urlpatterns += staticfiles_urlpatterns()
-
-urlpatterns += patterns('thingsforinternet.views',
-    url(r'^search/$', 'search', name='search'),
-)

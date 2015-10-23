@@ -1,24 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import Form, ModelForm, CharField, EmailField, ModelChoiceField
+from django.forms import Form, ModelForm, CharField, EmailField
 from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput, URLInput, CheckboxInput, Select
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import UserInfo
 
 import hashlib
-
-
-def pwd2hash(pwd):
-    '''
-        @function: change pwd 2 hash by use hashlib's md5 method
-        @paras:
-        @returns: hexdigest string
-    '''
-    hashpwd = hashlib.md5()
-    hashpwd.update(pwd)
-    return hashpwd.hexdigest()
 
 
 class SignupUserInfoModelForm(ModelForm):
@@ -50,7 +39,7 @@ class SignupUserInfoModelForm(ModelForm):
     def clean_password(self):
         password = self.cleaned_data['password'].strip()
         if password:
-            return pwd2hash(password)
+            return hashlib.md5(password).hexdigest()
         else:
             raise forms.ValidationError(_('Password is needed'))
 
@@ -81,7 +70,7 @@ class LoginUserInfoModelForm(Form):
     def clean_password(self):
         password = self.cleaned_data['password'].strip()
         if password:
-            return pwd2hash(password)
+            return hashlib.md5(password).hexdigest()
         else:
             raise forms.ValidationError(_('Password is needed'))
 

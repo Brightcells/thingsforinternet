@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import Form, ModelForm, CharField, ModelChoiceField
-from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput, URLInput, Textarea, ClearableFileInput
+from django.forms import ModelForm
+from django.forms.widgets import TextInput, HiddenInput, URLInput, Textarea, ClearableFileInput
 from django.utils.translation import ugettext_lazy as _
 
-from resources.models import WebSiteSubmit, ApiInfo, UserApiInfo
+from resources.models import WebSiteInfo, WebSiteSubmit, ApiInfo, UserApiInfo
 
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 class WebSiteDiyModelForm(ModelForm):
     class Meta:
         model = WebSiteInfo
-        exclude = ('srcode', 'visit', 'evaluate', 'like', 'unlike', 'fav', 'display', 'create_time', 'modify_time')
+        exclude = ('qiniu_logo', 'srcode', 'visit', 'evaluate', 'like', 'unlike', 'fav', 'display', 'create_time', 'modify_time')
         widgets = {
             'url': TextInput(
                 attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'placeholder': _('Url')}

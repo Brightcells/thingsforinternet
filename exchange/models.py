@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from thingsforinternet.basemodels import CreateUpdateMixin
 from accounts.models import UserInfo
 from dh.models import FunctionInfo
 
-from utils.utils import *
+from utils.tt4it_utils import *
 
 
 # 知识便签

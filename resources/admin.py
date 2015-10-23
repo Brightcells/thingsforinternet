@@ -1,16 +1,22 @@
-from django.conf import settings
-from django.contrib import admin
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+# -*- coding: utf-8 -*-
 
-from resources.models import *
+from django.contrib import admin
+
+from resources.models import NavInfo, ClassifyInfo, WebSiteInfo, WebsiteRelatedInfo, TagInfo, CsySite, Evaluate, Like, Favorite, DIY, Visit, Log, WebSiteSubmit, ApiInfo, UserApiInfo
+
+from utils.qiniucdn import upload
 
 
 class NavInfoAdmin(admin.ModelAdmin):
+    readonly_fields = ('qiniu_image', )
     list_display = ('name', 'title', 'image', 'descr', 'func', 'position', 'display', 'create_time', 'modify_time')
     search_fields = ('name', 'title', 'image', 'descr', 'func__name')
     list_filter = ('func', 'display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
+
+    def save_model(self, request, obj, form, change):
+        obj.qiniu_image = upload(obj.image.read()).get('key', '') if obj.image else ''
+        obj.save()
 
 
 class ClassifyInfoAdmin(admin.ModelAdmin):
@@ -21,10 +27,15 @@ class ClassifyInfoAdmin(admin.ModelAdmin):
 
 
 class WebSiteInfoAdmin(admin.ModelAdmin):
+    readonly_fields = ('qiniu_logo', )
     list_display = ('url', 'name', 'logo', 'slogan', 'descr', 'tag', 'srcode', 'visit', 'evaluate', 'like', 'unlike', 'fav', 'display', 'create_time', 'modify_time')
     search_fields = ('url', 'name', 'logo', 'slogan', 'descr', 'tag', 'srcode')
     list_filter = ('display', 'create_time', 'modify_time')
     date_hierarchy = 'create_time'
+
+    def save_model(self, request, obj, form, change):
+        obj.qiniu_logo = upload(obj.logo.read()).get('key', '') if obj.logo else ''
+        obj.save()
 
 
 class WebsiteRelatedInfoAdmin(admin.ModelAdmin):
