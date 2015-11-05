@@ -33,13 +33,14 @@ from resources.decorators import tt_login_required
 from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiModelForm
 from resources.models import ClassifyInfo, WebSiteInfo, WebsiteRelatedInfo, Like, Favorite, DIY, Log, WebSiteSubmit, ApiInfo, UserApiInfo
 
-from utils.json_utils import JsonHttpResponse
 from utils.tt4it_utils import *
 
 from itertools import chain
 from operator import attrgetter
 
 import sys
+
+from json_response import JsonResponse as JsonHttpResponse
 
 
 spp = settings.SITE_PER_PAGE

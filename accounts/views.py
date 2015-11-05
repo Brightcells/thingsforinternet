@@ -36,8 +36,9 @@ import re
 import shortuuid
 
 from utils.geetest import geetest
-from utils.json_utils import JsonHttpResponse
 from utils.tt4it_utils import *
+
+from json_response import JsonResponse as JsonHttpResponse
 
 
 MAX_AGE = settings.COOKIE_MAX_AGE
