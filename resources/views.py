@@ -542,6 +542,7 @@ def lcrdict(obj, flag):
     return {'left': lcr(obj, 0, flag), 'center': lcr(obj, 1, flag), 'right': lcr(obj, 2, flag)}
 
 
+@tt_login_required
 def apirecord(request, p=1):
     status = False
     user = getUI(getUsr(request))

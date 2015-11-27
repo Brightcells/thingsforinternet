@@ -201,7 +201,7 @@ def api_user_check(request):
         status, msg = True, 'user_already_exists'
     except UserInfo.DoesNotExist:
         status, msg = False, 'user_not_exists'
-    JsonHttpResponse({
+    return JsonHttpResponse({
         'status': status,
         'msg': msg
     })
