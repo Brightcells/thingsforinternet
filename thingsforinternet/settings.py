@@ -229,13 +229,7 @@ QINIU = {
 }
 
 # 图片压缩设置
-PNG_QUANT_PATH = '/home/diors/work/pngquant/pngquant'
-QUANT_IMG_PATH = '/home/diors/work/pngquant/quant/'
-
-BEFORE_QUANT = '%s{0}.png' % (QUANT_IMG_PATH, )
-AFTER_QUANT = '%s{0}_quant.png' % (QUANT_IMG_PATH, )
-
-QUANT_CMD = r'%s --quality=65-80 %s{0}.png --force --ext _quant.png' % (PNG_QUANT_PATH, QUANT_IMG_PATH)
+PNG_QUANT_FILE = '/home/diors/work/pngquant/pngquant'
 
 try:
     from local_settings import *
