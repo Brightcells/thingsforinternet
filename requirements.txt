@@ -11,7 +11,7 @@ ipython==4.0.0
 marrow.mailer==4.0.1
 markdown2==2.2.2
 pep8==1.6.2
-pngquant==1.0.3
+pngquant==1.0.5
 pytz==2015.7
 qiniu==7.0.1
 requests==2.8.1
