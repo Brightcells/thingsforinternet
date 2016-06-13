@@ -2,11 +2,10 @@
 
 from django import forms
 from django.forms import ModelForm
-from django.forms.widgets import TextInput, HiddenInput, URLInput, Textarea, ClearableFileInput
+from django.forms.widgets import ClearableFileInput, HiddenInput, Textarea, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
 
-from resources.models import WebSiteInfo, WebSiteSubmit, ApiInfo, UserApiInfo
-
+from resources.models import ApiInfo, UserApiInfo, WebSiteInfo, WebSiteSubmit
 from utils.tt4it_utils import *
 
 

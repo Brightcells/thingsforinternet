@@ -23,11 +23,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-from django.http import HttpResponse
-from django.shortcuts import render
-
 import json
 import random
+
+from django.http import HttpResponse
+from django.shortcuts import render
 
 from utils.tt4it_utils import *
 

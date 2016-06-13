@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.forms import ModelForm
-from django.forms.widgets import TextInput, Textarea, FileInput
+from django.forms.widgets import FileInput, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from resume.models import ResumeInfo

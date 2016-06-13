@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from marrow.mailer import Mailer, Message
 
 

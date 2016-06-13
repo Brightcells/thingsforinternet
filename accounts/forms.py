@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import hashlib
+
 from django import forms
-from django.forms import Form, ModelForm, CharField, EmailField
-from django.forms.widgets import TextInput, PasswordInput, EmailInput, HiddenInput, URLInput, CheckboxInput, Select
+from django.forms import CharField, EmailField, Form, ModelForm
+from django.forms.widgets import CheckboxInput, EmailInput, HiddenInput, PasswordInput, Select, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import UserInfo
-
-import hashlib
 
 
 class SignupUserInfoModelForm(ModelForm):

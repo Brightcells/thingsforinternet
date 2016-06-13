@@ -23,22 +23,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
-from django.utils.encoding import smart_str
-
-from accounts.forms import SignupUserInfoModelForm, LoginUserInfoModelForm, ForgotUserInfoModelForm, SettingsUserInfoModelForm
-from utils.send_email import SendEmail
-
 import hashlib
 import re
+
 import shortuuid
-
-from utils.geetest import geetest
-from utils.tt4it_utils import *
-
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect, render
+from django.utils.encoding import smart_str
 from json_response import JsonResponse as JsonHttpResponse
+
+from accounts.forms import (ForgotUserInfoModelForm, LoginUserInfoModelForm, SettingsUserInfoModelForm,
+                            SignupUserInfoModelForm)
+from utils.geetest import geetest
+from utils.send_email import SendEmail
+from utils.tt4it_utils import *
 
 
 MAX_AGE = settings.COOKIE_MAX_AGE

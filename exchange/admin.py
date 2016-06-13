@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from exchange.models import Tips, UserTips, BlogInfo, BlogSelectedInfo
+from exchange.models import BlogInfo, BlogSelectedInfo, Tips, UserTips
 
 
 class TipsAdmin(admin.ModelAdmin):

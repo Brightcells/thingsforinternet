@@ -28,12 +28,11 @@ from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.forms.models import model_to_dict
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from exchange.decorators import tt_login_required
-from exchange.forms import TipsModelForm, BlogInfoModelForm
-from exchange.models import Tips, UserTips, BlogInfo, BlogSelectedInfo
-
+from exchange.forms import BlogInfoModelForm, TipsModelForm
+from exchange.models import BlogInfo, BlogSelectedInfo, Tips, UserTips
 from utils.tt4it_utils import *
 
 

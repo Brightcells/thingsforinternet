@@ -28,12 +28,11 @@ from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.forms.models import model_to_dict
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from huntjob.decorators import tt_login_required
 from huntjob.forms import QuestionInfoModelForm
 from huntjob.models import QuestionInfo
-
 from utils.tt4it_utils import *
 
 

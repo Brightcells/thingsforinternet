@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
-
 import pngquant
 import qiniu
+from django.conf import settings
 
 
 QINIU = settings.QINIU
@@ -24,8 +23,8 @@ def upload_with_file(f, bucket=QINIU['bucket']):
 
 
 def qiniu_file_url(key):
-    return key and (u'{0}{1}'.format(QINIU['domain'], key) if not key.startswith('http') else key)
+    return key and (u'{}{}'.format(QINIU['domain'], key) if not key.startswith('http') else key)
 
 
 def qiniu_file_url_https(key):
-    return key and (u'{0}{1}'.format(QINIU['domain_https'], key) if not key.startswith('http') else key.replace(QINIU['domain'], QINIU['domain_https']))
+    return key and (u'{}{}'.format(QINIU['domain_https'], key) if not key.startswith('http') else key.replace(QINIU['domain'], QINIU['domain_https']))

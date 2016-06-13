@@ -3,10 +3,9 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from thingsforinternet.basemodels import CreateUpdateMixin
 from accounts.models import UserInfo
 from dh.models import FunctionInfo
-
+from thingsforinternet.basemodels import CreateUpdateMixin
 from utils.qiniucdn import qiniu_file_url
 
 

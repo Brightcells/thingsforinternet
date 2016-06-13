@@ -3,6 +3,7 @@
 # Django settings for thingsforinternet project.
 import os
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

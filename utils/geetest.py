@@ -1,6 +1,6 @@
 #!coding:utf8
-from hashlib import md5
 import urllib2
+from hashlib import md5
 
 
 class geetest(object):

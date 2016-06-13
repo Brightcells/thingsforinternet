@@ -2,8 +2,8 @@
 
 from django.contrib import admin
 
-from resources.models import NavInfo, ClassifyInfo, WebSiteInfo, WebsiteRelatedInfo, TagInfo, CsySite, Evaluate, Like, Favorite, DIY, Visit, Log, WebSiteSubmit, ApiInfo, UserApiInfo
-
+from resources.models import (DIY, ApiInfo, ClassifyInfo, CsySite, Evaluate, Favorite, Like, Log, NavInfo, TagInfo,
+                              UserApiInfo, Visit, WebSiteInfo, WebsiteRelatedInfo, WebSiteSubmit)
 from utils.qiniucdn import upload
 
 

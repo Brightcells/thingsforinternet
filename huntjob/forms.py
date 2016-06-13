@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.forms import ModelForm
-from django.forms.widgets import TextInput, Textarea
+from django.forms.widgets import Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from huntjob.models import QuestionInfo

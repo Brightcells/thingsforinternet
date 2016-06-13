@@ -23,24 +23,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+import sys
+from itertools import chain
+from operator import attrgetter
+
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+from json_response import JsonResponse as JsonHttpResponse
 
 from resources.decorators import tt_login_required
-from resources.forms import WebSiteDiyModelForm, WebSiteSubmitModelForm, ApiModelForm
-from resources.models import ClassifyInfo, WebSiteInfo, WebsiteRelatedInfo, Like, Favorite, DIY, Log, WebSiteSubmit, ApiInfo, UserApiInfo
-
+from resources.forms import ApiModelForm, WebSiteDiyModelForm, WebSiteSubmitModelForm
+from resources.models import (DIY, ApiInfo, ClassifyInfo, Favorite, Like, Log, UserApiInfo, WebSiteInfo,
+                              WebsiteRelatedInfo, WebSiteSubmit)
 from utils.tt4it_utils import *
-
-from itertools import chain
-from operator import attrgetter
-
-import sys
-
-from json_response import JsonResponse as JsonHttpResponse
 
 
 spp = settings.SITE_PER_PAGE

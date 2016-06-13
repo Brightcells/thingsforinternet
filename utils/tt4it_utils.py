@@ -23,11 +23,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+import string
+
 from accounts.models import UserInfo
 from dh.models import AppInfo, FunctionInfo
 from resources.models import NavInfo
-
-import string
 
 
 def getUsr(request):

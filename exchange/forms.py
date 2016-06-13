@@ -2,11 +2,10 @@
 
 from django import forms
 from django.forms import ModelForm
-from django.forms.widgets import TextInput, URLInput, Textarea
+from django.forms.widgets import Textarea, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
 
-from exchange.models import Tips, UserTips, BlogInfo
-
+from exchange.models import BlogInfo, Tips, UserTips
 from utils.tt4it_utils import *
 
 
