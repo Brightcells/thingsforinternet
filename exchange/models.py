@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import UserInfo
-from dh.models import FunctionInfo
 from thingsforinternet.basemodels import CreateUpdateMixin
 from utils.tt4it_utils import *
 
@@ -27,7 +26,8 @@ class Tips(CreateUpdateMixin):
         verbose_name = _(u'tips')
         verbose_name_plural = _(u'tips')
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'tips': self.tips,
@@ -39,8 +39,6 @@ class Tips(CreateUpdateMixin):
             'like': self.like,
             'follow': self.follow,
         }
-
-    data = property(_data)
 
 
 # 用户 - 知识便签
@@ -75,7 +73,8 @@ class BlogInfo(CreateUpdateMixin):
         verbose_name = _(u'bloginfo')
         verbose_name_plural = _(u'bloginfo')
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'title': self.title,
@@ -87,8 +86,6 @@ class BlogInfo(CreateUpdateMixin):
             'like': self.like,
             'follow': self.follow,
         }
-
-    data = property(_data)
 
 
 # 博客精选
@@ -109,7 +106,8 @@ class BlogSelectedInfo(CreateUpdateMixin):
         verbose_name = _(u'blogselectedinfo')
         verbose_name_plural = _(u'blogselectedinfo')
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'title': self.title,
@@ -121,5 +119,3 @@ class BlogSelectedInfo(CreateUpdateMixin):
             'like': self.like,
             'follow': self.follow,
         }
-
-    data = property(_data)

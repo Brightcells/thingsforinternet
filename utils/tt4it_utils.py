@@ -1,29 +1,8 @@
 # -*- coding: utf-8 -*-
 
-"""
-Copyright (c) 2014 Qimin Huang <kimi.huang@brightcells.com>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
-
 import string
+
+from ipaddr import client_ip
 
 from accounts.models import UserInfo
 from dh.models import AppInfo, FunctionInfo
@@ -62,22 +41,13 @@ def getUsrUI(request):
     return (usr, getUI(usr)) if usr else (usr, None)
 
 
-def getIP(request):
-    '''
-        @function: get current ip for the desktop which visit from
-        @paras:
-        @returns: ip string
-    '''
-    return request.META['HTTP_X_FORWARDED_FOR'] if 'HTTP_X_FORWARDED_FOR' in request.META else request.META['REMOTE_ADDR']
-
-
 def getUsrHost(request):
     '''
         @function: get usr and ip together
         @paras:
         @returns: (usr, ip) tuple
     '''
-    return getUsr(request), getIP(request)
+    return getUsr(request), client_ip(request)
 
 
 def getRef(request):

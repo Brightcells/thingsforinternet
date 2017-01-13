@@ -35,7 +35,8 @@ class NavInfo(CreateUpdateMixin):
     def image_url(self):
         return qiniu_file_url(self.qiniu_image)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'name': self.name,
@@ -43,8 +44,6 @@ class NavInfo(CreateUpdateMixin):
             'image': self.image_url or (self.image.url if self.image else ''),
             'descr': self.descr,
         }
-
-    data = property(_data)
 
 
 # 网站导航分类信息表
@@ -66,7 +65,8 @@ class ClassifyInfo(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.title)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'name': self.name,
@@ -76,8 +76,6 @@ class ClassifyInfo(CreateUpdateMixin):
             'visit': self.visit,
             'nav': self.nav,
         }
-
-    data = property(_data)
 
 
 # 网站信息表
@@ -109,7 +107,8 @@ class WebSiteInfo(CreateUpdateMixin):
     def logo_url(self):
         return qiniu_file_url(self.qiniu_logo)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'url': self.url,
@@ -124,8 +123,6 @@ class WebSiteInfo(CreateUpdateMixin):
             'unlike': self.unlike,
             'fav': self.fav,
         }
-
-    data = property(_data)
 
 
 # 网站相关信息表
@@ -174,14 +171,13 @@ class CsySite(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.pk)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'classify': self.classify,
             'website': self.website.data,
         }
-
-    data = property(_data)
 
 
 # 评价记录表
@@ -230,15 +226,14 @@ class Favorite(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.pk)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'user': self.user,
             'host': self.host,
             'website': self.website.data,
         }
-
-    data = property(_data)
 
 
 # DIY 记录表
@@ -254,15 +249,14 @@ class DIY(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.pk)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'user': self.user,
             'host': self.host,
             'website': self.website.data,
         }
-
-    data = property(_data)
 
 
 # 访问记录表
@@ -336,7 +330,8 @@ class ApiInfo(CreateUpdateMixin):
     def __unicode__(self):
         return unicode(self.api)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'api': self.api,
@@ -347,8 +342,6 @@ class ApiInfo(CreateUpdateMixin):
             'like': self.like,
             'follow': self.follow,
         }
-
-    data = property(_data)
 
 
 # 用户 - API 信息表

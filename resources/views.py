@@ -1,28 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-Copyright (c) 2014 Qimin Huang <kimi.huang@brightcells.com>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
-
 import sys
 from itertools import chain
 from operator import attrgetter
@@ -34,10 +11,10 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from json_response import JsonResponse as JsonHttpResponse
 
-from resources.decorators import tt_login_required
 from resources.forms import ApiModelForm, WebSiteDiyModelForm, WebSiteSubmitModelForm
 from resources.models import (DIY, ApiInfo, ClassifyInfo, Favorite, Like, Log, UserApiInfo, WebSiteInfo,
                               WebsiteRelatedInfo, WebSiteSubmit)
+from thingsforinternet.decorators import tt_login_required
 from utils.tt4it_utils import *
 
 
@@ -48,10 +25,8 @@ RESOURCESBACKLINKS = [
     {'name': 'TT4IT', 'url': 'dh:dh', 'para': ''},
     {'name': '资源', 'url': 'resources:resources', 'para': ''},
 ]
-
-ITGPSBACKLINKS = RESOURCESBACKLINKS + [{'name': 'ITGPS', 'url': 'resources:itgpshome', 'para': ''}, ]
-
-APIBACKLINKS = RESOURCESBACKLINKS + [{'name': 'API', 'url': 'resources:apihome', 'para': ''}, ]
+ITGPSBACKLINKS = RESOURCESBACKLINKS + [{'name': 'ITGPS', 'url': 'resources:itgpshome', 'para': ''}]
+APIBACKLINKS = RESOURCESBACKLINKS + [{'name': 'API', 'url': 'resources:apihome', 'para': ''}]
 
 
 def pages(setlist, p, num):
@@ -213,8 +188,8 @@ def getFavoriteDiySite(request, p):
         favSiteSetList = Favorite.objects.filter(user__username=_usr).order_by('-website__visit')
         diySiteSetList = DIY.objects.filter(user__username=_usr).order_by('-website__visit')
     else:
-        favSiteSetList = Favorite.objects.filter(host=getIP(request)).order_by('-website__visit')
-        diySiteSetList = DIY.objects.filter(host=getIP(request)).order_by('-website__visit')
+        favSiteSetList = Favorite.objects.filter(host=client_ip(request)).order_by('-website__visit')
+        diySiteSetList = DIY.objects.filter(host=client_ip(request)).order_by('-website__visit')
 
     combineSiteSetList = sorted(
         chain(favSiteSetList, diySiteSetList),
@@ -259,7 +234,7 @@ def getLikeFlag(request, siteid, _flag):
     if 'usr' in request.COOKIES:
         return Like.objects.filter(user__username=request.COOKIES['usr'], flag=_flag, website__pk=siteid).exists()
     else:
-        return Like.objects.filter(host=getIP(request), flag=_flag, website__pk=siteid).exists()
+        return Like.objects.filter(host=client_ip(request), flag=_flag, website__pk=siteid).exists()
 
 
 def getFavFlag(request, siteid):
@@ -272,7 +247,7 @@ def getFavFlag(request, siteid):
     if 'usr' in request.COOKIES:
         return Favorite.objects.filter(user__username=request.COOKIES['usr'], website__pk=siteid).exists()
     else:
-        return Favorite.objects.filter(host=getIP(request), website__pk=siteid).exists()
+        return Favorite.objects.filter(host=client_ip(request), website__pk=siteid).exists()
 
 
 def getCsySite(request, _nav, _num, _flag, pk, p):

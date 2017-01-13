@@ -44,7 +44,8 @@ class FunctionInfo(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'name': self.name.lower(),
@@ -52,5 +53,3 @@ class FunctionInfo(models.Model):
             'image': self.image.url if self.image else '',
             'descr': self.descr,
         }
-
-    data = property(_data)

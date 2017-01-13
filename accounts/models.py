@@ -3,29 +3,30 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
-SLIDE_IMAGE_CLASSIFY = (
-    ('rx', _(u'RenXiang')),
-    ('fj', _(u'FengJing')),
-    ('kt', _(u'KaTong')),
-    ('bc', _(u'BianCheng')),
-    ('dw', _(u'DongWu')),
-    ('mx', _(u'MingXing')),
-    ('yx', _(u'YouXi')),
-    ('zs', _(u'ZheSi')),
-)
-
-SEARCH_ENGINE = (
-    ('google', _(u'Google')),
-    ('bing', _(u'Bing')),
-    ('baidu', _(u'Baidu')),
-    ('sof', _(u'StackOverflow')),
-    ('tt', _(u'tt4it')),
-)
+from thingsforinternet.basemodels import CreateUpdateMixin
 
 
 # 用户注册信息表
-class UserInfo(models.Model):
+class UserInfo(CreateUpdateMixin):
+    SLIDE_IMAGE_CLASSIFY = (
+        ('rx', _(u'RenXiang')),
+        ('fj', _(u'FengJing')),
+        ('kt', _(u'KaTong')),
+        ('bc', _(u'BianCheng')),
+        ('dw', _(u'DongWu')),
+        ('mx', _(u'MingXing')),
+        ('yx', _(u'YouXi')),
+        ('zs', _(u'ZheSi')),
+    )
+
+    SEARCH_ENGINE = (
+        ('google', _(u'Google')),
+        ('bing', _(u'Bing')),
+        ('baidu', _(u'Baidu')),
+        ('sof', _(u'StackOverflow')),
+        ('tt', _(u'tt4it')),
+    )
+
     username = models.CharField(_(u'username'), max_length=255, blank=True, null=True, help_text=u'用户名')
     password = models.CharField(_(u'password'), max_length=255, blank=True, null=True, help_text=u'密码')
     email = models.EmailField(_(u'email'), max_length=255, blank=True, null=True, help_text=u'邮箱')
@@ -42,8 +43,6 @@ class UserInfo(models.Model):
     blog = models.CharField(_(u'blog'), max_length=255, blank=True, null=True, help_text='Blog')
     btc = models.CharField(_(u'btc'), max_length=255, blank=True, null=True, help_text='btc address')
     freeze = models.BooleanField(_('freeze'), default=False, help_text=u'是否被冻结 True for freeze && False for not freeze')
-    create_time = models.DateTimeField(_(u'createtime'), auto_now_add=True, editable=True, help_text=u'注册时间')
-    modify_time = models.DateTimeField(_(u'modifytime'), auto_now=True, editable=True, help_text=u'修改时间')
 
     class Meta:
         db_table = u'userinfo'
@@ -53,7 +52,8 @@ class UserInfo(models.Model):
     def __unicode__(self):
         return unicode(self.username)
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'username': self.username,
@@ -72,5 +72,3 @@ class UserInfo(models.Model):
             'btc': self.btc,
             'create_time': self.create_time.replace(tzinfo=None),
         }
-
-    data = property(_data)

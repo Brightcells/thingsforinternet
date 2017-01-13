@@ -3,11 +3,13 @@ MySQL-python==1.2.5
 Pillow==3.0.0
 Pygments==1.6
 South==1.0.1
-django-json-response==1.0.7
+django-ip==1.0.0
+django-json-response==1.1.4
 django-markdown-deux==1.0.5
 django-mobi==0.1.7
 ipdb==0.8.1
 ipython==4.0.0
+isort==4.2.5
 marrow.mailer==4.0.1
 markdown2==2.2.2
 pep8==1.6.2

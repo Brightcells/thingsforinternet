@@ -8,7 +8,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import UserInfo
-from dh.models import FunctionInfo
 from thingsforinternet.basemodels import CreateUpdateMixin
 from utils.tt4it_utils import *
 
@@ -42,7 +41,8 @@ class QuestionInfo(CreateUpdateMixin):
         verbose_name = _(u'questioninfo')
         verbose_name_plural = _(u'questioninfo')
 
-    def _data(self):
+    @property
+    def data(self):
         return {
             'pk': self.pk,
             'question': self.question,
@@ -54,5 +54,3 @@ class QuestionInfo(CreateUpdateMixin):
             'like': self.like,
             'follow': self.follow,
         }
-
-    data = property(_data)

@@ -1,28 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-Copyright (c) 2014 Qimin Huang <kimi.huang@brightcells.com>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
-
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
@@ -30,9 +7,9 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.shortcuts import redirect, render
 
-from exchange.decorators import tt_login_required
 from exchange.forms import BlogInfoModelForm, TipsModelForm
 from exchange.models import BlogInfo, BlogSelectedInfo, Tips, UserTips
+from thingsforinternet.decorators import tt_login_required
 from utils.tt4it_utils import *
 
 
@@ -40,10 +17,8 @@ EXCHANGEBACKLINKS = [
     {'name': 'TT4IT', 'url': 'dh:dh', 'para': ''},
     {'name': '交流', 'url': 'exchange:exchange', 'para': ''},
 ]
-
-TIPSBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'TIPS', 'url': 'exchange:tipshome', 'para': ''}, ]
-
-BLOGBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'BLOG', 'url': 'exchange:bloghome', 'para': ''}, ]
+TIPSBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'TIPS', 'url': 'exchange:tipshome', 'para': ''}]
+BLOGBACKLINKS = EXCHANGEBACKLINKS + [{'name': 'BLOG', 'url': 'exchange:bloghome', 'para': ''}]
 
 
 def pages(setlist, p):
