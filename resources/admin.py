@@ -15,7 +15,7 @@ class NavInfoAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
     def save_model(self, request, obj, form, change):
-        obj.qiniu_image = upload(obj.image.read()).get('key', '') if obj.image else ''
+        obj.qiniu_image = upload(obj.image.read()).get('key', '') if obj.image else obj.qiniu_image
         obj.save()
 
 
@@ -34,7 +34,7 @@ class WebSiteInfoAdmin(admin.ModelAdmin):
     date_hierarchy = 'create_time'
 
     def save_model(self, request, obj, form, change):
-        obj.qiniu_logo = upload(obj.logo.read()).get('key', '') if obj.logo else ''
+        obj.qiniu_logo = upload(obj.logo.read()).get('key', '') if obj.logo else obj.qiniu_logo
         obj.save()
 
 
