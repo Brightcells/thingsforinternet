@@ -1,0 +1,268 @@
+/* For a link/href */
+a:link {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: blink;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    text-decoration: none;
+}
+
+/* For background */
+body{
+    background-image: url(http://7xnqhw.com1.z0.glb.clouddn.com/tt4it-bg.png);
+}
+
+/* For table */
+html, body, #hp_table, #hp_cellCenter {
+    height: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* For Wrap */
+.wrap {
+    margin: 20px;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+/* For header */
+.header {
+    overflow: hidden;
+}
+
+.header li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.header li:first-child {
+    margin-left: 0;
+}
+
+.header li>a {
+    color: #b4b4b4;
+}
+
+.header li>a:hover {
+    color: #fff;
+}
+
+.header .left {
+    float: left;
+    padding-left: 0;
+    margin: 0 0 14px 0;
+}
+
+.header .right {
+    float: right;
+    margin: 0 0 14px 0;
+}
+
+/* For bg div */
+.bgdiv {
+    width: 100%;
+    position: relative;
+}
+
+@media (min-height: 760px) {
+    .bgdiv {
+        height: 700px;
+    }
+}
+
+@media (max-height: 759px) and (min-height: 660px) {
+    .bgdiv {
+        height: 600px;
+    }
+}
+
+@media (max-height: 659px) {
+    .bgdiv {
+        height: 540px;
+    }
+}
+
+.bgdiv>img {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.bgdiv>.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* For logo */
+.logo {
+    position: relative;
+    top: 74px;
+}
+
+/* For Searchbox and Searchbutton */
+.new_home_search {
+    position: relative;
+    top: 178px;
+}
+
+select#tt4it_dropdown {
+    display: none;
+}
+
+div#egg_imagedropdown_tt4it_dropdown {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 90px !important;
+    height: 46px !important;
+}
+
+div.egg_imagedropdown_header {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+div.egg_imagedropdown_header>img {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+div.egg_imagedropdown_dropdown {
+    width: 100% !important;
+    height: 178px !important;
+    overflow-y: hidden !important;
+}
+
+.tt4it-dropdown-triangle {
+    position: absolute;
+    top: 23px;
+    left: 80px;
+}
+
+.new_home_searchbox{
+    width: 100%;
+    height: 54px;
+    font-size: 25px;
+    padding: 3px;
+    padding-left: 98px;
+    border: 3px solid rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+@media (min-width: 650px) {
+    .new_home_search {
+        width: 591px;
+    }
+}
+
+@media (max-width: 650px) {
+    .new_home_search {
+        width: 90%;
+    }
+}
+
+div#tt4it-magnifier {
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    background-color: #009d6f;
+    background-image: url(http://7xnqhw.com1.z0.glb.clouddn.com/tt4it-magnifier.png);
+    background-repeat:no-repeat;
+    background-position: center center;
+}
+
+/* For mask */
+.mask-layer {
+    position: absolute;
+    height: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 46px;
+    box-sizing: border-box;
+    background-color: black;
+    filter: alpha(opacity = 50);
+    opacity: .50;
+    color: white;
+}
+
+/* For mask left */
+.mask-left {
+    clear: left;
+    float: left;
+    width: 33%;
+    text-align: left;
+}
+
+.my-tt {
+    font: bold 16px "宋体", Arial, Times;
+    color: white;
+    float: left;
+}
+
+.my-tt-intro {
+    font: italic 14px "宋体", Arial, Times;
+    color: white;
+}
+
+.my-tt-dropdown{
+    margin-left: 5px;
+}
+
+/* For mask center */
+.mask-center {
+    float: left;
+    width: 34%;
+}
+
+.pic-story {
+    font: bold 16px "宋体", Arial, Times;
+    color: white;
+}
+
+.pic-story-intro {
+    font: italic 14px "宋体", Arial, Times;
+    color: white;
+}
+
+/* For mask right */
+.mask-right {
+    float: right;
+    width: 33%;
+    text-align: right;
+}
+
+.hms {
+    font: bold 16px "宋体", Arial, Times;
+    color: white;
+}
+
+.ymd {
+    font: italic 14px "宋体", Arial, Times;
+    color: white;
+}
+
+/* For bgDiv and infoDiv */
+.bgDiv, .infoDiv {
+    display: none;
+}

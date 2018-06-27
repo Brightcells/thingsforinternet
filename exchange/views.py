@@ -27,7 +27,7 @@ def pages(setlist, p):
     paginator = Paginator(setlist, settings.TIPS_PER_PAGE)
     try:
         return paginator.page(p)
-    except:
+    except Exception:
         return paginator.page(1)
 
 
@@ -241,20 +241,22 @@ def blogall(request, p=1):
 
 @tt_login_required
 def blogedit(request, pk):
-    if request.method == "POST":
+    if request.method == 'POST':
         try:
             mineblog = BlogInfo.objects.get(pk=pk, user=getUI(getUsr(request)), display=True)
+        except BlogInfo.DoesNotExist:
+            mineblog = None
+
+        if mineblog:
             form = BlogInfoModelForm(request.POST, instance=mineblog)
             if form.is_valid():
                 form.save()
-                return redirect(reverse('exchange:blogdiscuss', args=(pk, )))
-        except:
-            pass
+                return redirect(reverse('exchange:blogdiscuss', args=(pk,)))
 
     try:
         mineblog = model_to_dict(BlogInfo.objects.get(pk=pk, user=getUI(getUsr(request)), display=True))
         form = BlogInfoModelForm(mineblog)
-    except:
+    except Exception:
         form = BlogInfoModelForm()
 
     return render(
@@ -267,7 +269,7 @@ def blogedit(request, pk):
 def blogdiscuss(request, pk):
     try:
         blog = BlogInfo.objects.get(pk=pk, display=True)
-    except:
+    except BlogInfo.DoesNotExist:
         blog = None
 
     userinfo = blog.user.data if blog else None
@@ -283,7 +285,7 @@ def blogdiscuss(request, pk):
 def blogdiscuss2(request, pk):
     try:
         blog = BlogInfo.objects.get(pk=pk, display=True)
-    except:
+    except BlogInfo.DoesNotExist:
         blog = None
 
     userinfo = blog.user.data if blog else None

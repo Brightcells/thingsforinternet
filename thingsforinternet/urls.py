@@ -1,13 +1,17 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
-from django.conf.urls import include, patterns, url
-# Uncomment the next two lines to enable the admin:
+from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
+
+from thingsforinternet import views as tt4it_views
 
 
 admin.autodiscover()
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'thingsforinternet.views.home', name='home'),
     # url(r'^thingsforinternet/', include('thingsforinternet.foo.urls')),
@@ -17,11 +21,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-)
+]
 
-urlpatterns += patterns('',
+urlpatterns += [
     url(r'^', include('dh.urls', namespace='dh')),
-    url(r'^dh/', include('dh.urls', namespace='dh')),
+    url(r'^dh/', include('dh.urls', namespace='dh2')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^resume/', include('resume.urls', namespace='resume')),
     url(r'^huntjob/', include('huntjob.urls', namespace='huntjob')),
@@ -30,21 +34,14 @@ urlpatterns += patterns('',
     url(r'^exchange/', include('exchange.urls', namespace='exchange')),
     url(r'^resources/', include('resources.urls', namespace='resources')),
     url(r'^lab/', include('lab.urls', namespace='lab')),
-)
+]
 
-urlpatterns += patterns('thingsforinternet.views',
-    url(r'^search/$', 'search', name='search'),
-)
+urlpatterns += [
+    url(r'^search/$', tt4it_views.search, name='search'),
+]
 
-# This is set for media url
-if settings.DEBUG:
-    from django.conf.urls.static import static
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# urlpatterns += patterns('',
-#     url(r'^media/(?P<path>.*)', 'django.views.static.serve',
-#         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-# )
-
-# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# urlpatterns += staticfiles_urlpatterns()
+# AdminSite
+admin.site.site_header = '［TT4IT］优质互联网资源整合分享平台'

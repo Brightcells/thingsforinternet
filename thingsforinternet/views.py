@@ -11,6 +11,6 @@ def search(request):
     try:
         usr, ui = getUsrUI(request)
         search_engine = ui.search_engine
-    except:
+    except Exception:
         search_engine = 'google'
     return redirect(settings.SEARCH_ENGINE.get(search_engine, 'google') % (_query))

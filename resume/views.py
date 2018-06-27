@@ -26,7 +26,7 @@ def pages(setlist, p):
     paginator = Paginator(setlist, settings.TIPS_PER_PAGE)
     try:
         return paginator.page(p)
-    except:
+    except Exception:
         return paginator.page(1)
 
 
@@ -84,7 +84,7 @@ def resume2mine(request):
     ui = getUI(getUsr(request))
     try:
         mineresume = ResumeInfo.objects.get(user=ui, display=True).data
-    except:
+    except ResumeInfo.DoesNotExist:
         mineresume = {}
     return render(
         request,
@@ -95,7 +95,7 @@ def resume2mine(request):
 
 @tt_login_required
 def resume2edit(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         mineresume, created = ResumeInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
         form = ResumeInfoModelForm(request.POST, request.FILES, instance=mineresume)
         if form.is_valid():
@@ -106,7 +106,7 @@ def resume2edit(request):
     try:
         mineresume = model_to_dict(ResumeInfo.objects.get(user=getUI(getUsr(request)), display=True))
         form = ResumeInfoModelForm(mineresume)
-    except:
+    except Exception:
         form = ResumeInfoModelForm()
 
     return render(
@@ -119,7 +119,7 @@ def resume2edit(request):
 def resume2discuss(request, uid):
     try:
         resume = ResumeInfo.objects.get(user__pk=uid, display=True)
-    except:
+    except ResumeInfo.DoesNotExist:
         resume = None
 
     userinfo = resume.user.data if resume else None
@@ -135,7 +135,7 @@ def resume2discuss(request, uid):
 def resume2discuss2(request, uid):
     try:
         resume = ResumeInfo.objects.get(user__pk=uid, display=True)
-    except:
+    except ResumeInfo.DoesNotExist:
         resume = None
 
     userinfo = resume.user.data if resume else None

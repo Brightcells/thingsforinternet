@@ -26,7 +26,7 @@ def getUI(usr):
     '''
     try:
         ui = UserInfo.objects.get(username=usr) if usr else None
-    except:
+    except UserInfo.DoesNotExist:
         ui = None
     return ui
 

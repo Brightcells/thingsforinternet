@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import include, patterns, url
+from django.conf.urls import url
+
+from dh import views as dh_views
 
 
-urlpatterns = patterns('dh.views',
-    url(r'^$', 'dh3', name='dh_home'),
-    url(r'^index/$', 'dh3', name='dh'),
-    url(r'^home/$', 'dh3', name='dh'),
-
-    # url(r'^home2/$', 'dh2', name='dh2'),
-    # url(r'^home3/$', 'dh3', name='dh3'),
-)
+urlpatterns = [
+    url(r'^$', dh_views.dh3, name='dh_home'),
+    url(r'^index/$', dh_views.dh3, name='index_dh'),
+    url(r'^home/$', dh_views.dh3, name='home_dh'),
+]

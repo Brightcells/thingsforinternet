@@ -7,4 +7,4 @@
 #  -- E402 module level import not at top of file
 #  -- E501 line too long
 
-pep8 --exclude=migrations --ignore=E128,E402,E501 .
+pycodestyle --exclude=migrations --ignore=E128,E402,E501 .

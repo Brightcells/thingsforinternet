@@ -51,6 +51,7 @@ class WebSiteDiyModelForm(ModelForm):
 class WebSiteSubmitModelForm(ModelForm):
     class Meta:
         model = WebSiteSubmit
+        fields = '__all__'
         widgets = {
             'url': TextInput(
                 attrs={'autocomplete': 'off', 'autofocus': 'autofocus', 'placeholder': _('Url')}

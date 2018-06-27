@@ -40,7 +40,7 @@ def get_referer_view(request, default='/'):
         return default
 
     # remove the protocol and split the url at the slashes
-    referer = re.sub('^https?:\/\/', '', referer).split('/')
+    referer = re.sub(r'^https?:\/\/', '', referer).split('/')
     '''
     if referer[0] != request.META.get('SERVER_NAME'):
         return default
@@ -156,7 +156,7 @@ def forgot(request):
 
     try:
         challenge = gt.geetest_register()
-    except:
+    except Exception:
         challenge = ''
     if len(challenge) == 32:
         url = 'http://%s%s&challenge=%s&product=%s' % (base_url, captcha_id, challenge, product)
@@ -208,7 +208,7 @@ def member(request, uid=None):
     if uid:
         try:
             userinfo = UserInfo.objects.get(pk=uid).data
-        except:
+        except UserInfo.DoesNotExist:
             userinfo = None
 
     return render(

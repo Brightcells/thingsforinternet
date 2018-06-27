@@ -12,18 +12,18 @@ class geetest(object):
         self.PY_VERSION = "2.15.4.1.1"
 
     def geetest_register(self):
-        apireg = "http://api.geetest.com/register.php?"
-        regurl = apireg + "gt=%s" % self.CAPTCHA_ID
+        apireg = 'http://api.geetest.com/register.php?'
+        regurl = apireg + 'gt=%s' % self.CAPTCHA_ID
         try:
             result = urllib2.urlopen(regurl, timeout=2).read()
-        except:
-            result = ""
+        except Exception:
+            result = ''
         return result
 
     def geetest_validate(self, challenge, validate, seccode):
-        apiserver = "http://api.geetest.com/validate.php"
+        apiserver = 'http://api.geetest.com/validate.php'
         if validate == self.md5value(self.PRIVATE_KEY + 'geetest' + challenge):
-            query = 'seccode=' + seccode + "&sdk=python_" + self.PY_VERSION
+            query = 'seccode=' + seccode + '&sdk=python_' + self.PY_VERSION
             print query
             backinfo = self.postvalues(apiserver, query)
             if backinfo == self.md5value(seccode):

@@ -33,7 +33,7 @@ def pages(setlist, p, num):
     paginator = Paginator(setlist, num)
     try:
         return paginator.page(p)
-    except:
+    except Exception:
         return paginator.page(1)
 
 
@@ -114,7 +114,7 @@ def itgpsdiy(request):
                 _usr, _host = getUsrHost(request)
                 ui = getUI(_usr)
                 DIY.objects.create(website=wsi, user=ui, host=_host)
-            except:
+            except Exception:
                 pass
             return redirect(reverse('resources:itgpshome'))
     return render(
@@ -338,7 +338,7 @@ def favorite(request):
                     'code': '302',
                     'msg': u'Cancel fav success!'
                 })
-            except:
+            except Exception:
                 Favorite.objects.create(website=wsi, user=ui, host=_host)
                 wsi.fav += 1
                 wsi.save()
@@ -357,7 +357,7 @@ def favorite(request):
                     'code': '302',
                     'msg': u'Cancel fav success!'
                 })
-            except:
+            except Exception:
                 Favorite.objects.create(website=wsi, host=_host)
                 wsi.fav += 1
                 wsi.save()
@@ -391,7 +391,7 @@ def like(request):
                     'code': '402',
                     'msg': u'Cancel like success!'
                 })
-            except:
+            except Exception:
                 Like.objects.create(website=wsi, user=ui, host=_host)
                 wsi.like += 1
                 wsi.save()
@@ -410,7 +410,7 @@ def like(request):
                     'code': '402',
                     'msg': u'Cancel like success!'
                 })
-            except:
+            except Exception:
                 Like.objects.create(website=wsi, host=_host)
                 wsi.like += 1
                 wsi.save()
@@ -419,7 +419,7 @@ def like(request):
                     'code': '402',
                     'msg': u'Increase like success!'
                 })
-    except:
+    except Exception:
         info = sys.exc_info()
         return JsonHttpResponse({
             'code': '401',
@@ -473,7 +473,7 @@ def itgpssearch(request, p=1):
         try:
             usr, ui = getUsrUI(request)
             search_engine = ui.search_engine
-        except:
+        except Exception:
             search_engine = 'google'
         return redirect(settings.SEARCH_ENGINE.get(search_engine, 'google') % (_query))
 

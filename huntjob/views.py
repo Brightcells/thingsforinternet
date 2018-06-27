@@ -26,7 +26,7 @@ def pages(setlist, p):
     paginator = Paginator(setlist, settings.TIPS_PER_PAGE)
     try:
         return paginator.page(p)
-    except:
+    except Exception:
         return paginator.page(1)
 
 
@@ -126,7 +126,7 @@ def questionmine(request, p=1):
 
 @tt_login_required
 def questionedit(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         minequestion, created = QuestionInfo.objects.get_or_create(user=getUI(getUsr(request)), display=True)
         form = QuestionInfoModelForm(request.POST, request.FILES, instance=minequestion)
         if form.is_valid():
@@ -135,7 +135,7 @@ def questionedit(request):
     try:
         minequestion = model_to_dict(QuestionInfo.objects.get(user=getUI(getUsr(request)), display=True))
         form = QuestionInfoModelForm(minequestion)
-    except:
+    except Exception:
         form = QuestionInfoModelForm()
 
     return render(
@@ -148,7 +148,7 @@ def questionedit(request):
 def questiondiscuss(request, qid):
     try:
         question = QuestionInfo.objects.get(pk=qid, display=True)
-    except:
+    except QuestionInfo.DoesNotExist:
         question = None
 
     userinfo = question.user.data if question else None

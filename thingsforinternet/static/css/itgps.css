@@ -1,0 +1,321 @@
+body {
+    /* 60px to make the container go all the way to the top\bottom of the topbar */
+    padding: 60px 0;
+    background-attachment: fixed;
+}
+
+/* footer bar */
+.footer {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+    padding: 5px 0;
+    background-color: #111
+}
+
+/* 字体属性设置 */
+.titile_fontset {
+    font-weight: bold;
+    font-size: 20pt;
+}
+
+.content_fontset {
+    font-size: 12pt;
+    line-height: 120%;
+    font-style: itelic;
+    font-family: Verdana;
+}
+
+#center {
+    text-align: center;
+}
+
+.slidetitlestyle {
+    clear: both;
+    margin-top: -20px;
+    padding: 5px 0 15px 0;
+    text-align: center;
+}
+
+.scrolltitlestyle {
+    clear: both;
+    margin-top: 20px;
+    padding: 20px 0 15px 0;
+    text-align: center;
+    border-top: 1px solid #000;
+    text-align: center;
+}
+
+.scrolltitlestyle:first-child {
+    padding-top: 0;
+    border-top: 0;
+    margin-top: 0;
+}
+
+.red {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    color: #000;
+}
+
+/* set font-size of more */
+.more {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.seplinestyle {
+    clear: both;
+    margin-top: 15px;
+    padding-top: 1px;
+    text-align: center;
+    border-top: 0px solid #000;
+}
+
+/* 一级目录属性设置 */
+.firstlevel {
+    font-size: 150% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #08c !important;
+}
+
+.fontfamilyset {
+
+}
+
+/* backtop is for 返回顶部按钮 */
+
+.backtop {
+    position: fixed;
+    margin-right: 20px; /*座标、距离酌情而定*/
+    right: 0%;
+    bottom: 30px;
+    display: none;
+    z-index: 999999999;
+}
+
+/* to make div show border */
+.solid_border {
+    border: 1px solid #999;
+    padding: 3px;
+}
+
+/* to make p show border */
+.dotted_border {
+    border: 1px dotted #999;
+    padding: 3px;
+}
+
+/* to set div's property in index_text.jsp and so forth */
+.text_slide {
+    display: block;
+    width: 1024px;
+    margin: -20px auto 0px;
+    padding: 40px 60px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .3);
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: -1px;
+    /* filter: alpha(opacity =               80);
+    opacity: 0.8; */
+}
+
+/* set h2 not line feed */
+.scrolltitlestyle>h2 {
+    display: inline;
+}
+
+/* set geek tab's color to be white */
+.geekColor {
+    color: white !important;
+}
+
+/* set picture's style paste from furatto.css */
+.img {
+    /* width: 290px; */
+    width: 100%;
+    max-width: 100%;
+    height: 105px;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid black;
+    /* filter: alpha(opacity =   80);
+    opacity: 0.8; */
+}
+
+.img-circular {
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    -ms-border-radius: 50% !important;
+    -o-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.img-well {
+    -webkit-border-radius: 2%;
+    -moz-border-radius: 2%;
+    -ms-border-radius: 2%;
+    -o-border-radius: 2%;
+    border-radius: 2%;
+}
+
+.img-hover {
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.img-hover:hover {
+    border: 3px solid #27ae60;
+}
+
+/* set style of the tag ‘textarea’ */
+.textareaSubmitSite {
+    overflow: auto; /* rm textarea's scroll bar in IE */
+    resize: none;
+    /* rm textarea's dragging property in Chrome and Firefox */
+    width: 394px;
+    max-width: 400px;
+    margin: 0px 0px 0px 0px;
+}
+
+.textareaAddToDB {
+    overflow: auto; /* rm textarea's scroll bar in IE */
+    resize: none;
+    /* rm textarea's dragging property in Chrome and Firefox */
+    width: 394px;
+    max-width: 400px;
+    margin: 0px 0px 0px 0px;
+}
+
+/* set style of the tag ‘ul && li’ */
+.noneListStyle {
+    list-style: none;
+}
+
+.dot {
+    border-bottom: 1px dotted #999;
+    line-height: 28px;
+    padding: 15px 0;
+}
+
+/* set style of masking-out on img */
+.img-desc {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.cite {
+    background: #111;
+    filter: alpha(opacity =           55);
+    opacity: .75;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 0px;
+    border-top: 1px solid #999;
+    margin: 0 10px;
+    display: none;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+/* set background of img */
+.background1 {
+    background: #4EB3B9;
+}
+
+.background2 {
+    background: #4EB3B9;
+}
+
+.background3 {
+    background: #4EB3B9;
+}
+
+.background4 {
+    background: #4EB3B9;
+}
+
+.background5 {
+    background: #4EB3B9;
+}
+
+.background6 {
+    background: #4EB3B9;
+}
+
+.background7 {
+    background: #4EB3B9;
+}
+
+.background8 {
+    background: #4EB3B9;
+}
+
+.background9 {
+    background: #4EB3B9;
+}
+
+.background10 {
+    background: #4EB3B9;
+}
+
+.background11 {
+    background: #4EB3B9;
+}
+
+.background12 {
+    background: #4EB3B9;
+}
+
+.background13 {
+    background: #4EB3B9;
+}
+
+.background14 {
+    background: #4EB3B9;
+}
+
+.background15 {
+    background: #4EB3B9;
+}
+
+.background16 {
+    background: #4EB3B9;
+}
+
+.background17 {
+    background: #4EB3B9;
+}
+
+.background18 {
+    background: #4EB3B9;
+}
+
+.background19 {
+    background: #4EB3B9;
+}
+
+.background20 {
+    background: #4EB3B9;
+}
+
+.data-t {
+    content: "\e00b";
+}

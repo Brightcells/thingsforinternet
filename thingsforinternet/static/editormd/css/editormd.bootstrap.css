@@ -1,0 +1,42 @@
+/*
+ * Editor.md
+ *
+ * @file        editormd.bootstrap.css
+ * @version     v1.0.0
+ * @description Open source online markdown editor.
+ * @license     MIT License
+ * @author      HQMIS
+ * @link       https://github.com/pandao/editor.md}
+ * @updateTime  2015-06-09
+ */
+
+@charset "UTF-8";
+
+/* margin-left */
+.markdown-body ol ol, .markdown-body ol ul, .markdown-body ul ol, .markdown-body ul ul {
+    margin-left: 0 !important;
+}
+
+.markdown-body blockquote, .markdown-body dl, .markdown-body ol, .markdown-body p, .markdown-body pre, .markdown-body table, .markdown-body ul {
+    margin-left: 0 !important;
+}
+
+ol.linenums {
+    margin-left: 0 !important;
+}
+
+/* code tag */
+.editormd-html-preview code, .editormd-preview-container code {
+    padding: 0 !important;
+    color: #000 !important;
+    font-size: 12px !important;
+}
+
+/*  */
+.editormd-html-preview pre.prettyprint, .editormd-preview-container pre.prettyprint {
+    margin-top: 16px;
+}
+
+.editormd ul>li {
+    margin: 10px 0;
+}
