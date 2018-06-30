@@ -25,7 +25,7 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^', include('dh.urls', namespace='dh')),
-    url(r'^dh/', include('dh.urls', namespace='dh2')),
+    # url(r'^dh/', include('dh.urls', namespace='dh')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^resume/', include('resume.urls', namespace='resume')),
     url(r'^huntjob/', include('huntjob.urls', namespace='huntjob')),
