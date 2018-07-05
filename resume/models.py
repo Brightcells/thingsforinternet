@@ -50,7 +50,7 @@ class ResumeInfo(CreateUpdateMixin):
             'resume': self.resume,
             'resume_html': self.resume_html,
             'pdf': self.pdf.url if self.pdf else '',
-            'tag': self.tag.split(' '),
+            'tag': (self.tag or '').split(' '),
             'uid': self.user.pk,
             'uname': self.user.username,
             'visit': self.visit,
@@ -62,7 +62,7 @@ class ResumeInfo(CreateUpdateMixin):
     def info(self):
         return {
             'pk': self.pk,
-            'tag': self.tag.split(' '),
+            'tag': (self.tag or '').split(' '),
             'uid': self.user.pk,
             'uname': self.user.username,
             'visit': self.visit,

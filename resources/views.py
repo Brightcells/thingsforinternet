@@ -463,7 +463,6 @@ def itgpssearch(request, p=1):
     _query = request.GET.get('query', '')
     pages, search_result = getSearchSite(request, _query, p)
     if len(search_result):
-        reDict = {'searchs': search_result}
         return render(
             request,
             'resources/itgps/search.html',

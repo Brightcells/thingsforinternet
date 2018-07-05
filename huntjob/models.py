@@ -47,7 +47,7 @@ class QuestionInfo(CreateUpdateMixin):
             'pk': self.pk,
             'question': self.question,
             'answer': self.answer,
-            'tag': self.tag.split(' '),
+            'tag': (self.tag or '').split(' '),
             'uid': self.user.pk,
             'uname': self.user.username,
             'visit': self.visit,
