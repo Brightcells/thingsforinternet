@@ -4,6 +4,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import Textarea, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
+from pysnippets.strsnippets import strip
 
 from exchange.models import BlogInfo, Tips, UserTips
 from utils.tt4it_utils import *
@@ -30,25 +31,22 @@ class TipsModelForm(ModelForm):
     def clean_tips(self):
         """ Clean for tips """
 
-        tips = self.cleaned_data['tips'].strip()
-        if tips:
-            t = Tips.objects.filter(tips=tips)
-            if t.count() > 0:
-                ut = UserTips.objects.filter(tips=t, user=getUI(getUsr(self.request)))
-                if ut.count() > 0:
-                    raise forms.ValidationError(_('This tip has already record by you'))
-                else:
-                    return tips
-            else:
-                return tips
-        else:
+        tips = strip(self.cleaned_data['tips'])
+        if not tips:
             raise forms.ValidationError(_('Tips is needed'))
+        t = Tips.objects.filter(tips=tips)
+        if t.exists():
+            ut = UserTips.objects.filter(tips=t, user=getUI(getUsr(self.request)))
+            if ut.exists():
+                raise forms.ValidationError(_('This tip has already record by you'))
+            return tips
+        return tips
 
     def clean_tag(self):
         """ Clean for tag """
 
-        tag = self.cleaned_data['tag'].strip()
-        return ' '.join([t.strip() for t in tag.split(' ')])
+        tag = strip(self.cleaned_data['tag'])
+        return ' '.join([strip(t) for t in tag.split(' ')])
 
 
 class BlogInfoModelForm(ModelForm):
@@ -74,5 +72,5 @@ class BlogInfoModelForm(ModelForm):
     def clean_tag(self):
         """ Clean for tag """
 
-        tag = self.cleaned_data['tag'].strip()
-        return ' '.join([t.strip() for t in tag.split(' ')])
+        tag = strip(self.cleaned_data['tag'])
+        return ' '.join([strip(t) for t in tag.split(' ')])

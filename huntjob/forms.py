@@ -3,6 +3,7 @@
 from django.forms import ModelForm
 from django.forms.widgets import Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
+from pysnippets.strsnippets import strip
 
 from huntjob.models import QuestionInfo
 
@@ -30,5 +31,5 @@ class QuestionInfoModelForm(ModelForm):
     def clean_tag(self):
         """ Clean for tag """
 
-        tag = self.cleaned_data['tag'].strip()
-        return ' '.join([t.strip() for t in tag.split(' ')])
+        tag = strip(self.cleaned_data['tag'])
+        return ' '.join([strip(t) for t in tag.split(' ')])

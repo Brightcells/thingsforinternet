@@ -4,6 +4,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import ClearableFileInput, HiddenInput, Textarea, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
+from pysnippets.strsnippets import strip
 
 from resources.models import ApiInfo, UserApiInfo, WebSiteInfo, WebSiteSubmit
 from utils.tt4it_utils import *
@@ -87,22 +88,19 @@ class ApiModelForm(ModelForm):
     def clean_api(self):
         """ Clean for api """
 
-        api = self.cleaned_data['api'].strip()
-        if api:
-            a = ApiInfo.objects.filter(api=api)
-            if a.count() > 0:
-                ua = UserApiInfo.objects.filter(api=a, user=getUI(getUsr(self.request)))
-                if ua.count() > 0:
-                    raise forms.ValidationError(_('This api has already record by you'))
-                else:
-                    return api
-            else:
-                return api
-        else:
+        api = strip(self.cleaned_data['api'])
+        if not api:
             raise forms.ValidationError(_('Api is needed'))
+        a = ApiInfo.objects.filter(api=api)
+        if a.exists():
+            ua = UserApiInfo.objects.filter(api=a, user=getUI(getUsr(self.request)))
+            if ua.exists():
+                raise forms.ValidationError(_('This api has already record by you'))
+            return api
+        return api
 
     def clean_tag(self):
         """ Clean for tag """
 
-        tag = self.cleaned_data['tag'].strip()
-        return ' '.join([t.strip() for t in tag.split(' ')])
+        tag = strip(self.cleaned_data['tag'])
+        return ' '.join([strip(t) for t in tag.split(' ')])

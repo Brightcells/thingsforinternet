@@ -6,6 +6,7 @@ from django import forms
 from django.forms import CharField, EmailField, Form, ModelForm
 from django.forms.widgets import CheckboxInput, EmailInput, HiddenInput, PasswordInput, Select, TextInput, URLInput
 from django.utils.translation import ugettext_lazy as _
+from pysnippets.strsnippets import strip
 
 from accounts.models import UserInfo
 
@@ -26,22 +27,18 @@ class SignupUserInfoModelForm(ModelForm):
         }
 
     def clean_username(self):
-        username = self.cleaned_data['username'].strip()
-        if username:
-            ui = UserInfo.objects.filter(username=username)
-            if ui.count() > 0:
-                raise forms.ValidationError(_('This user has already exists'))
-            else:
-                return username
-        else:
+        username = strip(self.cleaned_data['username'])
+        if not username:
             raise forms.ValidationError(_('User name is needed'))
+        if UserInfo.objects.filter(username=username).exists():
+            raise forms.ValidationError(_('This user has already exists'))
+        return username
 
     def clean_password(self):
-        password = self.cleaned_data['password'].strip()
-        if password:
-            return hashlib.md5(password).hexdigest()
-        else:
+        password = strip(self.cleaned_data['password'])
+        if not password:
             raise forms.ValidationError(_('Password is needed'))
+        return hashlib.md5(password).hexdigest()
 
 
 class LoginUserInfoModelForm(Form):
@@ -57,35 +54,26 @@ class LoginUserInfoModelForm(Form):
     )
 
     def clean_username(self):
-        username = self.cleaned_data['username'].strip()
-        if username:
-            ui = UserInfo.objects.filter(username=username)
-            if ui.count() == 0:
-                raise forms.ValidationError(_('This user doesn\'t exists'))
-            else:
-                return username
-        else:
+        username = strip(self.cleaned_data['username'])
+        if not username:
             raise forms.ValidationError(_('User name is needed'))
+        if UserInfo.objects.filter(username=username).exists():
+            raise forms.ValidationError(_('This user doesn\'t exists'))
+        return username
 
     def clean_password(self):
-        password = self.cleaned_data['password'].strip()
-        if password:
-            return hashlib.md5(password).hexdigest()
-        else:
+        password = strip(self.cleaned_data['password'])
+        if not password:
             raise forms.ValidationError(_('Password is needed'))
+        return hashlib.md5(password).hexdigest()
 
     def clean(self):
         cleaned_data = self.cleaned_data
         username = cleaned_data.get('username', '')
         password = cleaned_data.get('password', '')
-        if username and password:
-            ui = UserInfo.objects.filter(username=username, password=password)
-            if ui.count() == 0:
-                raise forms.ValidationError(_('Username and Password does\'t match'))
-            else:
-                return cleaned_data
-        else:
-            return cleaned_data
+        if username and password and not UserInfo.objects.filter(username=username, password=password).exists():
+            raise forms.ValidationError(_('Username and Password does\'t match'))
+        return cleaned_data
 
 
 class ForgotUserInfoModelForm(Form):

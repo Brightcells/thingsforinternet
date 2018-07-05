@@ -68,5 +68,5 @@ class ResumeInfo(CreateUpdateMixin):
             'visit': self.visit,
             'like': self.like,
             'follow': self.follow,
-            'title': self.resume.split('\n')[0].split('\r')[0].split('\r\n')[0].strip(),
+            'title': strip(self.resume.split('\n')[0].split('\r')[0].split('\r\n')[0]),
         }
