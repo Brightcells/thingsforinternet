@@ -34,5 +34,5 @@ class ResumeInfoModelForm(ModelForm):
     def clean_tag(self):
         """ Clean for tag """
 
-        tag = strip(self.cleaned_data['tag'])
+        tag = strip(self.cleaned_data['tag']) or ''
         return ' '.join([strip(t) for t in tag.split(' ')])

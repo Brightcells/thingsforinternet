@@ -6,6 +6,7 @@ import time
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from pysnippets.strsnippets import strip
 
 from accounts.models import UserInfo
 from dh.models import FunctionInfo
@@ -68,5 +69,5 @@ class ResumeInfo(CreateUpdateMixin):
             'visit': self.visit,
             'like': self.like,
             'follow': self.follow,
-            'title': strip(self.resume.split('\n')[0].split('\r')[0].split('\r\n')[0]),
+            'title': strip((self.resume or '').split('\n')[0].split('\r')[0].split('\r\n')[0]),
         }
