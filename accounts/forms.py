@@ -57,7 +57,7 @@ class LoginUserInfoModelForm(Form):
         username = strip(self.cleaned_data['username'])
         if not username:
             raise forms.ValidationError(_('User name is needed'))
-        if UserInfo.objects.filter(username=username).exists():
+        if not UserInfo.objects.filter(username=username).exists():
             raise forms.ValidationError(_('This user doesn\'t exists'))
         return username
 
