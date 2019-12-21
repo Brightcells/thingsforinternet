@@ -227,7 +227,7 @@ SEND_EMAIL = {
 
 # 七牛设置
 QINIU = {
-    'domain': 'http://7xnqhw.com1.z0.glb.clouddn.com/',
+    'domain': 'http://7n.tt4it.kaokao.mobi/',
     'access_key': 'm7C_7pGrIvY8tfaYKkYBwfpjGAv7A4ahtMUyrHHp',
     'secret_key': 'hmSPYHvmA2QBJYZk-1hD_w3nyffybERpkwIfdc-t',
     'bucket': 'tt4it',

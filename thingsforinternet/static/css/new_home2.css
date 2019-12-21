@@ -14,7 +14,7 @@ a:visited {
 
 /* For background */
 body{
-    background-image: url(http://7xnqhw.com1.z0.glb.clouddn.com/tt4it-bg.png);
+    background-image: url(http://7n.tt4it.kaokao.mobi/tt4it-bg.png);
 }
 
 /* For table */
@@ -186,7 +186,7 @@ div#tt4it-magnifier {
     height: 40px;
     padding: 3px;
     background-color: #009d6f;
-    background-image: url(http://7xnqhw.com1.z0.glb.clouddn.com/tt4it-magnifier.png);
+    background-image: url(http://7n.tt4it.kaokao.mobi/tt4it-magnifier.png);
     background-repeat:no-repeat;
     background-position: center center;
 }
