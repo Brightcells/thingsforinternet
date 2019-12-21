@@ -15,6 +15,6 @@ pycodestyle==2.4.0
 pysnippets==1.0.6
 pytz==2018.5
 qiniu==7.2.2
-requests==2.19.1
+requests==2.20.0
 shortuuid==0.5.0
 xpinyin==0.5.5
