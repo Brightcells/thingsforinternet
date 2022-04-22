@@ -9,7 +9,7 @@ django-markdown-deux==1.0.5
 django-mobi2==1.0.2
 isort==4.3.4
 marrow.mailer==4.0.2
-markdown2==2.3.5
+markdown2==2.4.0
 pngquant==1.0.6
 pycodestyle==2.4.0
 pysnippets==1.0.6
